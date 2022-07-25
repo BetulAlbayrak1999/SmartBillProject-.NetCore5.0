@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Entities.Domains
 {
-    public class Customer : Person
+    public class Customer : ApplicationUser
     {
         public ICollection<Apartment> Apartments { get; set; }
         public ICollection<Bill> Bills { get; set; }

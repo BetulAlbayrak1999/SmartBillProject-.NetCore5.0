@@ -20,7 +20,11 @@ namespace SmartBill.Entities.Domains.Common
 
         [ScaffoldColumn(false)]
         [Column(TypeName = "DateTime2")]
-        public DateTime? UnActiveDate { get; set; }
+        public DateTime? ActivedDate { get; set; }
+
+        [ScaffoldColumn(false)]
+        [Column(TypeName = "DateTime2")]
+        public DateTime? UnActivedDate { get; set; }
 
         [ScaffoldColumn(false)]
         public bool IsActive { get; set; }

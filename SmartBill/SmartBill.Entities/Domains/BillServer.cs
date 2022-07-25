@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Entities.Domains
 {
-    public class BillServer: BaseEntityNoIdentity
+    public class BillServer: BaseEntity
     {
         public string Name { get; set; }
 

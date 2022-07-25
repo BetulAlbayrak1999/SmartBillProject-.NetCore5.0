@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Entities.Domains
 {
-    public class Location : BaseEntityNoIdentity
+    public class Location : BaseEntity
     {
-        public int CityId { get; set; }
+        public string CityId { get; set; }
 
         [ForeignKey(nameof(CityId))]
         public virtual City City { get; set; }
 
-        public int RegionId { get; set; }
+        public string RegionId { get; set; }
         [ForeignKey(nameof(RegionId))]
         public virtual Region Region { get; set; }
 

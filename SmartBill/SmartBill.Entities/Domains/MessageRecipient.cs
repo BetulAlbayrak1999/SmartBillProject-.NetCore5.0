@@ -8,19 +8,18 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Entities.Domains
 {
-    public class Bill: BaseEntity
+    public class MessageRecipient: BaseEntity
     {
-        public string BillServerId { get; set; }
-        [ForeignKey(nameof(BillServerId))]
-        public virtual BillServer BillServer { get; set; }
+        /*public ICollection<Message> Messages { get; set; }
 
-        public string CustomerId { get; set; }
+        public int CustomerId { get; set; }
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer Customer { get; set; }
 
-        public bool IsBillPaid { get; set; }
+        public int AdminId { get; set; }
+        [ForeignKey(nameof(AdminId))]
+        public virtual Admin Admin { get; set; }*/
 
-        public DateTime PaidDate { get; set; }// küçük or eşit
-
+        public bool IsRead { get; set; }
     }
 }

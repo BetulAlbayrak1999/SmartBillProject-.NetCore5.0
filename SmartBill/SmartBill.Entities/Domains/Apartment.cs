@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Entities.Domains
 {
-    public class Apartment: BaseEntityNoIdentity
+    public class Apartment: BaseEntity
     {
         public string Name { get; set; }
 
@@ -22,11 +22,11 @@ namespace SmartBill.Entities.Domains
 
         public int ApartmentNo { get; set; }
 
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
         [ForeignKey(nameof(CustomerId))]
         public virtual Customer Customer { get; set; }
 
-        public int LocationId { get; set; }
+        public string LocationId { get; set; }
         [ForeignKey(nameof(LocationId))]
         public virtual Location Location { get; set; }
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Entities.Domains
 {
-    public class Region : BaseEntityNoIdentity
+    public class Region : BaseEntity
     {
         public string Name { get; set; }
 

@@ -1,4 +1,4 @@
-﻿using SmartBill.Entities.Domains.Common;
+﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Entities.Domains
 {
-    public abstract class Person : BaseEntityWithIdentity
+    public class ApplicationUser : IdentityUser
     {
         public string FirstName { get; set; }
 
@@ -15,15 +15,16 @@ namespace SmartBill.Entities.Domains
 
         public string TC { get; set; }
 
-        public string Phone { get; set; }
-
         public string Gender { get; set; }
 
-        public DateTime? Birthdate { get; set; }
+        public DateTime Birthdate { get; set; }
 
-        public string ImagePath { get; set; }
+        public string? ImagePath { get; set; }
 
-        public string VehicleNo { get; set; }
+        public string? VehicleNo { get; set; }
 
+        public int Salary { get; set; }
+
+        public string WorkingTime { get; set; }
     }
 }

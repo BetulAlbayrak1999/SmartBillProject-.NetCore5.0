@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Entities.Domains
 {
-    public class Debt: BaseEntityNoIdentity
+    public class Debt: BaseEntity
     {
-        public int BillId { get; set; }
+        public string BillId { get; set; }
         [ForeignKey(nameof(BillId))]
         public virtual Bill Bill { get; set; }
 

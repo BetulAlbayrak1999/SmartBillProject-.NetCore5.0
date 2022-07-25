@@ -13,10 +13,11 @@ namespace SmartBill.Entities.Domains.Common
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Id { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
-        public DateTime? UnActivedDate { get; set; }
-        public bool IsActive { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        public DateTime? UnActivedDate { get; set; } 
+        public bool IsActive { get; set; } = false;
         public DateTime? ActivedDate { get; set; }
+
     }
 }

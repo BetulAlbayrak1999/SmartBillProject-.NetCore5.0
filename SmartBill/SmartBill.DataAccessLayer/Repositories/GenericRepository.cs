@@ -12,7 +12,7 @@ namespace SmartBill.DataAccessLayer.Repositories
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly ApplicationDbContext _context;
-        DbSet<T> _object;
+        private readonly DbSet<T> _object;
 
         public GenericRepository(ApplicationDbContext context)
         {

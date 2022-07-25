@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Entities.Domains
 {
-    public class Message
+    public class Message: BaseEntity
     {
-        public string Id { get; set; }
-
         public string Subject { get; set; }
 
         public string Body { get; set; }

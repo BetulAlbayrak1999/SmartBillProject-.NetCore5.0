@@ -20,7 +20,6 @@ namespace SmartBill.Entities.Domains
 
         public bool IsBillPaid { get; set; }
 
-        public DateTime PaidDate { get; set; }// küçük or eşit
-
+        public DateTime PaidDate { get; set; }
     }
 }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace SmartBill.DataAccessLayer.Repositories
 {
-    public class ApartmentRepository : GenericRepository<Apartment>, IApartmentRepository
+    public class RegionRepository : GenericRepository<Region>, IRegionRepository
     {
-        public ApartmentRepository(ApplicationDbContext context) : base(context)
+        public RegionRepository(ApplicationDbContext context) : base(context)
         {
         }
     }

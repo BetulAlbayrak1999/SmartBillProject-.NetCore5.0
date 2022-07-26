@@ -20,6 +20,12 @@ namespace SmartBill.BusinessLogicLayer.Validators
 
             RuleFor(x => x.PaidDate).LessThanOrEqualTo(p=> DateTime.Now).WithMessage("Paid date could not be in the future");
 
+            RuleFor(x => x.BillAmount).NotEmpty().GreaterThan(0);
+
+            RuleFor(x => x.Tax).NotEmpty().GreaterThan(0);
+
+            RuleFor(x => x.TotalAmount).NotEmpty().GreaterThan(0);
+
         }
     }
 }

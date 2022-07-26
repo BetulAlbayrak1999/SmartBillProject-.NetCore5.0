@@ -1,4 +1,5 @@
-﻿using SmartBill.Entities.Domains.Common;
+﻿
+using SmartBill.Entities.Domains.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,5 +22,11 @@ namespace SmartBill.Entities.Domains
         public bool IsBillPaid { get; set; }
 
         public DateTime PaidDate { get; set; }
+
+        public float BillAmount { get; set; }
+
+        public float Tax { get; set; }
+
+        public float TotalAmount { get; set; }
     }
 }

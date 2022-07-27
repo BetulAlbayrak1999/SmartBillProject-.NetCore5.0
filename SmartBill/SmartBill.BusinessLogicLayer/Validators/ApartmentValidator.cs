@@ -12,13 +12,13 @@ namespace SmartBill.BusinessLogicLayer.Validators
     {
         public ApartmentValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().MinimumLength(3);
+            RuleFor(x => x.Name).NotEmpty().MinimumLength(3).MaximumLength(100);
 
             RuleFor(x => x.BlockNo).NotEmpty().GreaterThan(0);
 
             RuleFor(x => x.IsEmpty).NotEmpty();
 
-            RuleFor(x => x.Area).NotEmpty().GreaterThan(0);
+            RuleFor(x => x.PersonsNumber).NotEmpty().GreaterThan(0);
 
             RuleFor(x => x.FloorNo).NotEmpty();
 

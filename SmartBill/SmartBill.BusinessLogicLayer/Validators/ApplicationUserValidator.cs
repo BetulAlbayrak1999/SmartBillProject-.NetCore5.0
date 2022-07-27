@@ -12,9 +12,9 @@ namespace SmartBill.BusinessLogicLayer.Validators
     {
         public ApplicationUserValidator()
         {
-            RuleFor(x => x.FirstName).NotEmpty().MinimumLength(3);
+            RuleFor(x => x.FirstName).NotEmpty().MinimumLength(3).MaximumLength(100);
 
-            RuleFor(x => x.LastName).NotEmpty().MinimumLength(3);
+            RuleFor(x => x.LastName).NotEmpty().MinimumLength(3).MaximumLength(100);
 
             RuleFor(x => x.TC).NotEmpty().Length(11);
 

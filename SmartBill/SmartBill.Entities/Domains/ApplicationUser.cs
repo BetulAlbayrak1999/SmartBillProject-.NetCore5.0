@@ -26,5 +26,8 @@ namespace SmartBill.Entities.Domains
         public int Salary { get; set; }
 
         public string WorkingTime { get; set; }
+
+        //public ICollection<MessageSending> MessageSendings { get; set; }
+
     }
 }

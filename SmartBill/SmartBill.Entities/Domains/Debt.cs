@@ -14,7 +14,7 @@ namespace SmartBill.Entities.Domains
         [ForeignKey(nameof(BillId))]
         public virtual Bill Bill { get; set; }
 
-        public DateTime PaidDate { get; set; }
+        public DateTime DebtPaidDate { get; set; }
 
         public bool IsDebtPaid { get; set; }
 

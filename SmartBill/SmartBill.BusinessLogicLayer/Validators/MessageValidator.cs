@@ -12,9 +12,9 @@ namespace SmartBill.BusinessLogicLayer.Validators
     {
         public MessageValidator()
         {
-            RuleFor(x => x.Subject).NotEmpty().MinimumLength(3);
+            RuleFor(x => x.Subject).NotEmpty().MinimumLength(3).MaximumLength(100);
 
-            RuleFor(x => x.Body).NotEmpty().MaximumLength(500);
+            RuleFor(x => x.Body).NotEmpty().MinimumLength(3).MaximumLength(1000);
         }
     }
 }

@@ -9,6 +9,11 @@ namespace SmartBill.Entities.Domains
     public class Customer : ApplicationUser
     {
         public ICollection<Apartment> Apartments { get; set; }
+
+        public ICollection<CreditCard> CreditCards { get; set; }
+
         public ICollection<Bill> Bills { get; set; }
+
+        public ICollection<Payment> Payments { get; set; }
     }
 }

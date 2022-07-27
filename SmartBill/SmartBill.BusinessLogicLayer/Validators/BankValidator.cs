@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Validators
 {
-    public class CityValidator : AbstractValidator<City>
+    public class BankValidator: AbstractValidator<Bank>
     {
-        public CityValidator()
+        public BankValidator()
         {
             RuleFor(x => x.Name).NotEmpty().MinimumLength(3).MaximumLength(100);
 
+            RuleFor(x => x.Description).NotEmpty().MinimumLength(3).MaximumLength(500);
         }
     }
 }

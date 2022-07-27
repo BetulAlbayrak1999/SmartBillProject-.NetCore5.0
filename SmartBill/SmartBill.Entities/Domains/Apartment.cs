@@ -16,7 +16,7 @@ namespace SmartBill.Entities.Domains
 
         public bool IsEmpty { get; set; }
 
-        public int Area { get; set; }
+        public int PersonsNumber { get; set; }
 
         public int FloorNo { get; set; }
 

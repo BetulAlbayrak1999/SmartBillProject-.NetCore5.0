@@ -12,7 +12,7 @@ namespace SmartBill.BusinessLogicLayer.Validators
     {
         public RegionValidator()
         {
-            RuleFor(x => x.Name).NotEmpty().MinimumLength(3);
+            RuleFor(x => x.Name).NotEmpty().MinimumLength(3).MaximumLength(100);
 
         }
     }

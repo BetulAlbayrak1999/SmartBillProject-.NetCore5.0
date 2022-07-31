@@ -15,10 +15,6 @@ namespace SmartBill.Entities.Domains
         [ForeignKey(nameof(CityId))]
         public virtual City City { get; set; }
 
-        public string RegionId { get; set; }
-        [ForeignKey(nameof(RegionId))]
-        public virtual Region Region { get; set; }
-
         public string Street { get; set; }
 
         public string PostalCode { get; set; }

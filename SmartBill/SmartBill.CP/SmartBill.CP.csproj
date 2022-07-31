@@ -22,10 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\SmartBill.BusinessLogicLayer\SmartBill.BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\SmartBill.DataAccessLayer\SmartBill.DataAccessLayer.csproj" />
     <ProjectReference Include="..\SmartBill.Entities\SmartBill.Entities.csproj" />
   </ItemGroup>

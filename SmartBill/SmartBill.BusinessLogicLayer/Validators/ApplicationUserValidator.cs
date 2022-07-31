@@ -16,13 +16,12 @@ namespace SmartBill.BusinessLogicLayer.Validators
 
             RuleFor(x => x.LastName).NotEmpty().MinimumLength(3).MaximumLength(100);
 
-            RuleFor(x => x.TC).NotEmpty().Length(11);
+            RuleFor(x => x.TurkishIdentity).NotEmpty().Length(11);
 
             RuleFor(x => x.Gender).Must(x => x.Equals("female") || x.Equals("male")).WithMessage("Only female and male gender are acceptable");
 
             RuleFor(x => x.Birthdate).Must(IsAgeValid).WithMessage("You must be older than 17");
 
-            RuleFor(x => x.Salary).GreaterThan(0);
 
         }
         private bool IsAgeValid(DateTime Birthdate)

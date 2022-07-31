@@ -14,8 +14,6 @@ namespace SmartBill.BusinessLogicLayer.Validators
         {
             RuleFor(x => x.CityId).NotEmpty().MinimumLength(1);
 
-            RuleFor(x => x.RegionId).NotEmpty().MinimumLength(1);
-
             RuleFor(x => x.Street).NotEmpty().MinimumLength(3);
 
             RuleFor(x => x.PostalCode).NotEmpty().Length(5);

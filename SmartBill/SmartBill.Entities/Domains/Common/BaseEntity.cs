@@ -10,8 +10,6 @@ namespace SmartBill.Entities.Domains.Common
 {
     public abstract class BaseEntity : IBaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Id { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime LastModifiedDate { get; set; } = DateTime.Now;

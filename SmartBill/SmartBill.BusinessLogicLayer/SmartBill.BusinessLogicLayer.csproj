@@ -17,9 +17,7 @@
     <Folder Include="Dtos\Debt\" />
     <Folder Include="Dtos\Location\" />
     <Folder Include="Dtos\Message\" />
-    <Folder Include="Dtos\Region\" />
     <Folder Include="Mappers\" />
-    <Folder Include="ViewModels\" />
     <Folder Include="Extensions\" />
   </ItemGroup>
 

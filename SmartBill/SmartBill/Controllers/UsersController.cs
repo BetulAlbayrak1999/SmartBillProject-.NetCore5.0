@@ -63,6 +63,68 @@ namespace SmartBill.Controllers
             return View(viewModel);
         }
 
+        public async Task<IActionResult> Add()
+        {
+            var roles = await _roleManager.Roles.Select(r => new RoleViewModel { Id = r.Id, Name = r.Name }).ToListAsync();
+
+            var viewModel = new UserAddViewModel
+            {
+                Roles = roles
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(UserAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            if(!model.Roles.Any(r=> r.IsSelected))//if the endUser did not select any user
+            {
+                ModelState.AddModelError("Roles", "Please select at least one role");
+                return View(model);
+            }
+            if( await _userManager.FindByEmailAsync(model.Email) is not null)
+            {
+                ModelState.AddModelError("Email", "Email is already exists");
+                return View(model);
+            }
+
+            if (await _userManager.FindByNameAsync(model.UserName) is not null)
+            {
+                ModelState.AddModelError("UserName", "UserName is already exists");
+                return View(model);
+            }
+
+            if (await _userManager.FindByNameAsync(model.TurkishIdentity) is not null)
+            {
+                ModelState.AddModelError("TurkishIdentity", "TurkishIdentity is already exists");
+                return View(model);
+            }
+
+            var user = new ApplicationUser 
+            {
+                UserName = model.UserName,
+                Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                TurkishIdentity = model.TurkishIdentity
+            };  
+            var result = await _userManager.CreateAsync(user, model.Password);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError("Roles", error.Description);
+
+                return View(model); 
+            }
+            await _userManager.AddToRolesAsync(user, model.Roles.Where(r => r.IsSelected).Select(r => r.Name));
+
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ManageRoles(UserRolesViewModel model) 

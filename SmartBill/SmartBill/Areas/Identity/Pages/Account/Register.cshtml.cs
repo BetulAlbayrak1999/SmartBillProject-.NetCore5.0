@@ -63,6 +63,12 @@ namespace SmartBill.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
+            [Display(Name = "User Name")]
+            public string UserName { get; set; }
+
             [Required]
             [StringLength(11, ErrorMessage = "The TC Identity must be 11")]
             [Display(Name = "Turkish Identity")]

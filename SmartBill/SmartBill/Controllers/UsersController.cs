@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SmartBill.BusinessLogicLayer.ViewModels;
 using SmartBill.BusinessLogicLayer.ViewModels.Role;
 using SmartBill.BusinessLogicLayer.ViewModels.UserRoles;
 using SmartBill.BusinessLogicLayer.ViewModels.Users;
 using SmartBill.Entities.Domains;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -63,6 +65,71 @@ namespace SmartBill.Controllers
             return View(viewModel);
         }
 
+        public async Task<IActionResult> Edit(string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user is null)
+                return NotFound();
+
+            var viewModel = new ProfileFormViewModel
+            {
+                Id=user.Id,
+                Email = user.Email,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                TurkishIdentity=user.TurkishIdentity,
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ProfileFormViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await _userManager.FindByIdAsync(model.Id);
+            if (user is null)
+                return NotFound();
+           
+            var userWithSameEmail = await _userManager.FindByEmailAsync(model.Email);
+
+            if(userWithSameEmail is not null && userWithSameEmail.Id != model.Id)
+            {
+                ModelState.AddModelError("Email", "this Email is already assigned to another user");
+                return View(model);
+            }
+
+
+            var userWithSameUsername = await _userManager.FindByNameAsync(model.UserName);
+
+            if (userWithSameUsername is not null && userWithSameUsername.Id != model.Id)
+            {
+                ModelState.AddModelError("UserName", "this UserName is already assigned to another user");
+                return View(model);
+            }
+
+            var userWithSameTurkishIdentity = await _userManager.FindByNameAsync(model.TurkishIdentity);
+
+            if (userWithSameTurkishIdentity is not null && userWithSameTurkishIdentity.Id != model.Id)
+            {
+                ModelState.AddModelError("TurkishIdentity", "this Turkish Identity is already assigned to another user");
+                return View(model);
+            }
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.UserName = model.UserName;
+            user.Email = model.Email;
+            user.TurkishIdentity = model.TurkishIdentity;
+
+            await _userManager.UpdateAsync(user); 
+            return RedirectToAction(nameof(Index));
+        }
+
         public async Task<IActionResult> Add()
         {
             var roles = await _roleManager.Roles.Select(r => new RoleViewModel { Id = r.Id, Name = r.Name }).ToListAsync();
@@ -75,12 +142,13 @@ namespace SmartBill.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(UserAddViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
 
-            if(!model.Roles.Any(r=> r.IsSelected))//if the endUser did not select any user
+            if (!model.Roles.Any(r=> r.IsSelected))//if the endUser did not select any user
             {
                 ModelState.AddModelError("Roles", "Please select at least one role");
                 return View(model);

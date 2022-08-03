@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtensions;
+using SmartBill.BusinessLogicLayer.Mappers;
 using SmartBill.DataAccessLayer.Data;
 using SmartBill.Entities.Domains;
 using System;
@@ -37,7 +40,22 @@ namespace SmartBill
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+            // Auto Mapper Configurations
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+
             services.AddControllersWithViews();
+
+            services.AddDependencyInjectionServiceCollections();
+
+            services.AddDependencyInjectionRepositoryCollections();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

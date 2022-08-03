@@ -22,9 +22,7 @@ namespace SmartBill.Entities.Domains
 
         public int ApartmentNo { get; set; }
 
-        public string CustomerId { get; set; }
-        [ForeignKey(nameof(CustomerId))]
-        public virtual Customer Customer { get; set; }
+        public ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
         public string LocationId { get; set; }
         [ForeignKey(nameof(LocationId))]

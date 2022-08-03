@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,16 @@ namespace SmartBill.Entities.Domains
 
         public string? VehicleNo { get; set; }
 
+        public string ApartmentId { get; set; }
+        [ForeignKey(nameof(ApartmentId))]
+        public virtual Apartment Apartment { get; set; }
 
+
+        //public ICollection<CreditCard> CreditCards { get; set; }
+
+        public ICollection<Bill> Bills { get; set; }
+
+        public ICollection<Payment> Payments { get; set; }
         //public ICollection<MessageSending> MessageSendings { get; set; }
 
     }

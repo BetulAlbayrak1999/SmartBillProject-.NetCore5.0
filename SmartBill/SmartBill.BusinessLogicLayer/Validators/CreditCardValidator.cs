@@ -12,7 +12,7 @@ namespace SmartBill.BusinessLogicLayer.Validators
     {
         public CreditCardValidator()
         {
-            RuleFor(x => x.CustomerId).NotEmpty().NotNull().MinimumLength(1);
+            //RuleFor(x => x.CustomerId).NotEmpty().NotNull().MinimumLength(1);
 
             RuleFor(x => x.BankId).NotEmpty().NotNull().MinimumLength(1);
 

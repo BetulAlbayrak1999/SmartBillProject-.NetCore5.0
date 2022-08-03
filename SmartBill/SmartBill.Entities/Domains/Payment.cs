@@ -10,9 +10,9 @@ namespace SmartBill.Entities.Domains
 {
     public class Payment: BaseEntity
     {
-        public string CustomerId { get; set; }
-        [ForeignKey(nameof(CustomerId))]
-        public virtual Customer Customer { get; set; }
+        public string ApplicationUserId { get; set; }
+        [ForeignKey(nameof(ApplicationUserId))]
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public string CreditCardId { get; set; }
         [ForeignKey(nameof(CreditCardId))]

@@ -150,6 +150,59 @@ namespace SmartBill.Data.Migrations
                     b.ToTable("UserTokens", "security");
                 });
 
+            modelBuilder.Entity("SmartBill.Entities.Domains.Apartment", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ApartmentNo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlockNo")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("FloorNo")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsEmpty")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LocationId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PersonsNumber")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UnActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("Apartments");
+                });
+
             modelBuilder.Entity("SmartBill.Entities.Domains.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -165,7 +218,12 @@ namespace SmartBill.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -211,12 +269,14 @@ namespace SmartBill.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TurkishIdentity")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -224,6 +284,15 @@ namespace SmartBill.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("Email")
+                        .HasName("AlternateKey_Email");
+
+                    b.HasAlternateKey("TurkishIdentity")
+                        .HasName("AlternateKey_TurkishIdentity");
+
+                    b.HasAlternateKey("UserName")
+                        .HasName("AlternateKey_UserName");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -234,6 +303,333 @@ namespace SmartBill.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", "security");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Bank", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UnActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Bank");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Bill", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("BillAmount")
+                        .HasColumnType("real");
+
+                    b.Property<string>("BillServerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsBillPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PaidDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("Tax")
+                        .HasColumnType("real");
+
+                    b.Property<float>("TotalAmount")
+                        .HasColumnType("real");
+
+                    b.Property<DateTime?>("UnActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BillServerId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Bills");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.BillServer", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UnActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BillServers");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.City", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UnActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.CreditCard", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BankId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ExpireTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UnActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("CreditCard");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Debt", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BillId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DebtPaidDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDebtPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UnActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BillId");
+
+                    b.ToTable("Debts");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Location", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CityId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UnActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Message", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UnActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Payment", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BankId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreditCardId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("UnActivedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankId");
+
+                    b.HasIndex("CreditCardId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Payment");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Customer", b =>
+                {
+                    b.HasBaseType("SmartBill.Entities.Domains.ApplicationUser");
+
+                    b.HasDiscriminator().HasValue("Customer");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -285,6 +681,128 @@ namespace SmartBill.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Apartment", b =>
+                {
+                    b.HasOne("SmartBill.Entities.Domains.Customer", "Customer")
+                        .WithMany("Apartments")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("SmartBill.Entities.Domains.Location", "Location")
+                        .WithMany("Apartments")
+                        .HasForeignKey("LocationId");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Bill", b =>
+                {
+                    b.HasOne("SmartBill.Entities.Domains.BillServer", "BillServer")
+                        .WithMany("Bills")
+                        .HasForeignKey("BillServerId");
+
+                    b.HasOne("SmartBill.Entities.Domains.Customer", "Customer")
+                        .WithMany("Bills")
+                        .HasForeignKey("CustomerId");
+
+                    b.Navigation("BillServer");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.CreditCard", b =>
+                {
+                    b.HasOne("SmartBill.Entities.Domains.Bank", "Bank")
+                        .WithMany("CreditCards")
+                        .HasForeignKey("BankId");
+
+                    b.HasOne("SmartBill.Entities.Domains.Customer", "Customer")
+                        .WithMany("CreditCards")
+                        .HasForeignKey("CustomerId");
+
+                    b.Navigation("Bank");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Debt", b =>
+                {
+                    b.HasOne("SmartBill.Entities.Domains.Bill", "Bill")
+                        .WithMany()
+                        .HasForeignKey("BillId");
+
+                    b.Navigation("Bill");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Location", b =>
+                {
+                    b.HasOne("SmartBill.Entities.Domains.City", "City")
+                        .WithMany("Locations")
+                        .HasForeignKey("CityId");
+
+                    b.Navigation("City");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Payment", b =>
+                {
+                    b.HasOne("SmartBill.Entities.Domains.Bank", "Bank")
+                        .WithMany("Payments")
+                        .HasForeignKey("BankId");
+
+                    b.HasOne("SmartBill.Entities.Domains.CreditCard", "CreditCard")
+                        .WithMany("Payments")
+                        .HasForeignKey("CreditCardId");
+
+                    b.HasOne("SmartBill.Entities.Domains.Customer", "Customer")
+                        .WithMany("Payments")
+                        .HasForeignKey("CustomerId");
+
+                    b.Navigation("Bank");
+
+                    b.Navigation("CreditCard");
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Bank", b =>
+                {
+                    b.Navigation("CreditCards");
+
+                    b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.BillServer", b =>
+                {
+                    b.Navigation("Bills");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.City", b =>
+                {
+                    b.Navigation("Locations");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.CreditCard", b =>
+                {
+                    b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Location", b =>
+                {
+                    b.Navigation("Apartments");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.Customer", b =>
+                {
+                    b.Navigation("Apartments");
+
+                    b.Navigation("Bills");
+
+                    b.Navigation("CreditCards");
+
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

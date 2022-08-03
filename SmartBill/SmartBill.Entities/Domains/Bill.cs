@@ -15,9 +15,9 @@ namespace SmartBill.Entities.Domains
         [ForeignKey(nameof(BillServerId))]
         public virtual BillServer BillServer { get; set; }
 
-        public string CustomerId { get; set; }
-        [ForeignKey(nameof(CustomerId))]
-        public virtual Customer Customer { get; set; }
+        public string ApplicationUserId { get; set; }
+        [ForeignKey(nameof(ApplicationUserId))]
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public bool IsBillPaid { get; set; }
 

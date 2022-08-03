@@ -16,7 +16,7 @@ namespace SmartBill.DataAccessLayer.Data
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options) { }
 
-        /*public virtual DbSet<Apartment> Apartments { get; set; }
+        public virtual DbSet<Apartment> Apartments { get; set; }
         public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<BillServer> BillServers { get; set; }
         public virtual DbSet<City> Cities { get; set; }
@@ -26,9 +26,10 @@ namespace SmartBill.DataAccessLayer.Data
 
         //public virtual DbSet<MessageSending> MessageSendings { get; set; }
         //public virtual DbSet<MessageReception> MessageReceptions { get; set; }
-        public virtual DbSet<Bank> Banks { get; set; }
-        public virtual DbSet<Payment> Payments { get; set; }
-        */
+        //public virtual DbSet<Bank> Banks { get; set; }
+        //public virtual DbSet<Payment> Payments { get; set; }
+        //public virtual DbSet<CrediCard> CrediCards { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -44,6 +45,12 @@ namespace SmartBill.DataAccessLayer.Data
             builder.Entity<ApplicationUser>()
             .HasAlternateKey(c => c.TurkishIdentity)
             .HasName("AlternateKey_TurkishIdentity");
+            builder.Entity<ApplicationUser>()
+            .HasAlternateKey(c => c.UserName)
+            .HasName("AlternateKey_UserName");
+            builder.Entity<ApplicationUser>()
+            .HasAlternateKey(c => c.Email)
+            .HasName("AlternateKey_Email");
         }
     }
 }

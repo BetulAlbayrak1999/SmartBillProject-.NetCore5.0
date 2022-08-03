@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

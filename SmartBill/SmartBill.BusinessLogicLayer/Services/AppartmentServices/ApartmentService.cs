@@ -25,6 +25,7 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
             _autoMapper = autoMapper;
         }
 
+        #region Activate
         public async Task<CommandResponse> Activate(string Id)
         {
             try
@@ -48,6 +49,10 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 
         }
 
+        #endregion
+
+
+        #region Create
         public async Task<CommandResponse> Create(CreateApartmentRequestDto item)
         {
             try
@@ -70,6 +75,10 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
             catch (Exception ex) { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
         }
 
+        #endregion
+
+
+        #region GetAllActive
         public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllActive()
         {
             try
@@ -95,6 +104,11 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
                 return null;
             }
         }
+
+        #endregion
+
+
+        #region GetAllUnActive
 
         public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllUnActive()
         {
@@ -122,6 +136,11 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
             }
         }
 
+        #endregion
+
+
+        #region GetById
+
         public async Task<GetApartmentRequestDto> GetById(string Id)
         {
             try
@@ -145,6 +164,10 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
             catch (Exception ex) { return null; }
         }
 
+        #endregion
+
+
+        #region UnActivate
         public async Task<CommandResponse> UnActivate(string Id)
         {
             try
@@ -167,6 +190,12 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
             catch (Exception ex) { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
 
         }
+
+
+        #endregion
+
+
+        #region Update
 
         public async Task<CommandResponse> Update(UpdateApartmentRequestDto item)
         {
@@ -191,5 +220,8 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
             catch (Exception ex) { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
 
         }
+
+
+        #endregion
     }
 }

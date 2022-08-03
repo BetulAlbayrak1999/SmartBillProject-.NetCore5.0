@@ -58,10 +58,15 @@ namespace SmartBill.Areas.Identity.Pages.Account
             [Display(Name = "LastName")]
             public string LastName { get; set; }
 
+
             [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
-            public string Email { get; set; }
+            [StringLength(11, ErrorMessage = "The TC Identity must be 11 characters long.")]
+            [Display(Name = "Turkish Identity")]
+            public string TurkishIdentity { get; set; }
+
+            [Required]
+            [Display(Name = "Gender")]
+            public string Gender { get; set; }
 
 
             [Required]
@@ -70,9 +75,20 @@ namespace SmartBill.Areas.Identity.Pages.Account
             public string UserName { get; set; }
 
             [Required]
-            [StringLength(11, ErrorMessage = "The TC Identity must be 11")]
-            [Display(Name = "Turkish Identity")]
-            public string TurkishIdentity { get; set; }
+            [EmailAddress]
+            [Display(Name = "Email")]
+            public string Email { get; set; }
+
+
+            [Required]
+            [Display(Name = "Birth Date")]
+            public DateTime Birthdate { get; set; }
+
+
+            [Required]
+            [StringLength(11, ErrorMessage = "The Phone Number must be 11 characters long.")]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -80,10 +96,13 @@ namespace SmartBill.Areas.Identity.Pages.Account
             [Display(Name = "Password")]
             public string Password { get; set; }
 
+
+
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -104,6 +123,9 @@ namespace SmartBill.Areas.Identity.Pages.Account
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     TurkishIdentity = Input.TurkishIdentity,
+                    Gender = Input.Gender,
+                    PhoneNumber = Input.PhoneNumber,
+                    Birthdate = Input.Birthdate,
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

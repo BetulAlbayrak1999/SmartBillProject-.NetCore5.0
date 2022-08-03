@@ -8,5 +8,7 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto
 {
     public class UpdateApplicationUserRequestDto
     {
+
+        public string? VehicleNo { get; set; }
     }
 }

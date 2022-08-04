@@ -20,8 +20,8 @@ namespace SmartBill.BusinessLogicLayer.Services.GenericServices
 
         public Task<CommandResponse> Update(TUpdate item);
 
-        public Task<IEnumerable<TGetAll>> GetAllUnActive();
-        public Task<IEnumerable<TGetAll>> GetAllActive();
+        public Task<IEnumerable<TGetAll>> GetAllUnActivated();
+        public Task<IEnumerable<TGetAll>> GetAllActivated();
 
         public Task<TGet> GetById(string Id);
     }

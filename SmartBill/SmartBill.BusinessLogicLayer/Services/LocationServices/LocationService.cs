@@ -23,12 +23,12 @@ namespace SmartBill.BusinessLogicLayer.Services.LocationServices
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetAllLocationRequestDto>> GetAllActive()
+        public Task<IEnumerable<GetAllLocationRequestDto>> GetAllActivated()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetAllLocationRequestDto>> GetAllUnActive()
+        public Task<IEnumerable<GetAllLocationRequestDto>> GetAllUnActivated()
         {
             throw new NotImplementedException();
         }

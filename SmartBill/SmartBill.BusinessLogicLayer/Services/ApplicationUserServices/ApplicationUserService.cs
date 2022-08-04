@@ -23,12 +23,12 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllActive()
+        public Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllActivated()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllUnActive()
+        public Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllUnActivated()
         {
             throw new NotImplementedException();
         }

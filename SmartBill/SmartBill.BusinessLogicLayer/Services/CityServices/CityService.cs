@@ -23,12 +23,12 @@ namespace SmartBill.BusinessLogicLayer.Services.CityServices
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetAllCityRequestDto>> GetAllActive()
+        public Task<IEnumerable<GetAllCityRequestDto>> GetAllActivated()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetAllCityRequestDto>> GetAllUnActive()
+        public Task<IEnumerable<GetAllCityRequestDto>> GetAllUnActivated()
         {
             throw new NotImplementedException();
         }

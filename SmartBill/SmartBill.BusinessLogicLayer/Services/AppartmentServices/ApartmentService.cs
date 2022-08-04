@@ -78,8 +78,8 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
         #endregion
 
 
-        #region GetAllActive
-        public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllActive()
+        #region GetAllActivated
+        public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllActivated()
         {
             try
             {
@@ -108,9 +108,9 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
         #endregion
 
 
-        #region GetAllUnActive
+        #region GetAllUnActivated
 
-        public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllUnActive()
+        public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllUnActivated()
         {
             try
             {

@@ -23,12 +23,12 @@ namespace SmartBill.BusinessLogicLayer.Services.DebtServices
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetAllDebtRequestDto>> GetAllActive()
+        public Task<IEnumerable<GetAllDebtRequestDto>> GetAllActivated()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetAllDebtRequestDto>> GetAllUnActive()
+        public Task<IEnumerable<GetAllDebtRequestDto>> GetAllUnActivated()
         {
             throw new NotImplementedException();
         }

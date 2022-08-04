@@ -24,12 +24,12 @@ namespace SmartBill.BusinessLogicLayer.Services.MessageServices
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetAllMessageRequestDto>> GetAllActive()
+        public Task<IEnumerable<GetAllMessageRequestDto>> GetAllActivated()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<GetAllMessageRequestDto>> GetAllUnActive()
+        public Task<IEnumerable<GetAllMessageRequestDto>> GetAllUnActivated()
         {
             throw new NotImplementedException();
         }

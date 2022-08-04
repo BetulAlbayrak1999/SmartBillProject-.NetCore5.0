@@ -10,11 +10,13 @@ namespace SmartBill.Entities.Domains.Common
 {
     public abstract class BaseEntity : IBaseEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime LastModifiedDate { get; set; } = DateTime.Now;
         public DateTime? UnActivedDate { get; set; } 
-        public bool IsActive { get; set; } = false;
+        public bool IsActive { get; set; } 
         public DateTime? ActivedDate { get; set; }
 
     }

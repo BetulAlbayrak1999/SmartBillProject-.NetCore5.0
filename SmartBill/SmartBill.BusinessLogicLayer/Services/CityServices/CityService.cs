@@ -1,5 +1,4 @@
-﻿using SmartBill.BusinessLogicLayer.Configrations.Responses;
-using SmartBill.BusinessLogicLayer.Dtos.CityDto;
+﻿using SmartBill.BusinessLogicLayer.Dtos.CityDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.DataAccessLayer.Data;
 using SmartBill.Entities.Domains;
@@ -13,12 +12,12 @@ namespace SmartBill.BusinessLogicLayer.Services.CityServices
 {
     public class CityService : ICityService
     {
-        public Task<CommandResponse> Activate(string Id)
+        public Task<bool> Activate(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CommandResponse> Create(CreateCityRequestDto item)
+        public Task<bool> Create(CreateCityRequestDto item)
         {
             throw new NotImplementedException();
         }
@@ -38,12 +37,12 @@ namespace SmartBill.BusinessLogicLayer.Services.CityServices
             throw new NotImplementedException();
         }
 
-        public Task<CommandResponse> UnActivate(string Id)
+        public Task<bool> UnActivate(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CommandResponse> Update(UpdateCityRequestDto item)
+        public Task<bool> Update(UpdateCityRequestDto item)
         {
             throw new NotImplementedException();
         }

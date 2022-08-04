@@ -14,20 +14,9 @@ namespace SmartBill.BusinessLogicLayer.Validators.ApartmentValidators
         {
             RuleFor(x => x.PersonsNumber).NotEmpty();
 
-
-            RuleFor(x => x.IsEmpty).NotEmpty();
-
-            RuleFor(x => x.IsActive).NotEmpty();
-
-            RuleFor(x => x.IsActive).NotEmpty();
-
-            RuleFor(x => x.LastModifiedDate).NotEmpty().Equal(DateTime.Now);
-
             RuleFor(x => x.UnActivedDate).LessThanOrEqualTo(DateTime.Now);
 
             RuleFor(x => x.ActivedDate).LessThanOrEqualTo(DateTime.Now);
-
-            RuleFor(x => x.Id).NotEmpty().MinimumLength(1);
         }
     }
 }

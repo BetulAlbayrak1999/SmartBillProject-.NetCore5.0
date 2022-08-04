@@ -1,5 +1,4 @@
-﻿using SmartBill.BusinessLogicLayer.Configrations.Responses;
-using SmartBill.BusinessLogicLayer.Dtos.MessageDto;
+﻿using SmartBill.BusinessLogicLayer.Dtos.MessageDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 
 using SmartBill.DataAccessLayer.Data;
@@ -14,12 +13,12 @@ namespace SmartBill.BusinessLogicLayer.Services.MessageServices
 {
     public class MessageService : IMessageService
     {
-        public Task<CommandResponse> Activate(string Id)
+        public Task<bool> Activate(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CommandResponse> Create(CreateMessageRequestDto item)
+        public Task<bool> Create(CreateMessageRequestDto item)
         {
             throw new NotImplementedException();
         }
@@ -39,12 +38,12 @@ namespace SmartBill.BusinessLogicLayer.Services.MessageServices
             throw new NotImplementedException();
         }
 
-        public Task<CommandResponse> UnActivate(string Id)
+        public Task<bool> UnActivate(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CommandResponse> Update(UpdateMessageRequestDto item)
+        public Task<bool> Update(UpdateMessageRequestDto item)
         {
             throw new NotImplementedException();
         }

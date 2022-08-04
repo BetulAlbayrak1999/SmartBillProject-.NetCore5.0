@@ -15,18 +15,23 @@ namespace SmartBill.Controllers
             _apartmentService = apartmentService;
         }
 
+        #region Index
         public IActionResult Index()
         {
             try
             {
                 return View();
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return View(ex);
             }
         }
+        #endregion
 
+
+        #region GetAllActivated
         public async Task<IActionResult> GetAllActivated()
         {
             try
@@ -40,7 +45,9 @@ namespace SmartBill.Controllers
                 return View(ex);
             }
         }
+        #endregion
 
+        #region GetAllUnActivated
         public async Task<IActionResult> GetAllUnActivated()
         {
             try
@@ -54,8 +61,10 @@ namespace SmartBill.Controllers
                 return View(ex);
             }
         }
+        #endregion
 
 
+        #region Create
         public IActionResult Create()
         {
             try
@@ -67,7 +76,7 @@ namespace SmartBill.Controllers
             {
                 return View(ex);
             }
-        } 
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateApartmentRequestDto model)
@@ -75,7 +84,7 @@ namespace SmartBill.Controllers
             try
             {
                 var result = await _apartmentService.Create(model);
-                return View(result);
+                return RedirectToAction("GetAllUnActivated");
 
             }
             catch (Exception ex)
@@ -83,5 +92,65 @@ namespace SmartBill.Controllers
                 return View(ex);
             }
         }
+        #endregion
+
+        #region Update
+        public async Task <IActionResult> Update(string Id)
+        {
+            try
+            {
+                var result = await _apartmentService.GetById(Id);
+                if (result == null)
+                    return NotFound();
+                var viewModel = new UpdateApartmentRequestDto
+                {
+                    Id = result.Id,
+                    PersonsNumber = result.PersonsNumber,
+                    IsActive = result.IsActive
+                };
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateApartmentRequestDto model)
+        {
+            try
+            {
+                var result = await _apartmentService.Update(model);
+                if(result == false)
+                    return BadRequest();
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+        }
+        #endregion
+
+        #region GetById
+        public async Task<IActionResult> GetById(string Id)
+        {
+            try
+            {
+                var result = await _apartmentService.GetById(Id);
+                if (result == null)
+                    return NotFound();
+                return View(result);
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+        }
+        #endregion
     }
 }

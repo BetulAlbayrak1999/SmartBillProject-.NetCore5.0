@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
-using SmartBill.BusinessLogicLayer.Configrations.Responses;
 using SmartBill.BusinessLogicLayer.Dtos.ApartmentDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.ApartmentValidators;
@@ -25,35 +24,10 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
             _autoMapper = autoMapper;
         }
 
-        #region Activate
-        public async Task<CommandResponse> Activate(string Id)
-        {
-            try
-            {
-                if (Id is not null)
-                {
-                    Apartment item = await _apartmentRepository.GetById(Id);
-                    if (item != null)
-                    {
-                        item.IsActive = true;
-                        await _apartmentRepository.Update(item);
-
-                        return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
-                    }
-
-                    { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
-                }
-                { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
-            }
-            catch (Exception ex) { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
-
-        }
-
-        #endregion
 
 
         #region Create
-        public async Task<CommandResponse> Create(CreateApartmentRequestDto item)
+        public async Task<bool> Create(CreateApartmentRequestDto item)
         {
             try
             {
@@ -65,14 +39,16 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 
                     //mapping
                     Apartment mappedItem = _autoMapper.Map<Apartment>(item);
-                    await _apartmentRepository.Create(mappedItem);
-                    return new CommandResponse { Status = true, Message = "This operation has done successfully" };
+                    var IsCreated = await _apartmentRepository.Create(mappedItem);
+                    if(IsCreated == true)
+                        return true; 
+                    return false;
                 }
 
-                { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
+                { return false; }
 
             }
-            catch (Exception ex) { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
+            catch (Exception ex) { return false; }
         }
 
         #endregion
@@ -87,6 +63,7 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 
                 IEnumerable<GetAllApartmentRequestDto> result = items.Where(d => d.IsActive == true).Select(d => new GetAllApartmentRequestDto
                 {
+                    Id = d.Id,
                     Name = d.Name,
                     IsEmpty = d.IsEmpty,
                     PersonsNumber = d.PersonsNumber,
@@ -118,6 +95,7 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 
                 IEnumerable<GetAllApartmentRequestDto> result = items.Where(d => d.IsActive == false).Select(d => new GetAllApartmentRequestDto
                 {
+                    Id= d.Id,
                     Name = d.Name,
                     IsEmpty = d.IsEmpty,
                     PersonsNumber = d.PersonsNumber,
@@ -167,57 +145,45 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
         #endregion
 
 
-        #region UnActivate
-        public async Task<CommandResponse> UnActivate(string Id)
-        {
-            try
-            {
-                if (Id is not null)
-                {
-                    Apartment item = await _apartmentRepository.GetById(Id);
-                    if (item != null)
-                    {
-                        item.IsActive = false;
-                        await _apartmentRepository.Update(item);
-
-                        return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
-                    }
-
-                    { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
-                }
-                { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
-            }
-            catch (Exception ex) { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
-
-        }
-
-
-        #endregion
-
-
         #region Update
 
-        public async Task<CommandResponse> Update(UpdateApartmentRequestDto item)
+        public async Task<bool> Update(UpdateApartmentRequestDto item)
         {
             try
             {
-                if (item is not null || GetById(item.Id) is not null)
+                if (item is not null)
                 {
                     //validation
                     var validator = new UpdateApartmentRequestValidator();
                     validator.Validate(item).throwIfValidationException();
-
+                    //set last modify time
                     //mapping
                     Apartment mappedItem = _autoMapper.Map<Apartment>(item);
+                    if (item.IsActive == false)
+                    {
+                        mappedItem.UnActivedDate = DateTime.Now;
+                        mappedItem.ActivedDate = null;
+                    }
+                    else if(item.IsActive == true)
+                    {
+                        mappedItem.ActivedDate = DateTime.Now;
+                        mappedItem.UnActivedDate = null;
+                    }
+                    if (item.PersonsNumber == 0)
+                        item.IsEmpty = true;
+                    else { item.IsEmpty = false; }
 
-                    await _apartmentRepository.Update(mappedItem);
-                    return new CommandResponse { Status = true, Message = "This operation has done successfully" };
+                    bool IsUpdated = await _apartmentRepository.Update(mappedItem);
+                    if(IsUpdated == true)
+                        return true;
+
+                    return false;
                 }
 
-                { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
+                { return false; }
 
             }
-            catch (Exception ex) { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
+            catch (Exception ex) { return false; }
 
         }
 

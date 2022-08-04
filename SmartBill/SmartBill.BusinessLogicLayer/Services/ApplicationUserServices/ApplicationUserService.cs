@@ -1,5 +1,4 @@
-﻿using SmartBill.BusinessLogicLayer.Configrations.Responses;
-using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
+﻿using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.DataAccessLayer.Data;
 using SmartBill.Entities.Domains;
@@ -13,12 +12,12 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
 {
     public class ApplicationUserService : IApplicationUserService
     {
-        public Task<CommandResponse> Activate(string Id)
+        public Task<bool> Activate(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CommandResponse> Create(CreateApplicationUserRequestDto item)
+        public Task<bool> Create(CreateApplicationUserRequestDto item)
         {
             throw new NotImplementedException();
         }
@@ -38,12 +37,12 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
             throw new NotImplementedException();
         }
 
-        public Task<CommandResponse> UnActivate(string Id)
+        public Task<bool> UnActivate(string Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<CommandResponse> Update(UpdateApplicationUserRequestDto item)
+        public Task<bool> Update(UpdateApplicationUserRequestDto item)
         {
             throw new NotImplementedException();
         }

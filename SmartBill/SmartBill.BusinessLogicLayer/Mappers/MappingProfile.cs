@@ -36,7 +36,7 @@ namespace SmartBill.BusinessLogicLayer.Mappers
 
             CreateMap<UpdateApartmentRequestDto, Apartment>();
 
-            CreateMap<GetApartmentRequestDto, Apartment>();
+            CreateMap<GetApartmentRequestDto, Apartment>().ReverseMap();
 
             #endregion
 

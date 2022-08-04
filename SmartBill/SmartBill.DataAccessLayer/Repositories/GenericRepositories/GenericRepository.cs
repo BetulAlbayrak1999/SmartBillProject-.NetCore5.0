@@ -74,7 +74,9 @@ namespace SmartBill.DataAccessLayer.Repositories.GenericRepositories
             try
             {
                 _object.Update(item);
+
                 await _context.SaveChangesAsync();
+
                 return true;
             }
             catch (Exception ex)

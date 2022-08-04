@@ -19,16 +19,22 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var role in Model)
+        @foreach (var apart in Model)
         {
             <tr>
-                <td>@role.Name</td>
-                <td>@role.BlockNo</td>
-                <td>@role.IsEmpty</td>
-                <td>@role.PersonsNumber</td>
-                <td>@role.FloorNo</td>
-                <td>@role.ApartmentNo</td>
-                <td>@role.IsActive</td>
+                <td>@apart.Name</td>
+                <td>@apart.BlockNo</td>
+                <td>@apart.IsEmpty</td>
+                <td>@apart.PersonsNumber</td>
+                <td>@apart.FloorNo</td>
+                <td>@apart.ApartmentNo</td>
+                <td>@apart.IsActive</td>
+                <td>
+                    <a asp-action="Update" asp-controller="Apartments" class="btn btn-warning" asp-route-Id="@apart.Id">Update</a>
+                    <a asp-action="UnActivate" asp-controller="Apartments" class="btn btn-danger" asp-route-Id="@apart.Id">UnActivate</a>
+                    <a asp-action="GetById" asp-controller="Apartments" class="btn btn-secondary" asp-route-Id="@apart.Id">Details</a>
+
+                </td>
             </tr>
         }
     </tbody>

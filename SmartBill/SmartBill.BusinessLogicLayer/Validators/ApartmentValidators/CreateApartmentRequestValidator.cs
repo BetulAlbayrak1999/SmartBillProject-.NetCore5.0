@@ -22,7 +22,7 @@ namespace SmartBill.BusinessLogicLayer.Validators.ApartmentValidators
 
             RuleFor(x => x.ApartmentNo).NotEmpty().GreaterThan(0);
 
-            RuleFor(x => x.LocationId).NotEmpty().MinimumLength(1);
+            //RuleFor(x => x.LocationId).NotEmpty().MinimumLength(1);
         }
     }
 }

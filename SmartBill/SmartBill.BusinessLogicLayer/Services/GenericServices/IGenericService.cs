@@ -1,5 +1,4 @@
-﻿using SmartBill.BusinessLogicLayer.Configrations.Responses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,12 +12,9 @@ namespace SmartBill.BusinessLogicLayer.Services.GenericServices
         where TGetAll : class, new()
         where TGet : class, new()
     {
-        public Task<CommandResponse> Create(TCreate item);
+        public Task<bool> Create(TCreate item);
 
-        public Task<CommandResponse> UnActivate(string Id);
-        public Task<CommandResponse> Activate(string Id);
-
-        public Task<CommandResponse> Update(TUpdate item);
+        public Task<bool> Update(TUpdate item);
 
         public Task<IEnumerable<TGetAll>> GetAllUnActivated();
         public Task<IEnumerable<TGetAll>> GetAllActivated();

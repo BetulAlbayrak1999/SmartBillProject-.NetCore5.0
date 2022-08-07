@@ -10,7 +10,7 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using SmartBill.BusinessLogicLayer.Configrations.Cache;
 using SmartBill.BusinessLogicLayer.Services.CreditCardServices;
-using SmartBill.DataAccessLayer.Repositories.CreditCardRepositories;
+using SmartBill.DataAccessLayer.Repositories.MongoDBRepositories.CreditCardRepositories;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;

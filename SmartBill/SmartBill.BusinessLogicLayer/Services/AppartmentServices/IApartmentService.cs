@@ -14,14 +14,17 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 {
     public interface IApartmentService : IGenericService<CreateApartmentRequestDto, CreateApartmentRequestValidator, GetApartmentRequestDto, GetAllApartmentRequestDto, Apartment>
     {
-        public Task<IEnumerable<GetAllApartmentRequestDto>> GetAllActivated();
+        public Task<IEnumerable<GetAllApartmentRequestDto>> GetAllActivatedAsync();
 
-        public Task<IEnumerable<GetAllApartmentRequestDto>> GetAllUnActivated();
+        public Task<IEnumerable<GetAllApartmentRequestDto>> GetAllUnActivatedAsync();
 
-        public Task<CommandResponse> Update(UpdateApartmentRequestDto item);
+        public Task<IEnumerable<GetAllApartmentRequestDto>> GetAllAsync();
 
-        public Task<CommandResponse> Activate(int Id);
-        public Task<CommandResponse> UnActivate(int Id);
+        public Task<CommandResponse> UpdateAsync(UpdateApartmentRequestDto item);
+
+        public Task<CommandResponse> ActivateAsync(string Id);
+
+        public Task<CommandResponse> UnActivateAsync(string Id);
 
     }
 }

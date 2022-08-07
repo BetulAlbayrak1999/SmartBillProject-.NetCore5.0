@@ -18,11 +18,11 @@ namespace SmartBill.BusinessLogicLayer.Services.GenericServices
     {
         public Task<CommandResponse> CreateAsync(TCreateDto item);
 
-        public Task<TGetDto> GetByAsync(Expression<Func<TGetDto, bool>> predicate = null);
+        //public Task<TGetDto> GetByAsync(Expression<Func<TGetDto, bool>> predicate = null);
 
         public Task<TGetDto> GetByIdAsync(string Id);
  
-        public Task<IEnumerable<TGetAllDto>> GetAllByAsync(Expression<Func<TGetAllDto, bool>> expression = null);
+        //public Task<IEnumerable<TGetAllDto>> GetAllByAsync(Expression<Func<TGetAllDto, bool>> expression = null);
 
         public Task<CommandResponse> DeleteAsync(string Id);    
 

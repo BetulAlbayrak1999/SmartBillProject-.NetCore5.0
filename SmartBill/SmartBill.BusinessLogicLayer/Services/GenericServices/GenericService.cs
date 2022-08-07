@@ -2,7 +2,7 @@
 using FluentValidation;
 using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
 using SmartBill.BusinessLogicLayer.Configrations.Responses;
-using SmartBill.DataAccessLayer.Repositories.GenericRepositories;
+using SmartBill.DataAccessLayer.Repositories.EFRepositories.GenericRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,16 +106,6 @@ namespace SmartBill.BusinessLogicLayer.Services.GenericServices
         }
 
         #endregion
-
-        public Task<TGetDto> GetByAsync(Expression<Func<TGetDto, bool>> predicate = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<TGetAllDto>> GetAllByAsync(Expression<Func<TGetAllDto, bool>> expression = null)
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }

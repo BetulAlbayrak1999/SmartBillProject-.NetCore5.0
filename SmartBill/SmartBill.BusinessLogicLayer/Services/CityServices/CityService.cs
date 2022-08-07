@@ -3,7 +3,7 @@ using SmartBill.BusinessLogicLayer.Dtos.CityDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.CityValidators;
 using SmartBill.DataAccessLayer.Data;
-using SmartBill.DataAccessLayer.Repositories.CityRepositories;
+using SmartBill.DataAccessLayer.Repositories.EFRepositories.CityRepositories;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
 using System.Collections.Generic;
@@ -13,106 +13,32 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.CityServices
 {
-    public class CityService// : GenericService<CreateCityRequestDto, CreateCityRequestValidator, GetCityRequestDto, City>, ICityService
+    /// <summary>
+    /// /////////TAKE A LOOK AGAİN
+    /// </summary>
+    public class CityService : ICityService
     {
         private readonly ICityRepository _CityRepository;
         private readonly IMapper _autoMapper;
-       /* public CityService(IMapper autoMapper, ICityRepository CityRepository) : base(autoMapper, CityRepository)
+        public CityService(IMapper autoMapper, ICityRepository CityRepository) 
         {
             _autoMapper = autoMapper;
             _CityRepository = CityRepository;
-        }*/
-
-        #region GetAllActivated
-        public async Task<IEnumerable<GetAllCityRequestDto>> GetAllActivated()
-        {
-            try
-            {
-                IEnumerable<City> items = await _CityRepository.GetAllAsync();
-
-                IEnumerable<GetAllCityRequestDto> result = items.Where(d => d.IsActive == true).Select(d => new GetAllCityRequestDto
-                {
-                    //id
-
-                });
-                return result;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
         }
 
-        #endregion
-
-
-        #region GetAllUnActivated
-
-        public async Task<IEnumerable<GetAllCityRequestDto>> GetAllUnActivated()
+        public Task<IEnumerable<GetAllCityRequestDto>> GetAllActivated()
         {
-            try
-            {
-                IEnumerable<City> items = await _CityRepository.GetAllAsync();
-
-                IEnumerable<GetAllCityRequestDto> result = items.Where(d => d.IsActive == false).Select(d => new GetAllCityRequestDto
-                {
-                    
-
-                });
-                return result;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            throw new NotImplementedException();
         }
 
-        #endregion
-
-
-        #region Update
-
-        /*public async Task<bool> Update(UpdateCityRequestDto item)
+        public Task<IEnumerable<GetAllCityRequestDto>> GetAllUnActivated()
         {
-            try
-            {
-                if (item is not null)
-                {
-                    //validation
-                    var validator = new UpdateCityRequestValidator();
-                    validator.Validate(item).throwIfValidationException();
-                    //set last modify time
-                    //mapping
-                    City mappedItem = _autoMapper.Map<City>(item);
-                    if (item.IsActive == false)
-                    {
-                        mappedItem.UnActivedDate = DateTime.Now;
-                        mappedItem.ActivedDate = null;
-                    }
-                    else if (item.IsActive == true)
-                    {
-                        mappedItem.ActivedDate = DateTime.Now;
-                        mappedItem.UnActivedDate = null;
-                    }
-                    if (item.PersonsNumber == 0)
-                        item.IsEmpty = true;
-                    else { item.IsEmpty = false; }
+            throw new NotImplementedException();
+        }
 
-                    bool IsUpdated = await _CityRepository.Update(mappedItem);
-                    if (IsUpdated == true)
-                        return true;
-
-                    return false;
-                }
-
-                { return false; }
-
-            }
-            catch (Exception ex) { return false; }
-
-        }*/
-
-
-        #endregion
+        public Task<bool> Update(UpdateCityRequestDto item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

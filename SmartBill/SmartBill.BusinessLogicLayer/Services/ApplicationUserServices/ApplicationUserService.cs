@@ -3,7 +3,7 @@ using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators;
 using SmartBill.DataAccessLayer.Data;
-using SmartBill.DataAccessLayer.Repositories.ApplicationUserRepositories;
+using SmartBill.DataAccessLayer.Repositories.EFRepositories.ApplicationUserRepositories;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
 using System.Collections.Generic;

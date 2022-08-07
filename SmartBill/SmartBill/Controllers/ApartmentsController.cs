@@ -36,7 +36,23 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.GetAllActivated();
+                var result = await _apartmentService.GetAllActivatedAsync();
+                return View(result);
+
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+        }
+        #endregion
+
+        #region GetAll
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var result = await _apartmentService.GetAllAsync();
                 return View(result);
 
             }
@@ -52,7 +68,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.GetAllUnActivated();
+                var result = await _apartmentService.GetAllUnActivatedAsync();
                 return View(result);
 
             }
@@ -123,7 +139,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.Update(model);
+                var result = await _apartmentService.UpdateAsync(model);
                 if(result.Status == false)
                     return BadRequest();
 

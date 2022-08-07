@@ -5,7 +5,7 @@ using SmartBill.BusinessLogicLayer.Dtos.ApartmentDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.ApartmentValidators;
 using SmartBill.DataAccessLayer.Data;
-using SmartBill.DataAccessLayer.Repositories.ApartmentRepositories;
+using SmartBill.DataAccessLayer.Repositories.EFRepositories.ApartmentRepositories;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
 using System.Collections.Generic;
@@ -28,13 +28,75 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 
         #endregion
 
-        public Task<CommandResponse> Activate(int Id)
+        #region Activate
+        public async Task<CommandResponse> ActivateAsync(string Id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Apartment apart = await _apartmentRepository.GetByIdAsync(Id);
+                if (apart == null)
+                    return null;
+                apart.IsActive = true;
+                apart.ActivedDate = DateTime.Now;
+                bool IsUpdated = await _apartmentRepository.UpdateAsync(apart);
+                if (IsUpdated)
+                    return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
+
+                return new CommandResponse { Status = false, Message = "This operation has not done successfully" };
+            }
+            catch (Exception ex)
+            {
+                return new CommandResponse { Status = false, Message = ex.Message };
+            }
         }
+        #endregion
+
+
+        #region UnActivate
+        public async Task<CommandResponse> UnActivateAsync(string Id)
+        {
+            try
+            {
+                Apartment apart = await _apartmentRepository.GetByIdAsync(Id);
+                if (apart == null)
+                    return null;
+                apart.IsActive = false;
+                apart.UnActivedDate = DateTime.Now;
+                bool IsUpdated = await _apartmentRepository.UpdateAsync(apart);
+                if (IsUpdated)
+                    return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
+
+                return new CommandResponse { Status = false, Message = "This operation has not done successfully" };
+            }
+            catch (Exception ex)
+            {
+                return new CommandResponse { Status = false, Message = ex.Message };
+            }
+        }
+        #endregion
+
+
+
+        #region GetAll
+        public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllAsync()
+        {
+            try
+            {
+                IEnumerable<Apartment> items = await _apartmentRepository.GetAllByAsync();
+                IEnumerable<GetAllApartmentRequestDto> result = _autoMapper.Map<IEnumerable<Apartment>, IEnumerable<GetAllApartmentRequestDto>>(items);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        #endregion
+
 
         #region GetAllActivated
-        public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllActivated()
+        public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllActivatedAsync()
         {
             try
             {
@@ -55,7 +117,7 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 
         #region GetAllUnActivated
 
-        public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllUnActivated()
+        public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllUnActivatedAsync()
         {
             try
             {
@@ -71,17 +133,13 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
             }
         }
 
-        public Task<CommandResponse> UnActivate(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         #endregion
 
 
         #region Update
 
-        public async Task<CommandResponse> Update(UpdateApartmentRequestDto item)
+        public async Task<CommandResponse> UpdateAsync(UpdateApartmentRequestDto item)
         {
             try
             {

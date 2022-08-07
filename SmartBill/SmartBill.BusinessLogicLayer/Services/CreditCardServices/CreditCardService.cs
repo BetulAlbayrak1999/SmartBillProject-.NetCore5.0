@@ -1,5 +1,5 @@
 ﻿using MongoDB.Bson;
-using SmartBill.DataAccessLayer.Repositories.CreditCardRepositories;
+using SmartBill.DataAccessLayer.Repositories.MongoDBRepositories.CreditCardRepositories;
 using SmartBill.Entities.Domains.MongoDB;
 using System;
 using System.Collections.Generic;

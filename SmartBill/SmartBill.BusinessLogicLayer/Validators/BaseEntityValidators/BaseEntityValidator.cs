@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SmartBill.Entities.Domains.Common;
+using SmartBill.Entities.Domains.MSSQL.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

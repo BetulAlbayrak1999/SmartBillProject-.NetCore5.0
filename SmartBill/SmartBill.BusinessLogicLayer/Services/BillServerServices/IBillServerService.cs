@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.BillServerServices
 {
-    public interface IBillServerService : IGenericService<CreateBillServerRequestDto, UpdateBillServerRequestDto, GetAllBillServerRequestDto, GetBillServerRequestDto>
+    public interface IBillServerService //: IGenericService<CreateBillServerRequestDto, UpdateBillServerRequestDto, GetAllBillServerRequestDto, GetBillServerRequestDto>
     {
     }
 }

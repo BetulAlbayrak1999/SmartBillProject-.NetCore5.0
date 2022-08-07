@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,14 +9,22 @@ namespace SmartBill.DataAccessLayer.Repositories.GenericRepositories
 {
     public interface IGenericRepository<T> where T : class
     {
-        public Task<bool> Create(T item);
+        Task<bool> CreateAsync(T item);
 
-        public Task<bool> Delete(T item);
+        Task<bool> UpdateAsync(T item);
 
-        public Task<bool> Update(T item);
+        Task<bool> DeleteAsync(string Id);
 
-        public Task<IEnumerable<T>> GetAll();
+        Task<T> GetByAsync(Expression<Func<T, bool>> predicate = null);
 
-        public Task<T> GetById(string Id);
+        Task<IEnumerable<T>> GetAllAsync();/// <summary>
+        /// olabilir olmaya da bilir
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+
+        Task<T> GetByIdAsync(string Id);
+
+        Task<IEnumerable<T>> GetAllByAsync(Expression<Func<T, bool>> predicate = null);
     }
 }

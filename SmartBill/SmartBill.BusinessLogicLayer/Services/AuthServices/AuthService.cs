@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SmartBill.BusinessLogicLayer.ViewModels;
-using SmartBill.Entities.Domains;
+using SmartBill.Entities.Domains.MSSQL;
 using SmartBill.Entities.Helpers;
 using System;
 using System.Collections.Generic;

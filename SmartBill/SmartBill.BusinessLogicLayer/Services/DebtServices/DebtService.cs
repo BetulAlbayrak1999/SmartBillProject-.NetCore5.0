@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.DebtServices
 {
-    public class DebtService : IDebtService
+    public class DebtService //: IDebtService
     {
         public Task<bool> Activate(string Id)
         {

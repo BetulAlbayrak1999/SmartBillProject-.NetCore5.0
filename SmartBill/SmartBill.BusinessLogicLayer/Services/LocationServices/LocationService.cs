@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.LocationServices
 {
-    public class LocationService : ILocationService
+    public class LocationService //: ILocationService
     {
         public Task<bool> Activate(string Id)
         {

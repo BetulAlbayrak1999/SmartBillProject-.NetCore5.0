@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.MessageServices
 {
-    public class MessageService : IMessageService
+    public class MessageService //: IMessageService
     {
         public Task<bool> Activate(string Id)
         {

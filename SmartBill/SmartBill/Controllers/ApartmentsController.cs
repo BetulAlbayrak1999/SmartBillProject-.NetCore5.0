@@ -83,7 +83,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.Create(model);
+                var result = await _apartmentService.CreateAsync(model);
                 return RedirectToAction("GetAllUnActivated");
 
             }
@@ -99,7 +99,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.GetById(Id);
+                var result = await _apartmentService.GetByIdAsync(Id);
                 if (result == null)
                     return NotFound();
                 var viewModel = new UpdateApartmentRequestDto
@@ -124,7 +124,7 @@ namespace SmartBill.Controllers
             try
             {
                 var result = await _apartmentService.Update(model);
-                if(result == false)
+                if(result.Status == false)
                     return BadRequest();
 
                 return RedirectToAction("Index");
@@ -141,7 +141,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.GetById(Id);
+                var result = await _apartmentService.GetByIdAsync(Id);
                 if (result == null)
                     return NotFound();
                 return View(result);

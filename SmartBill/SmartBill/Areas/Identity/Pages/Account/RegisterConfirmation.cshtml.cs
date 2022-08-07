@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using SmartBill.Entities.Domains;
+using SmartBill.Entities.Domains.MSSQL;
 
 namespace SmartBill.Areas.Identity.Pages.Account
 {

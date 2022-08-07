@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.BillServices
 {
-    public class BillService : IBillService
+    public class BillService //: IBillService
     {
         public Task<bool> Activate(string Id)
         {

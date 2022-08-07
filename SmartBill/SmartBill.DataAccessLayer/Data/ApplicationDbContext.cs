@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SmartBill.Entities.Domains;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SmartBill.Entities.Domains.MSSQL;
 
 namespace SmartBill.DataAccessLayer.Data
 {
@@ -26,8 +21,8 @@ namespace SmartBill.DataAccessLayer.Data
 
         //public virtual DbSet<MessageSending> MessageSendings { get; set; }
         //public virtual DbSet<MessageReception> MessageReceptions { get; set; }
-        //public virtual DbSet<Bank> Banks { get; set; }
-        //public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<Bank> Banks { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
         //public virtual DbSet<CrediCard> CrediCards { get; set; }
 
 
@@ -51,6 +46,11 @@ namespace SmartBill.DataAccessLayer.Data
             builder.Entity<ApplicationUser>()
             .HasAlternateKey(c => c.Email)
             .HasName("AlternateKey_Email");
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
     }
 }

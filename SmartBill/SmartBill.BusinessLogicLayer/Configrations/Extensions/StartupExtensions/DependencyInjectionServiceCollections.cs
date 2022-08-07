@@ -7,6 +7,7 @@ using SmartBill.BusinessLogicLayer.Services.CityServices;
 using SmartBill.BusinessLogicLayer.Services.DebtServices;
 using SmartBill.BusinessLogicLayer.Services.LocationServices;
 using SmartBill.BusinessLogicLayer.Services.MessageServices;
+using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
         {
             services.AddScoped<IApartmentService, ApartmentService>();
 
-            services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            /*services.AddScoped<IApplicationUserService, ApplicationUserService>();
 
             services.AddScoped<IBillServerService, BillServerService>();
 
@@ -33,7 +34,9 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
 
             services.AddScoped<IMessageService, MessageService>();
 
-            services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<ILocationService, LocationService>();*/
+
+            //services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
         }
     }

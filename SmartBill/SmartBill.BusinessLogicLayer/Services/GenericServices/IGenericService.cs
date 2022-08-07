@@ -1,24 +1,30 @@
-﻿using System;
+﻿using FluentValidation;
+using SmartBill.BusinessLogicLayer.Configrations.Responses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.GenericServices
 {
-    public interface IGenericService<TCreate, TUpdate, TGetAll, TGet>
-        where TCreate : class, new()
-        where TUpdate : class, new()
-        where TGetAll : class, new()
-        where TGet : class, new()
+    public interface IGenericService<TCreateDto, TCreateValid, TGetDto, TGetAllDto, TModel>
+        where TCreateDto : class, new()
+        where TCreateValid : AbstractValidator<TCreateDto>, new()
+        where TGetDto : class, new()
+        where TGetAllDto : class, new()
+        where TModel : class, new()
     {
-        public Task<bool> Create(TCreate item);
+        public Task<CommandResponse> CreateAsync(TCreateDto item);
 
-        public Task<bool> Update(TUpdate item);
+        public Task<TGetDto> GetByAsync(Expression<Func<TGetDto, bool>> predicate = null);
 
-        public Task<IEnumerable<TGetAll>> GetAllUnActivated();
-        public Task<IEnumerable<TGetAll>> GetAllActivated();
+        public Task<TGetDto> GetByIdAsync(string Id);
+ 
+        public Task<IEnumerable<TGetAllDto>> GetAllByAsync(Expression<Func<TGetAllDto, bool>> expression = null);
 
-        public Task<TGet> GetById(string Id);
+        public Task<CommandResponse> DeleteAsync(string Id);    
+
     }
 }

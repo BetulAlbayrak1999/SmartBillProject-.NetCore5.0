@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtensions;
 using SmartBill.BusinessLogicLayer.Mappers;
 using SmartBill.DataAccessLayer.Data;
-using SmartBill.Entities.Domains;
+using SmartBill.Entities.Domains.MSSQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -6,7 +6,7 @@ using SmartBill.BusinessLogicLayer.ViewModels;
 using SmartBill.BusinessLogicLayer.ViewModels.Role;
 using SmartBill.BusinessLogicLayer.ViewModels.UserRoles;
 using SmartBill.BusinessLogicLayer.ViewModels.Users;
-using SmartBill.Entities.Domains;
+using SmartBill.Entities.Domains.MSSQL;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

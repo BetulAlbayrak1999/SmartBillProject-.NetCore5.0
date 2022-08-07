@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
+using SmartBill.BusinessLogicLayer.Configrations.Responses;
 using SmartBill.BusinessLogicLayer.Dtos.ApartmentDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.ApartmentValidators;
 using SmartBill.DataAccessLayer.Data;
 using SmartBill.DataAccessLayer.Repositories.ApartmentRepositories;
-using SmartBill.Entities.Domains;
+using SmartBill.Entities.Domains.MSSQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,69 +15,36 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 {
-    public class ApartmentService : IApartmentService
+    public class ApartmentService : GenericService<CreateApartmentRequestDto, CreateApartmentRequestValidator, GetApartmentRequestDto, GetAllApartmentRequestDto, Apartment>, IApartmentService
     {
+        #region Field and Ctor
         private readonly IApartmentRepository _apartmentRepository;
         private readonly IMapper _autoMapper;
-        public ApartmentService(IApartmentRepository apartmentRepository, IMapper autoMapper)
+        public ApartmentService(IMapper autoMapper, IApartmentRepository apartmentRepository) : base(autoMapper, apartmentRepository)
         {
-            _apartmentRepository = apartmentRepository;
             _autoMapper = autoMapper;
-        }
-
-
-
-        #region Create
-        public async Task<bool> Create(CreateApartmentRequestDto item)
-        {
-            try
-            {
-                if (item is not null)
-                {
-                    //validation
-                    var validator = new CreateApartmentRequestValidator();
-                    validator.Validate(item).throwIfValidationException();
-
-                    //mapping
-                    Apartment mappedItem = _autoMapper.Map<Apartment>(item);
-                    var IsCreated = await _apartmentRepository.Create(mappedItem);
-                    if(IsCreated == true)
-                        return true; 
-                    return false;
-                }
-
-                { return false; }
-
-            }
-            catch (Exception ex) { return false; }
+            _apartmentRepository = apartmentRepository;
         }
 
         #endregion
 
+        public Task<CommandResponse> Activate(int Id)
+        {
+            throw new NotImplementedException();
+        }
 
         #region GetAllActivated
         public async Task<IEnumerable<GetAllApartmentRequestDto>> GetAllActivated()
         {
             try
             {
-                IEnumerable<Apartment> items = await _apartmentRepository.GetAll();
+                IEnumerable<Apartment> items = await _apartmentRepository.GetAllByAsync(x => x.IsActive == true);
 
-                IEnumerable<GetAllApartmentRequestDto> result = items.Where(d => d.IsActive == true).Select(d => new GetAllApartmentRequestDto
-                {
-                    Id = d.Id,
-                    Name = d.Name,
-                    IsEmpty = d.IsEmpty,
-                    PersonsNumber = d.PersonsNumber,
-                    FloorNo = d.FloorNo,
-                    BlockNo = d.BlockNo,
-                    ApartmentNo = d.ApartmentNo,
-                    LocationId = d.LocationId,
-                    IsActive = d.IsActive
+                IEnumerable<GetAllApartmentRequestDto> result = _autoMapper.Map<IEnumerable<Apartment>, IEnumerable<GetAllApartmentRequestDto>>(items);
 
-                });
                 return result;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return null;
             }
@@ -91,55 +59,21 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
         {
             try
             {
-                IEnumerable<Apartment> items = await _apartmentRepository.GetAll();
+                IEnumerable<Apartment> items = await _apartmentRepository.GetAllByAsync(x => x.IsActive == false);
 
-                IEnumerable<GetAllApartmentRequestDto> result = items.Where(d => d.IsActive == false).Select(d => new GetAllApartmentRequestDto
-                {
-                    Id= d.Id,
-                    Name = d.Name,
-                    IsEmpty = d.IsEmpty,
-                    PersonsNumber = d.PersonsNumber,
-                    FloorNo = d.FloorNo,
-                    BlockNo = d.BlockNo,
-                    ApartmentNo = d.ApartmentNo,
-                    LocationId = d.LocationId,
-                    IsActive = d.IsActive
+                IEnumerable<GetAllApartmentRequestDto> result = _autoMapper.Map<IEnumerable<Apartment>, IEnumerable<GetAllApartmentRequestDto>>(items);
 
-                });
                 return result;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 return null;
             }
         }
 
-        #endregion
-
-
-        #region GetById
-
-        public async Task<GetApartmentRequestDto> GetById(string Id)
+        public Task<CommandResponse> UnActivate(int Id)
         {
-            try
-            {
-                if (Id is not null)
-                {
-                    Apartment item = await _apartmentRepository.GetById(Id);
-                    if (item is not null)
-                    {
-                        //mapping
-                        GetApartmentRequestDto mappedItem = _autoMapper.Map<GetApartmentRequestDto>(item);
-
-                        return mappedItem;
-                    }
-                    return null;
-                }
-
-                { return null; }
-
-            }
-            catch (Exception ex) { return null; }
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -147,11 +81,12 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 
         #region Update
 
-        public async Task<bool> Update(UpdateApartmentRequestDto item)
+        public async Task<CommandResponse> Update(UpdateApartmentRequestDto item)
         {
             try
             {
-                if (item is not null)
+                var getItem = await _apartmentRepository.GetByIdAsync(item.Id);
+                if (item is not null && getItem is not null)
                 {
                     //validation
                     var validator = new UpdateApartmentRequestValidator();
@@ -159,12 +94,12 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
                     //set last modify time
                     //mapping
                     Apartment mappedItem = _autoMapper.Map<Apartment>(item);
-                    if (item.IsActive == false)
+                    if (item.IsActive == false && getItem.IsActive == true)
                     {
                         mappedItem.UnActivedDate = DateTime.Now;
                         mappedItem.ActivedDate = null;
                     }
-                    else if(item.IsActive == true)
+                    else if(item.IsActive == true && getItem.IsActive ==false)
                     {
                         mappedItem.ActivedDate = DateTime.Now;
                         mappedItem.UnActivedDate = null;
@@ -173,21 +108,22 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
                         item.IsEmpty = true;
                     else { item.IsEmpty = false; }
 
-                    bool IsUpdated = await _apartmentRepository.Update(mappedItem);
+                    bool IsUpdated = await _apartmentRepository.UpdateAsync(mappedItem);
                     if(IsUpdated == true)
-                        return true;
+                        return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
 
-                    return false;
+                    return new CommandResponse { Status = false, Message = "This operation has not done successfully" };
                 }
 
-                { return false; }
+                { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
 
             }
-            catch (Exception ex) { return false; }
+            catch (Exception ex) { return new CommandResponse { Status = false, Message = ex.Message}; }
 
         }
-
-
         #endregion
+
+       
     }
+
 }

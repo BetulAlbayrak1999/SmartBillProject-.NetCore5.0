@@ -1,0 +1,50 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
+using SmartBill.BusinessLogicLayer.Services.CreditCardServices;
+using SmartBill.Entities.Domains.MongoDB;
+
+namespace SmartBill.Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CreditCardsController : ControllerBase
+    {
+        private readonly ICreditCardService _service;
+
+        public CreditCardsController(ICreditCardService service)
+        {
+            _service = service;
+        }
+
+        [HttpGet("GetAll")]
+        public IActionResult GetAll()
+        {
+            var data = _service.GetAllCreditCard();
+            return Ok(data);
+        }
+
+        [HttpGet("GetById")]
+        public CreditCard GetById(string id)
+        {
+
+            return _service.GetCreditCard(new ObjectId(id));
+        }
+
+
+        [HttpPost]
+        public IActionResult Post(CreditCard request)
+        {
+            _service.CreateCreditCard(request);
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Put(CreditCard request)
+        {
+            _service.UpdateCreditCard(request);
+            return Ok();
+        }
+
+    }
+}

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.DebtServices
 {
-    public interface IDebtService : IGenericService<CreateDebtRequestDto, UpdateDebtRequestDto, GetAllDebtRequestDto, GetDebtRequestDto >
+    public interface IDebtService //: IGenericService<CreateDebtRequestDto, UpdateDebtRequestDto, GetAllDebtRequestDto, GetDebtRequestDto >
     {
     }
 }

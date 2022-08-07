@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.LocationServices
 {
-    public interface ILocationService : IGenericService<CreateLocationRequestDto, UpdateLocationRequestDto, GetAllLocationRequestDto, GetLocationRequestDto>
+    public interface ILocationService //: IGenericService<CreateLocationRequestDto, UpdateLocationRequestDto, GetAllLocationRequestDto, GetLocationRequestDto>
     {
     }
 }

@@ -7,6 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
+using SmartBill.BusinessLogicLayer.Configrations.Cache;
+using SmartBill.BusinessLogicLayer.Services.CreditCardServices;
+using SmartBill.DataAccessLayer.Repositories.CreditCardRepositories;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +31,26 @@ namespace SmartBill.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            var redisConfigInfo = Configuration.GetSection("RedisEndpointInfo").Get<RedisEndpointInfo>();
+            services.AddStackExchangeRedisCache(opt =>
+            {
+                opt.ConfigurationOptions = new ConfigurationOptions()
+                {
+                    EndPoints =
+                    {
+                        { redisConfigInfo.Endpoint, redisConfigInfo.Port }
+                    },
+                    Password = redisConfigInfo.Password,
+                    User = redisConfigInfo.UserName
+
+                };
+            });
+            //mongoDb
+            services.AddSingleton<MongoClient>(x => new MongoClient("mongodb://localhost:27017"));
+            services.AddScoped<ICrediCardRepository, CreditCardRepository>();
+            services.AddScoped<ICreditCardService, CreditCardService>();
+            services.AddMemoryCache();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

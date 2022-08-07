@@ -7,7 +7,7 @@ using SmartBill.BusinessLogicLayer.Dtos.CityDto;
 using SmartBill.BusinessLogicLayer.Dtos.DebtDto;
 using SmartBill.BusinessLogicLayer.Dtos.LocationDto;
 using SmartBill.BusinessLogicLayer.Dtos.MessageDto;
-using SmartBill.Entities.Domains;
+using SmartBill.Entities.Domains.MSSQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +38,8 @@ namespace SmartBill.BusinessLogicLayer.Mappers
 
             CreateMap<GetApartmentRequestDto, Apartment>().ReverseMap();
 
+            CreateMap<GetAllApartmentRequestDto, Apartment>().ReverseMap();
+
             #endregion
 
             #region Bill
@@ -47,6 +49,9 @@ namespace SmartBill.BusinessLogicLayer.Mappers
             CreateMap<UpdateBillRequestDto, Bill>();
 
             CreateMap<GetBillRequestDto, Bill>();
+
+            CreateMap<GetAllBillRequestDto, Bill>().ReverseMap();
+
 
             #endregion
 

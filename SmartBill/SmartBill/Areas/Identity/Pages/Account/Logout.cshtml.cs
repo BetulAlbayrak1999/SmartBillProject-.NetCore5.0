@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using SmartBill.Entities.Domains;
+using SmartBill.Entities.Domains.MSSQL;
 
 namespace SmartBill.Areas.Identity.Pages.Account
 {

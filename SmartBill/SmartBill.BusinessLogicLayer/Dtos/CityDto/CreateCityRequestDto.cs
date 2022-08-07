@@ -8,5 +8,7 @@ namespace SmartBill.BusinessLogicLayer.Dtos.CityDto
 {
     public class CreateCityRequestDto
     {
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
     }
 }

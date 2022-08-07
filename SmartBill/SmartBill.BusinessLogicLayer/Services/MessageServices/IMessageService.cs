@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.MessageServices
 {
-    public interface IMessageService : IGenericService<CreateMessageRequestDto, UpdateMessageRequestDto, GetAllMessageRequestDto, GetMessageRequestDto>
+    public interface IMessageService //: IGenericService<CreateMessageRequestDto, UpdateMessageRequestDto, GetAllMessageRequestDto, GetMessageRequestDto>
     {
     }
 }

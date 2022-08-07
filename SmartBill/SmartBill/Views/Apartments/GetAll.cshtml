@@ -1,9 +1,10 @@
-﻿@{
-    ViewData["Title"] = "Get All Activated Apartments";
+﻿@model IEnumerable<SmartBill.BusinessLogicLayer.Dtos.ApartmentDto.GetAllApartmentRequestDto>
+
+@{
+    ViewData["Title"] = "Get All Apartments";
 }
 
-<h1>Get All Activated Apartments</h1>
-
+<h1>Get All Apartments</h1>
 
 
 <table class="table table-striped mt-4">
@@ -32,7 +33,6 @@
                 <td>
                     <a asp-action="Update" asp-controller="Apartments" class="btn btn-warning" asp-route-Id="@apart.Id">Update</a>
                     <a asp-action="GetById" asp-controller="Apartments" class="btn btn-secondary" asp-route-Id="@apart.Id">Details</a>
-                    <a asp-action="UnActivate" asp-controller="Apartments" class="btn btn-danger" asp-route-Id="@apart.Id">UnActivate</a>
 
                 </td>
             </tr>

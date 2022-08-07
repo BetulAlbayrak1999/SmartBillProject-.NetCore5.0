@@ -25,7 +25,7 @@ namespace SmartBill.Api.Controllers
         }
 
         [HttpGet("GetById")]
-        public CreditCard GetById(string id)
+        public CreditCardPayment GetById(string id)
         {
 
             return _service.GetCreditCard(new ObjectId(id));
@@ -33,14 +33,14 @@ namespace SmartBill.Api.Controllers
 
 
         [HttpPost]
-        public IActionResult Post(CreditCard request)
+        public IActionResult Post(CreditCardPayment request)
         {
             _service.CreateCreditCard(request);
             return Ok();
         }
 
         [HttpPut]
-        public IActionResult Put(CreditCard request)
+        public IActionResult Put(CreditCardPayment request)
         {
             _service.UpdateCreditCard(request);
             return Ok();

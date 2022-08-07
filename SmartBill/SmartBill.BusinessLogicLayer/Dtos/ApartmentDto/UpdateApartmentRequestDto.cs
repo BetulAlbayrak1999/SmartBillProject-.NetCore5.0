@@ -10,6 +10,8 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApartmentDto
     {
         public string Id { get; set; }
 
+        public string Name { get; set; }
+
         public bool IsEmpty { get; set; }
 
         public int PersonsNumber { get; set; }

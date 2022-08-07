@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace SmartBill.Data.Migrations
+namespace SmartBill.DataAccessLayer.Migrations
 {
     public partial class SeedRoles : Migration
     {
@@ -28,5 +28,4 @@ namespace SmartBill.Data.Migrations
         }
     }
 }
-
 

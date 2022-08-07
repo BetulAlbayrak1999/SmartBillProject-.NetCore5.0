@@ -10,9 +10,51 @@
     <hr />
     <dl class="row">
         <input type="hidden" asp-for="Id"/>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2 table-bordered">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Location.City.Name)
+        </dd>
+        <dt class = "col-sm-2 table-bordered">
+            @Html.DisplayNameFor(model => model.Location.City.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Location.PostalCode)
+        </dd>
+        <dt class = "col-sm-2 table-bordered">
+            @Html.DisplayNameFor(model => model.Location.PostalCode)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Location.Street)
+        </dd>
+        <dt class = "col-sm-2 table-bordered">
+            @Html.DisplayNameFor(model => model.Location.Street)
+        </dt>
+        @if(Model.ApplicationUser is not null)
+        {
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ApplicationUser.TurkishIdentity)
+            </dd>
+            <dt class = "col-sm-2 table-bordered">
+                @Html.DisplayNameFor(model => model.ApplicationUser.TurkishIdentity)
+            </dt>
+
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ApplicationUser.FirstName)
+            </dd>
+            <dt class = "col-sm-2 table-bordered">
+                @Html.DisplayNameFor(model => model.ApplicationUser.FirstName)
+            </dt>
+             <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ApplicationUser.LastName)
+            </dd>
+            <dt class = "col-sm-2 table-bordered">
+                @Html.DisplayNameFor(model => model.ApplicationUser.LastName)
+            </dt>
+        }
+        
+
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Name)
         </dd>
@@ -58,26 +100,35 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.LastModifiedDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UnActivedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UnActivedDate)
-        </dd>
+        @if(Model.UnActivedDate is not null)
+        {
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.UnActivedDate)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.UnActivedDate)
+            </dd>
+        }
+        else
+        {
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.ActivedDate)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.ActivedDate)
+            </dd>
+        }
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsActive)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.IsActive)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ActivedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ActivedDate)
-        </dd>
+        
     </dl>
 </div>
 <div>
+    <a asp-action="Delete" asp-controller="Apartments" class="btn btn-danger" asp-route-Id="@Model.Id">Delete</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartBill.Entities.Domains.MSSQL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +24,10 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApartmentDto
         public int ApartmentNo { get; set; }
 
         public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 
         public string LocationId { get; set; }
+        public Location Location { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }

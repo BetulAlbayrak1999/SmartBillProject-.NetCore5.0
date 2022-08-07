@@ -19,5 +19,6 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApartmentDto
         public int ApartmentNo { get; set; }
 
         public string LocationId { get; set; }
+        public string? ApplicationUserId { get; set; }
     }
 }

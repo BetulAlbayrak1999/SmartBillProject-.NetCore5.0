@@ -118,7 +118,7 @@ namespace SmartBill.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser {
-                    UserName = Input.TurkishIdentity,
+                    UserName = Input.UserName,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
@@ -132,7 +132,7 @@ namespace SmartBill.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    await _userManager.AddToRoleAsync(user, "User");////////////////////////////this is a default but I need to update it.
+                    await _userManager.AddToRoleAsync(user, "Admin");////////////////////////////this is a default but I need to update it.
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

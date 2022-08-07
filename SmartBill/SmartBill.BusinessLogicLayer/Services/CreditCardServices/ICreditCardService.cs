@@ -7,16 +7,16 @@ namespace SmartBill.BusinessLogicLayer.Services.CreditCardServices
 {
     public interface ICreditCardService
     {
-        void CreateCreditCard(CreditCard model);
+        void CreateCreditCard(CreditCardPayment model);
 
-        void UpdateCreditCard(CreditCard model);
+        void UpdateCreditCard(CreditCardPayment model);
 
         void ActivateCreditCard(ObjectId Id);
 
         void UnActivateCreditCard(ObjectId Id);
 
-        CreditCard GetCreditCard(ObjectId Id);
+        CreditCardPayment GetCreditCard(ObjectId Id);
 
-        IEnumerable<CreditCard> GetAllCreditCard();
+        IEnumerable<CreditCardPayment> GetAllCreditCard();
     }
 }

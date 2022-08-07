@@ -3,7 +3,7 @@ using SmartBill.Entities.Domains.MongoDB;
 
 namespace SmartBill.DataAccessLayer.Repositories.MongoDBRepositories.CreditCardRepositories
 {
-    public interface ICrediCardRepository : IDocumentRepository<CreditCard>
+    public interface ICrediCardRepository : IDocumentRepository<CreditCardPayment>
     {
     }
 }

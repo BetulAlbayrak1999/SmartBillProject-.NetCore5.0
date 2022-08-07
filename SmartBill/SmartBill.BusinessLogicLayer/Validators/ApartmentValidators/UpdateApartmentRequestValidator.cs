@@ -12,6 +12,8 @@ namespace SmartBill.BusinessLogicLayer.Validators.ApartmentValidators
     {
         public UpdateApartmentRequestValidator()
         {
+            RuleFor(x => x.Id).NotEmpty();
+
             RuleFor(x => x.PersonsNumber).NotEmpty();
 
             RuleFor(x => x.UnActivedDate).LessThanOrEqualTo(DateTime.Now);

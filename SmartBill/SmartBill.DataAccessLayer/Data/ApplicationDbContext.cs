@@ -10,7 +10,7 @@ namespace SmartBill.DataAccessLayer.Data
         public ApplicationDbContext() { }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options) { }
-
+        
         public virtual DbSet<Apartment> Apartments { get; set; }
         public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<BillServer> BillServers { get; set; }
@@ -21,9 +21,7 @@ namespace SmartBill.DataAccessLayer.Data
 
         //public virtual DbSet<MessageSending> MessageSendings { get; set; }
         //public virtual DbSet<MessageReception> MessageReceptions { get; set; }
-        public virtual DbSet<Bank> Banks { get; set; }
-        public virtual DbSet<Payment> Payments { get; set; }
-        //public virtual DbSet<CrediCard> CrediCards { get; set; }
+        public virtual DbSet<BankAccount> BankAccounts { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

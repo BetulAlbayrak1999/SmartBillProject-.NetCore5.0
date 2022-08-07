@@ -42,6 +42,7 @@ namespace SmartBill.DataAccessLayer.Repositories.EFRepositories.GenericRepositor
             {
                 var item = await _object.FindAsync(Id);
                 _object.Remove(item);
+                await _context.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex) { return false; }
@@ -77,7 +78,7 @@ namespace SmartBill.DataAccessLayer.Repositories.EFRepositories.GenericRepositor
             }
         }
 
-        public async Task<T> GetByIdAsync(string Id)
+        public virtual async Task<T> GetByIdAsync(string Id)
         {
             try
             {

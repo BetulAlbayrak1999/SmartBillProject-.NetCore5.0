@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using SmartBill.Entities.Domains.MongoDB;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,16 +24,14 @@ namespace SmartBill.Entities.Domains.MSSQL
 
         public string VehicleNo { get; set; }
 
-        public string ApartmentId { get; set; }
-        [ForeignKey(nameof(ApartmentId))]
-        public virtual Apartment Apartment { get; set; }
+
+        public ICollection<Apartment> Apartments { get; set; }
 
 
-        //public ICollection<CreditCard> CreditCards { get; set; }
+        public ICollection<BankAccount> BankAccounts { get; set; }
 
         public ICollection<Bill> Bills { get; set; }
 
-        public ICollection<Payment> Payments { get; set; }
         //public ICollection<MessageSending> MessageSendings { get; set; }
 
     }

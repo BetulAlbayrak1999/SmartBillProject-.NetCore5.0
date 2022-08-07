@@ -19,7 +19,7 @@ namespace SmartBill.BusinessLogicLayer.Services.CreditCardServices
             throw new System.NotImplementedException();
         }
 
-        public void CreateCreditCard(CreditCard model)
+        public void CreateCreditCard(CreditCardPayment model)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace SmartBill.BusinessLogicLayer.Services.CreditCardServices
             catch(Exception ex) { }
         }
 
-        public IEnumerable<CreditCard> GetAllCreditCard()
+        public IEnumerable<CreditCardPayment> GetAllCreditCard()
         {
             try
             {
@@ -37,7 +37,7 @@ namespace SmartBill.BusinessLogicLayer.Services.CreditCardServices
             catch (Exception ex) { return null; }
         }
 
-        public CreditCard GetCreditCard(ObjectId Id)
+        public CreditCardPayment GetCreditCard(ObjectId Id)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace SmartBill.BusinessLogicLayer.Services.CreditCardServices
             throw new System.NotImplementedException();
         }
 
-        public void UpdateCreditCard(CreditCard model)
+        public void UpdateCreditCard(CreditCardPayment model)
         {
             try
             {

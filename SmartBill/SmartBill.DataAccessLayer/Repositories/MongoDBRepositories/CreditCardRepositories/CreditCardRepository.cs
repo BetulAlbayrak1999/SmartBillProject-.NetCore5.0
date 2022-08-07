@@ -5,7 +5,7 @@ using SmartBill.Entities.Domains.MongoDB;
 
 namespace SmartBill.DataAccessLayer.Repositories.MongoDBRepositories.CreditCardRepositories
 {
-    public class CreditCardRepository : DocumentRepository<CreditCard>, ICrediCardRepository
+    public class CreditCardRepository : DocumentRepository<CreditCardPayment>, ICrediCardRepository
     {
         private const string CollectionName = "CreditCard";
 

@@ -8,27 +8,16 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Entities.Domains.MSSQL
 {
-    public class Apartment : BaseEntity
+    public class BankAccount: BaseEntity
     {
-        public string Name { get; set; }
-
-        public int BlockNo { get; set; }
-
-        public bool IsEmpty { get; set; }
-
-        public int PersonsNumber { get; set; }
-
-        public int FloorNo { get; set; }
-
-        public int ApartmentNo { get; set; }
-
+        public string BankName { get; set; }
         public string ApplicationUserId { get; set; }
         [ForeignKey(nameof(ApplicationUserId))]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
-        public string LocationId { get; set; }
-        [ForeignKey(nameof(LocationId))]
-        public virtual Location Location { get; set; }
+        public string CardNumber { get; set; }
+        public int CardExpireMonth { get; set; }
+        public int CardExpireYear { get; set; }
 
     }
 }

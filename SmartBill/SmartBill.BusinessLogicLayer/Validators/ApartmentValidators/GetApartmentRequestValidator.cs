@@ -12,6 +12,8 @@ namespace SmartBill.BusinessLogicLayer.Validators.ApartmentValidators
     {
         public GetApartmentRequestValidator()
         {
+            RuleFor(x => x.Id).NotEmpty();
+
             RuleFor(x => x.Name).NotEmpty().MinimumLength(3).MaximumLength(100);
 
             RuleFor(x => x.BlockNo).NotEmpty().GreaterThan(0);
@@ -26,11 +28,15 @@ namespace SmartBill.BusinessLogicLayer.Validators.ApartmentValidators
 
             RuleFor(x => x.ApartmentNo).NotEmpty().GreaterThan(0);
 
-            RuleFor(x => x.LocationId).NotEmpty().MinimumLength(1);
+            //RuleFor(x => x.LocationId).NotEmpty();
 
-            RuleFor(x => x.Id).NotEmpty().MinimumLength(1);
+            RuleFor(x => x.Id).NotEmpty();
             
             RuleFor(x => x.CreatedDate).NotEmpty().LessThanOrEqualTo(DateTime.Now);
+
+            RuleFor(x => x.ActivedDate).LessThanOrEqualTo(DateTime.Now);
+
+            RuleFor(x => x.UnActivedDate).LessThanOrEqualTo(DateTime.Now);
 
             RuleFor(x => x.LastModifiedDate).NotEmpty().LessThanOrEqualTo(DateTime.Now);
         }

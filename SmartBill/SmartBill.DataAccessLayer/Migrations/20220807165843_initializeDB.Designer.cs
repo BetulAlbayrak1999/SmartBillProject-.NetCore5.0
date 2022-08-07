@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartBill.DataAccessLayer.Data;
 
-namespace SmartBill.Data.Migrations
+namespace SmartBill.DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220802071458_AddingTables")]
-    partial class AddingTables
+    [Migration("20220807165843_initializeDB")]
+    partial class initializeDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,9 +152,10 @@ namespace SmartBill.Data.Migrations
                     b.ToTable("UserTokens", "security");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Apartment", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Apartment", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ActivedDate")
@@ -163,14 +164,14 @@ namespace SmartBill.Data.Migrations
                     b.Property<int>("ApartmentNo")
                         .HasColumnType("int");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("BlockNo")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("CustomerId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("FloorNo")
                         .HasColumnType("int");
@@ -198,14 +199,14 @@ namespace SmartBill.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("LocationId");
 
                     b.ToTable("Apartments");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.ApplicationUser", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -218,10 +219,6 @@ namespace SmartBill.Data.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -305,23 +302,34 @@ namespace SmartBill.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", "security");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("ApplicationUser");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Bank", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.BankAccount", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ActivedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CardExpireMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CardExpireYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -329,24 +337,27 @@ namespace SmartBill.Data.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("UnActivedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bank");
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("BankAccounts");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Bill", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Bill", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ActivedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<float>("BillAmount")
                         .HasColumnType("real");
@@ -356,9 +367,6 @@ namespace SmartBill.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("CustomerId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -383,16 +391,17 @@ namespace SmartBill.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BillServerId");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("BillServerId");
 
                     b.ToTable("Bills");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.BillServer", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.BillServer", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ActivedDate")
@@ -418,9 +427,10 @@ namespace SmartBill.Data.Migrations
                     b.ToTable("BillServers");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.City", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.City", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ActivedDate")
@@ -446,47 +456,10 @@ namespace SmartBill.Data.Migrations
                     b.ToTable("Cities");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.CreditCard", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Debt", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("ActivedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("BankId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CustomerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("ExpireTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UnActivedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BankId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("CreditCard");
-                });
-
-            modelBuilder.Entity("SmartBill.Entities.Domains.Debt", b =>
-                {
-                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ActivedDate")
@@ -520,9 +493,10 @@ namespace SmartBill.Data.Migrations
                     b.ToTable("Debts");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Location", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Location", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ActivedDate")
@@ -556,9 +530,10 @@ namespace SmartBill.Data.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Message", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Message", b =>
                 {
                     b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime?>("ActivedDate")
@@ -587,53 +562,6 @@ namespace SmartBill.Data.Migrations
                     b.ToTable("Messages");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Payment", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("ActivedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("BankId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreditCardId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CustomerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UnActivedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BankId");
-
-                    b.HasIndex("CreditCardId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("Payment");
-                });
-
-            modelBuilder.Entity("SmartBill.Entities.Domains.Customer", b =>
-                {
-                    b.HasBaseType("SmartBill.Entities.Domains.ApplicationUser");
-
-                    b.HasDiscriminator().HasValue("Customer");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -645,7 +573,7 @@ namespace SmartBill.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SmartBill.Entities.Domains.ApplicationUser", null)
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -654,7 +582,7 @@ namespace SmartBill.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SmartBill.Entities.Domains.ApplicationUser", null)
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -669,7 +597,7 @@ namespace SmartBill.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SmartBill.Entities.Domains.ApplicationUser", null)
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -678,133 +606,92 @@ namespace SmartBill.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("SmartBill.Entities.Domains.ApplicationUser", null)
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Apartment", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Apartment", b =>
                 {
-                    b.HasOne("SmartBill.Entities.Domains.Customer", "Customer")
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.ApplicationUser", "ApplicationUser")
                         .WithMany("Apartments")
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("ApplicationUserId");
 
-                    b.HasOne("SmartBill.Entities.Domains.Location", "Location")
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.Location", "Location")
                         .WithMany("Apartments")
                         .HasForeignKey("LocationId");
 
-                    b.Navigation("Customer");
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Location");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Bill", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.BankAccount", b =>
                 {
-                    b.HasOne("SmartBill.Entities.Domains.BillServer", "BillServer")
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.ApplicationUser", "ApplicationUser")
+                        .WithMany("BankAccounts")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Bill", b =>
+                {
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.ApplicationUser", "ApplicationUser")
+                        .WithMany("Bills")
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.BillServer", "BillServer")
                         .WithMany("Bills")
                         .HasForeignKey("BillServerId");
 
-                    b.HasOne("SmartBill.Entities.Domains.Customer", "Customer")
-                        .WithMany("Bills")
-                        .HasForeignKey("CustomerId");
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("BillServer");
-
-                    b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.CreditCard", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Debt", b =>
                 {
-                    b.HasOne("SmartBill.Entities.Domains.Bank", "Bank")
-                        .WithMany("CreditCards")
-                        .HasForeignKey("BankId");
-
-                    b.HasOne("SmartBill.Entities.Domains.Customer", "Customer")
-                        .WithMany("CreditCards")
-                        .HasForeignKey("CustomerId");
-
-                    b.Navigation("Bank");
-
-                    b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("SmartBill.Entities.Domains.Debt", b =>
-                {
-                    b.HasOne("SmartBill.Entities.Domains.Bill", "Bill")
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.Bill", "Bill")
                         .WithMany()
                         .HasForeignKey("BillId");
 
                     b.Navigation("Bill");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Location", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Location", b =>
                 {
-                    b.HasOne("SmartBill.Entities.Domains.City", "City")
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.City", "City")
                         .WithMany("Locations")
                         .HasForeignKey("CityId");
 
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Payment", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.ApplicationUser", b =>
                 {
-                    b.HasOne("SmartBill.Entities.Domains.Bank", "Bank")
-                        .WithMany("Payments")
-                        .HasForeignKey("BankId");
+                    b.Navigation("Apartments");
 
-                    b.HasOne("SmartBill.Entities.Domains.CreditCard", "CreditCard")
-                        .WithMany("Payments")
-                        .HasForeignKey("CreditCardId");
+                    b.Navigation("BankAccounts");
 
-                    b.HasOne("SmartBill.Entities.Domains.Customer", "Customer")
-                        .WithMany("Payments")
-                        .HasForeignKey("CustomerId");
-
-                    b.Navigation("Bank");
-
-                    b.Navigation("CreditCard");
-
-                    b.Navigation("Customer");
+                    b.Navigation("Bills");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.Bank", b =>
-                {
-                    b.Navigation("CreditCards");
-
-                    b.Navigation("Payments");
-                });
-
-            modelBuilder.Entity("SmartBill.Entities.Domains.BillServer", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.BillServer", b =>
                 {
                     b.Navigation("Bills");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.City", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.City", b =>
                 {
                     b.Navigation("Locations");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.CreditCard", b =>
-                {
-                    b.Navigation("Payments");
-                });
-
-            modelBuilder.Entity("SmartBill.Entities.Domains.Location", b =>
+            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Location", b =>
                 {
                     b.Navigation("Apartments");
-                });
-
-            modelBuilder.Entity("SmartBill.Entities.Domains.Customer", b =>
-                {
-                    b.Navigation("Apartments");
-
-                    b.Navigation("Bills");
-
-                    b.Navigation("CreditCards");
-
-                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

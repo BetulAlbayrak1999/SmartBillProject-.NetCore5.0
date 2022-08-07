@@ -1,4 +1,5 @@
-﻿using SmartBill.DataAccessLayer.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartBill.DataAccessLayer.Data;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.GenericRepositories;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
@@ -13,6 +14,22 @@ namespace SmartBill.DataAccessLayer.Repositories.EFRepositories.ApartmentReposit
     {
         public ApartmentRepository(ApplicationDbContext context) : base(context)
         {
+            
+        }
+
+        public override async Task<Apartment> GetByIdAsync(string Id)
+        {
+            try
+            {
+                using (var _context = new ApplicationDbContext())
+                {
+                    return await _context.Apartments.Include(x => x.ApplicationUser).Include(x=> x.Location).FirstOrDefaultAsync(d=> d.Id == Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

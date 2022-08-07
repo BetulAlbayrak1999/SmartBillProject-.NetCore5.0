@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SmartBill.BusinessLogicLayer.Dtos.ApartmentDto;
 using SmartBill.BusinessLogicLayer.Services.AppartmentServices;
+using SmartBill.DataAccessLayer.Data;
 using System;
 using System.Threading.Tasks;
 
@@ -79,12 +81,37 @@ namespace SmartBill.Controllers
         }
         #endregion
 
-
-        #region Create
-        public IActionResult Create()
+        #region Delete
+        
+        public async Task<IActionResult> Delete(string Id)
         {
             try
             {
+                var result = await _apartmentService.DeleteAsync(Id);
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+        }
+
+        #endregion
+
+
+        #region Create
+        public async Task<IActionResult> Create()
+        {
+            try
+            {
+                /*var ApplicationUserRepository = new ApplicationUserRepository();
+                var users =await _context.Users.ToListAsync();
+                ViewBag.ApplicationUsers = users;
+
+                var locations = await _context.Locations.ToListAsync();
+                ViewBag.Locations = locations;*/
+
                 return View();
 
             }
@@ -100,7 +127,7 @@ namespace SmartBill.Controllers
             try
             {
                 var result = await _apartmentService.CreateAsync(model);
-                return RedirectToAction("GetAllUnActivated");
+                return RedirectToAction("GetAll");
 
             }
             catch (Exception ex)
@@ -161,6 +188,40 @@ namespace SmartBill.Controllers
                 if (result == null)
                     return NotFound();
                 return View(result);
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+        }
+        #endregion
+
+        #region Activate
+        public async Task<IActionResult> Activate(string Id)
+        {
+            try
+            {
+                var result = await _apartmentService.ActivateAsync(Id);
+                if (result == null)
+                    return NotFound();
+                return RedirectToAction("GetAll");
+            }
+            catch (Exception ex)
+            {
+                return View(ex);
+            }
+        }
+        #endregion
+
+        #region UnActivate
+        public async Task<IActionResult> UnActivate(string Id)
+        {
+            try
+            {
+                var result = await _apartmentService.UnActivateAsync(Id);
+                if (result == null)
+                    return NotFound();
+                return RedirectToAction("GetAll");
             }
             catch (Exception ex)
             {

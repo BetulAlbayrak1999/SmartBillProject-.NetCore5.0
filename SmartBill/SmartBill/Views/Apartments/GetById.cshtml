@@ -100,22 +100,22 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.LastModifiedDate)
         </dd>
-        @if(Model.UnActivedDate is not null)
+        @if(Model.UnActivatedDate is not null)
         {
             <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.UnActivedDate)
+                @Html.DisplayNameFor(model => model.UnActivatedDate)
             </dt>
             <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.UnActivedDate)
+                @Html.DisplayFor(model => model.UnActivatedDate)
             </dd>
         }
         else
         {
             <dt class = "col-sm-2">
-                @Html.DisplayNameFor(model => model.ActivedDate)
+                @Html.DisplayNameFor(model => model.ActivatedDate)
             </dt>
             <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.ActivedDate)
+                @Html.DisplayFor(model => model.ActivatedDate)
             </dd>
         }
 

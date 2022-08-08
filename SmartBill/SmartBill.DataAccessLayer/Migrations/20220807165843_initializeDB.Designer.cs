@@ -158,7 +158,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("ActivedDate")
+                    b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ApartmentNo")
@@ -194,7 +194,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<int>("PersonsNumber")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UnActivedDate")
+                    b.Property<DateTime?>("UnActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -310,7 +310,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("ActivedDate")
+                    b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ApplicationUserId")
@@ -337,7 +337,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("UnActivedDate")
+                    b.Property<DateTime?>("UnActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -353,7 +353,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("ActivedDate")
+                    b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ApplicationUserId")
@@ -386,7 +386,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<float>("TotalAmount")
                         .HasColumnType("real");
 
-                    b.Property<DateTime?>("UnActivedDate")
+                    b.Property<DateTime?>("UnActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -404,7 +404,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("ActivedDate")
+                    b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedDate")
@@ -419,7 +419,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UnActivedDate")
+                    b.Property<DateTime?>("UnActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -433,7 +433,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("ActivedDate")
+                    b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedDate")
@@ -448,7 +448,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UnActivedDate")
+                    b.Property<DateTime?>("UnActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -462,7 +462,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("ActivedDate")
+                    b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("BillId")
@@ -483,7 +483,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("UnActivedDate")
+                    b.Property<DateTime?>("UnActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -499,7 +499,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("ActivedDate")
+                    b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CityId")
@@ -520,7 +520,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UnActivedDate")
+                    b.Property<DateTime?>("UnActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -536,7 +536,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime?>("ActivedDate")
+                    b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Body")
@@ -554,7 +554,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<string>("Subject")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("UnActivedDate")
+                    b.Property<DateTime?>("UnActivatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");

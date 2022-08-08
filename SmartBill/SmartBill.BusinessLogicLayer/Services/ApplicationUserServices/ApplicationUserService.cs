@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
+using SmartBill.BusinessLogicLayer.Configrations.Responses;
 using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators;
@@ -15,135 +17,163 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
 {
     public class ApplicationUserService : GenericService<CreateApplicationUserRequestDto, CreateApplicationUserRequestValidator, GetApplicationUserRequestDto, GetAllApplicationUserRequestDto, ApplicationUser>, IApplicationUserService
     {
-        private readonly IApplicationUserRepository _ApplicationUserRepository;
+        private readonly IApplicationUserRepository _applicationUserRepository;
         private readonly IMapper _autoMapper;
-        public ApplicationUserService(IMapper autoMapper, IApplicationUserRepository ApplicationUserRepository) : base(autoMapper, ApplicationUserRepository)
+        public ApplicationUserService(IMapper autoMapper, IApplicationUserRepository applicationUserRepository) : base(autoMapper, applicationUserRepository)
         {
             _autoMapper = autoMapper;
-            _ApplicationUserRepository = ApplicationUserRepository;
+            _applicationUserRepository = applicationUserRepository;
         }
 
-        public Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllActivated()
+        #region Activate
+        public async Task<CommandResponse> ActivateAsync(string Id)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                ApplicationUser item = await _applicationUserRepository.GetByIdAsync(Id);
+                if (item == null)
+                    return null;
+                item.IsActive = true;
+                item.ActivatedDate = DateTime.Now;
+                bool IsUpdated = await _applicationUserRepository.UpdateAsync(item);
+                if (IsUpdated)
+                    return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
 
-        public Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllUnActivated()
+                return new CommandResponse { Status = false, Message = "This operation has not done successfully" };
+            }
+            catch (Exception ex)
+            {
+                return new CommandResponse { Status = false, Message = ex.Message };
+            }
+        }
+        #endregion
+
+
+        #region UnActivate
+        public async Task<CommandResponse> UnActivateAsync(string Id)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                ApplicationUser item = await _applicationUserRepository.GetByIdAsync(Id);
+                if (item == null)
+                    return null;
+                item.IsActive = false;
+                item.UnActivatedDate = DateTime.Now;
+                bool IsUpdated = await _applicationUserRepository.UpdateAsync(item);
+                if (IsUpdated)
+                    return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
 
-        public Task<bool> Update(UpdateApplicationUserRequestDto item)
+                return new CommandResponse { Status = false, Message = "This operation has not done successfully" };
+            }
+            catch (Exception ex)
+            {
+                return new CommandResponse { Status = false, Message = ex.Message };
+            }
+        }
+        #endregion
+
+
+
+        #region GetAll
+        public async Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                IEnumerable<ApplicationUser> items = await _applicationUserRepository.GetAllByAsync();
+                IEnumerable<GetAllApplicationUserRequestDto> result = _autoMapper.Map<IEnumerable<ApplicationUser>, IEnumerable<GetAllApplicationUserRequestDto>>(items);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
-        /*
-#region GetAllActivated
-public async Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllActivated()
-{
-   try
-   {
-       IEnumerable<ApplicationUser> items = await _ApplicationUserRepository.GetAll();
-
-       IEnumerable<GetAllApplicationUserRequestDto> result = items.Where(d => d.IsActive == true).Select(d => new GetAllApplicationUserRequestDto
-       {
-           Id = d.Id,
-           Name = d.Name,
-           IsEmpty = d.IsEmpty,
-           PersonsNumber = d.PersonsNumber,
-           FloorNo = d.FloorNo,
-           BlockNo = d.BlockNo,
-           ApplicationUserNo = d.ApplicationUserNo,
-           LocationId = d.LocationId,
-           IsActive = d.IsActive
-
-       });
-       return result;
-   }
-   catch (Exception e)
-   {
-       return null;
-   }
-}
-
-#endregion
+        #endregion
 
 
-#region GetAllUnActivated
+        #region GetAllActivated
+        public async Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllActivatedAsync()
+        {
+            try
+            {
+                IEnumerable<ApplicationUser> items = await _applicationUserRepository.GetAllByAsync(x => x.IsActive == true);
 
-public async Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllUnActivated()
-{
-   try
-   {
-       IEnumerable<ApplicationUser> items = await _ApplicationUserRepository.GetAll();
+                IEnumerable<GetAllApplicationUserRequestDto> result = _autoMapper.Map<IEnumerable<ApplicationUser>, IEnumerable<GetAllApplicationUserRequestDto>>(items);
 
-       IEnumerable<GetAllApplicationUserRequestDto> result = items.Where(d => d.IsActive == false).Select(d => new GetAllApplicationUserRequestDto
-       {
-           Id = d.Id,
-           Name = d.Name,
-           IsEmpty = d.IsEmpty,
-           PersonsNumber = d.PersonsNumber,
-           FloorNo = d.FloorNo,
-           BlockNo = d.BlockNo,
-           ApplicationUserNo = d.ApplicationUserNo,
-           LocationId = d.LocationId,
-           IsActive = d.IsActive
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-       });
-       return result;
-   }
-   catch (Exception e)
-   {
-       return null;
-   }
-}
-
-#endregion
+        #endregion
 
 
-#region Update
+        #region GetAllUnActivated
 
-public async Task<bool> Update(UpdateApplicationUserRequestDto item)
-{
-   try
-   {
-       if (item is not null)
-       {
-           //validation
-           var validator = new UpdateApplicationUserRequestValidator();
-           validator.Validate(item).throwIfValidationException();
-           //set last modify time
-           //mapping
-           ApplicationUser mappedItem = _autoMapper.Map<ApplicationUser>(item);
-           if (item.IsActive == false)
-           {
-               mappedItem.UnActivedDate = DateTime.Now;
-               mappedItem.ActivedDate = null;
-           }
-           else if (item.IsActive == true)
-           {
-               mappedItem.ActivedDate = DateTime.Now;
-               mappedItem.UnActivedDate = null;
-           }
-           if (item.PersonsNumber == 0)
-               item.IsEmpty = true;
-           else { item.IsEmpty = false; }
+        public async Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllUnActivatedAsync()
+        {
+            try
+            {
+                IEnumerable<ApplicationUser> items = await _applicationUserRepository.GetAllByAsync(x => x.IsActive == false);
 
-           bool IsUpdated = await _ApplicationUserRepository.Update(mappedItem);
-           if (IsUpdated == true)
-               return true;
+                IEnumerable<GetAllApplicationUserRequestDto> result = _autoMapper.Map<IEnumerable<ApplicationUser>, IEnumerable<GetAllApplicationUserRequestDto>>(items);
 
-           return false;
-       }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
-       { return false; }
 
-   }
-   catch (Exception ex) { return false; }
+        #endregion
 
-}
 
-#endregion
-*/
+        #region Update
+
+        public async Task<CommandResponse> UpdateAsync(UpdateApplicationUserRequestDto item)
+        {
+            try
+            {
+                var getItem = await _applicationUserRepository.GetByIdAsync(item.Id);
+                if (item is not null && getItem is not null)
+                {
+                    //validation
+                    var validator = new UpdateApplicationUserRequestValidator();
+                    validator.Validate(item).throwIfValidationException();
+                    //set last modify time
+                    //mapping
+                    ApplicationUser mappedItem = _autoMapper.Map<ApplicationUser>(item);
+                    if (item.IsActive == false && getItem.IsActive == true)
+                    {
+                        mappedItem.UnActivatedDate = DateTime.Now;
+                        mappedItem.ActivatedDate = null;
+                    }
+                    else if (item.IsActive == true && getItem.IsActive == false)
+                    {
+                        mappedItem.ActivatedDate = DateTime.Now;
+                        mappedItem.UnActivatedDate = null;
+                    }
+
+                    bool IsUpdated = await _applicationUserRepository.UpdateAsync(mappedItem);
+                    if (IsUpdated == true)
+                        return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
+
+                    return new CommandResponse { Status = false, Message = "This operation has not done successfully" };
+                }
+
+                { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
+
+            }
+            catch (Exception ex) { return new CommandResponse { Status = false, Message = ex.Message }; }
+
+        }
+        #endregion
+
     }
 }

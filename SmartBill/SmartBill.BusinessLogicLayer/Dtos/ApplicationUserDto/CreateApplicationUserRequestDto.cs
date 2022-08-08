@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartBill.Entities.Domains.MSSQL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,15 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto
 
         public DateTime Birthdate { get; set; }
 
-        public byte[] ProfilePicture { get; set; }
-
-        public string ApartmentId { get; set; }
 
         public string PhoneNumber { get; set; }
         
     }
 }
+
+/*
+public ICollection<Apartment> Apartments { get; set; }
+
+public ICollection<BankAccount> BankAccounts { get; set; }
+
+public ICollection<Bill> Bills { get; set; }*/

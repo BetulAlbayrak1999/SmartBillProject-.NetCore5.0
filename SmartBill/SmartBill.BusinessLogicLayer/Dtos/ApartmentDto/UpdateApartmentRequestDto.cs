@@ -10,19 +10,25 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApartmentDto
     {
         public string Id { get; set; }
 
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
-        public bool IsEmpty { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Email { get; set; }
 
         public int PersonsNumber { get; set; }
 
         public DateTime LastModifiedDate { get; set; } = DateTime.Now;
 
-        public DateTime? UnActivedDate { get; set; }
+        public DateTime? UnActivatedDate { get; set; }
         
         public bool IsActive { get; set; } = false;
+        public bool IsEmpty { get; set; } = false;
         
-        public DateTime? ActivedDate { get; set; }
+        public DateTime? ActivatedDate { get; set; }
+
     }
 }
 

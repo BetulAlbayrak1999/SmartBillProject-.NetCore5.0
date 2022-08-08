@@ -15,9 +15,9 @@ namespace SmartBill.Entities.Domains.MSSQL.Common
         public string Id { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public DateTime LastModifiedDate { get; set; } = DateTime.Now;
-        public DateTime? UnActivedDate { get; set; }
+        public DateTime? UnActivatedDate { get; set; }
         public bool IsActive { get; set; }
-        public DateTime? ActivedDate { get; set; }
+        public DateTime? ActivatedDate { get; set; }
 
     }
 }

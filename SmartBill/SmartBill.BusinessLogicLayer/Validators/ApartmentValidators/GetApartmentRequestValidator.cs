@@ -34,9 +34,9 @@ namespace SmartBill.BusinessLogicLayer.Validators.ApartmentValidators
             
             RuleFor(x => x.CreatedDate).NotEmpty().LessThanOrEqualTo(DateTime.Now);
 
-            RuleFor(x => x.ActivedDate).LessThanOrEqualTo(DateTime.Now);
+            RuleFor(x => x.ActivatedDate).LessThanOrEqualTo(DateTime.Now);
 
-            RuleFor(x => x.UnActivedDate).LessThanOrEqualTo(DateTime.Now);
+            RuleFor(x => x.UnActivatedDate).LessThanOrEqualTo(DateTime.Now);
 
             RuleFor(x => x.LastModifiedDate).NotEmpty().LessThanOrEqualTo(DateTime.Now);
         }

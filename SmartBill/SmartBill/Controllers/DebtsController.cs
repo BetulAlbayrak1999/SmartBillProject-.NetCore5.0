@@ -57,7 +57,7 @@ namespace SmartBill.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BillId,DebtPaidDate,IsDebtPaid,Id,CreatedDate,LastModifiedDate,UnActivedDate,IsActive,ActivedDate")] Debt debt)
+        public async Task<IActionResult> Create([Bind("BillId,DebtPaidDate,IsDebtPaid,Id,CreatedDate,LastModifiedDate,UnActivatedDate,IsActive,ActivatedDate")] Debt debt)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace SmartBill.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("BillId,DebtPaidDate,IsDebtPaid,Id,CreatedDate,LastModifiedDate,UnActivedDate,IsActive,ActivedDate")] Debt debt)
+        public async Task<IActionResult> Edit(string id, [Bind("BillId,DebtPaidDate,IsDebtPaid,Id,CreatedDate,LastModifiedDate,UnActivatedDate,IsActive,ActivatedDate")] Debt debt)
         {
             if (id != debt.Id)
             {

@@ -18,9 +18,9 @@ namespace SmartBill.BusinessLogicLayer.Validators.BaseEntityValidators
 
             RuleFor(x => x.LastModifiedDate).NotNull().LessThanOrEqualTo(p => DateTime.Now).WithMessage("This date could not be in the future");
 
-            RuleFor(x => x.UnActivedDate).LessThanOrEqualTo(p => DateTime.Now).WithMessage("This date could not be in the future");
+            RuleFor(x => x.UnActivatedDate).LessThanOrEqualTo(p => DateTime.Now).WithMessage("This date could not be in the future");
 
-            RuleFor(x => x.ActivedDate).LessThanOrEqualTo(p => DateTime.Now).WithMessage("This date could not be in the future");
+            RuleFor(x => x.ActivatedDate).LessThanOrEqualTo(p => DateTime.Now).WithMessage("This date could not be in the future");
 
             RuleFor(x => x.IsActive).NotNull();
         }

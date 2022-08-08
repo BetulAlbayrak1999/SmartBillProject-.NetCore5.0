@@ -24,7 +24,9 @@ namespace SmartBill.Entities.Domains.MSSQL
 
         public string VehicleNo { get; set; }
 
-
+        public bool IsActive { get; set; }
+        public DateTime? ActivatedDate { get; set; }
+        public DateTime? UnActivatedDate { get; set; }
         public ICollection<Apartment> Apartments { get; set; }
 
 
@@ -36,3 +38,4 @@ namespace SmartBill.Entities.Domains.MSSQL
 
     }
 }
+

@@ -15,6 +15,8 @@ namespace SmartBill.Entities.Domains.MSSQL
         [ForeignKey(nameof(ApplicationUserId))]
         public virtual ApplicationUser ApplicationUser { get; set; }
 
+        public string AccountNo { get; set; }
+        public float Balance { get; set; }
         public string CardNumber { get; set; }
         public int CardExpireMonth { get; set; }
         public int CardExpireYear { get; set; }

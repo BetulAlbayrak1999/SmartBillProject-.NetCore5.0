@@ -37,7 +37,7 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
                 if (apart == null)
                     return null;
                 apart.IsActive = true;
-                apart.ActivedDate = DateTime.Now;
+                apart.ActivatedDate = DateTime.Now;
                 bool IsUpdated = await _apartmentRepository.UpdateAsync(apart);
                 if (IsUpdated)
                     return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
@@ -61,7 +61,7 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
                 if (apart == null)
                     return null;
                 apart.IsActive = false;
-                apart.UnActivedDate = DateTime.Now;
+                apart.UnActivatedDate = DateTime.Now;
                 bool IsUpdated = await _apartmentRepository.UpdateAsync(apart);
                 if (IsUpdated)
                     return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
@@ -154,13 +154,13 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
                     Apartment mappedItem = _autoMapper.Map<Apartment>(item);
                     if (item.IsActive == false && getItem.IsActive == true)
                     {
-                        mappedItem.UnActivedDate = DateTime.Now;
-                        mappedItem.ActivedDate = null;
+                        mappedItem.UnActivatedDate = DateTime.Now;
+                        mappedItem.ActivatedDate = null;
                     }
                     else if(item.IsActive == true && getItem.IsActive ==false)
                     {
-                        mappedItem.ActivedDate = DateTime.Now;
-                        mappedItem.UnActivedDate = null;
+                        mappedItem.ActivatedDate = DateTime.Now;
+                        mappedItem.UnActivatedDate = null;
                     }
                     if (item.PersonsNumber == 0)
                         item.IsEmpty = true;

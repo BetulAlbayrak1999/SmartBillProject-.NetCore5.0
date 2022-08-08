@@ -32,7 +32,7 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApartmentDto
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }
 
-        public DateTime? UnActivedDate { get; set; }
-        public DateTime? ActivedDate { get; set; }
+        public DateTime? UnActivatedDate { get; set; }
+        public DateTime? ActivatedDate { get; set; }
     }
 }

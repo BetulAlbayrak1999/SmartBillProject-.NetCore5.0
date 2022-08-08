@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SmartBill.Entities.Domains.MSSQL;
+using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators
 {
-    public class ApplicationUserValidator : AbstractValidator<ApplicationUser>
+    public class GetApplicationUserRequestValidator : AbstractValidator<GetApplicationUserRequestDto>
     {
-        public ApplicationUserValidator()
+        public GetApplicationUserRequestValidator()
         {
+            RuleFor(x => x.Id).NotEmpty();
+
             RuleFor(x => x.FirstName).NotEmpty().MinimumLength(3).MaximumLength(100);
 
             RuleFor(x => x.LastName).NotEmpty().MinimumLength(3).MaximumLength(100);
@@ -22,6 +24,15 @@ namespace SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators
 
             RuleFor(x => x.Birthdate).Must(IsAgeValid).WithMessage("You must be older than 17");
 
+            RuleFor(x => x.ProfilePicture).NotEmpty();
+
+            RuleFor(x => x.ActivatedDate).LessThanOrEqualTo(DateTime.Now);
+
+            RuleFor(x => x.UnActivatedDate).LessThanOrEqualTo(DateTime.Now);
+
+            RuleFor(x => x.CreatedDate).LessThanOrEqualTo(DateTime.Now);
+
+            RuleFor(x => x.LastModifiedDate).LessThanOrEqualTo(DateTime.Now);
 
         }
         private bool IsAgeValid(DateTime Birthdate)

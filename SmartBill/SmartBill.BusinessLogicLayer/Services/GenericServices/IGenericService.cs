@@ -9,14 +9,10 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.GenericServices
 {
-    public interface IGenericService<TCreateDto, TCreateValid, TGetDto, TGetAllDto, TModel>
-        where TCreateDto : class, new()
-        where TCreateValid : AbstractValidator<TCreateDto>, new()
+    public interface IGenericService<TGetDto, TModel>
         where TGetDto : class, new()
-        where TGetAllDto : class, new()
         where TModel : class, new()
     {
-        public Task<CommandResponse> CreateAsync(TCreateDto item);
 
         //public Task<TGetDto> GetByAsync(Expression<Func<TGetDto, bool>> predicate = null);
 

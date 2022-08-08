@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 {
-    public class ApartmentService : GenericService<CreateApartmentRequestDto, CreateApartmentRequestValidator, GetApartmentRequestDto, GetAllApartmentRequestDto, Apartment>, IApartmentService
+    public class ApartmentService : GenericService<GetApartmentRequestDto, Apartment>, IApartmentService
     {
         #region Field and Ctor
         private readonly IApartmentRepository _apartmentRepository;
@@ -181,7 +181,34 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
         }
         #endregion
 
-       
+
+        #region Create
+        public async Task<CommandResponse> CreateAsync(CreateApartmentRequestDto item)
+        {
+            try
+            {
+                if (item is not null)
+                {
+                    //validation
+                    var validator = new CreateApartmentRequestValidator();
+                    validator.Validate(item).throwIfValidationException();
+
+                    //mapping
+                    Apartment mappedItem = _autoMapper.Map<Apartment>(item);
+                    var IsCreated = await _apartmentRepository.CreateAsync(mappedItem);
+                    if (IsCreated == true)
+                        return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
+                    return new CommandResponse { Status = false, Message = "This operation has not done successfully" };
+                }
+
+                { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
+
+            }
+            catch (Exception ex) { return new CommandResponse { Status = false, Message = ex.Message }; }
+        }
+
+        #endregion
+
     }
 
 }

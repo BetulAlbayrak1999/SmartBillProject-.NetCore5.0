@@ -19,6 +19,7 @@ namespace SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators
             RuleFor(x => x.LastName).NotEmpty().MinimumLength(3).MaximumLength(100);
 
             RuleFor(x => x.VehicleNo).MinimumLength(5);
+            RuleFor(x => x.TurkishIdentity).Length(11);
 
             RuleFor(x => x.ActivatedDate).LessThanOrEqualTo(DateTime.Now);
 

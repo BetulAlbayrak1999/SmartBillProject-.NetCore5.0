@@ -3,8 +3,6 @@ using SmartBill.BusinessLogicLayer.Services.AppartmentServices;
 using SmartBill.BusinessLogicLayer.Services.ApplicationUserServices;
 using SmartBill.BusinessLogicLayer.Services.BillServerServices;
 using SmartBill.BusinessLogicLayer.Services.BillServices;
-using SmartBill.BusinessLogicLayer.Services.CityServices;
-using SmartBill.BusinessLogicLayer.Services.DebtServices;
 using SmartBill.BusinessLogicLayer.Services.LocationServices;
 using SmartBill.BusinessLogicLayer.Services.MessageServices;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
@@ -22,9 +20,9 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
         {
             services.AddScoped<IApartmentService, ApartmentService>();
 
-            /*services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            services.AddScoped<IApplicationUserService, ApplicationUserService>();
 
-            services.AddScoped<IBillServerService, BillServerService>();
+            /*services.AddScoped<IBillServerService, BillServerService>();
 
             services.AddScoped<IBillService, BillService>();
 

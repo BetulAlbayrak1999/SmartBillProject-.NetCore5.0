@@ -3,10 +3,12 @@ using SmartBill.BusinessLogicLayer.Dtos.ApartmentDto;
 using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Dtos.BillDto;
 using SmartBill.BusinessLogicLayer.Dtos.BillServerDto;
-using SmartBill.BusinessLogicLayer.Dtos.CityDto;
-using SmartBill.BusinessLogicLayer.Dtos.DebtDto;
 using SmartBill.BusinessLogicLayer.Dtos.LocationDto;
 using SmartBill.BusinessLogicLayer.Dtos.MessageDto;
+using SmartBill.BusinessLogicLayer.Dtos.RoleDto;
+using SmartBill.BusinessLogicLayer.ViewModels.ApartmentVM;
+using SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM;
+using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
 using System.Collections.Generic;
@@ -24,9 +26,11 @@ namespace SmartBill.BusinessLogicLayer.Mappers
 
             CreateMap<CreateApplicationUserRequestDto, ApplicationUser>();
 
-            CreateMap<UpdateApplicationUserRequestDto, ApplicationUser>();
+            CreateMap<UpdateApplicationUserRequestDto, ApplicationUser>().ReverseMap();
 
             CreateMap<GetApplicationUserRequestDto, ApplicationUser>();
+
+            CreateMap<ApplicationUserProfileFormVM, ApplicationUser>();
 
             #endregion
 
@@ -39,6 +43,13 @@ namespace SmartBill.BusinessLogicLayer.Mappers
             CreateMap<GetApartmentRequestDto, Apartment>().ReverseMap();
 
             CreateMap<GetAllApartmentRequestDto, Apartment>().ReverseMap();
+
+            CreateMap<ApartmentListVM, Apartment>().ReverseMap();
+
+            #endregion
+
+            #region Role
+            CreateMap<GetRoleRequestDto, GetRoleVM>().ReverseMap();
 
             #endregion
 
@@ -65,25 +76,7 @@ namespace SmartBill.BusinessLogicLayer.Mappers
 
             #endregion
 
-            #region City
 
-            CreateMap<CreateCityRequestDto, City>();
-
-            CreateMap<UpdateCityRequestDto, City>();
-
-            CreateMap<GetCityRequestDto, City>();
-
-            #endregion
-
-            #region Debt
-
-            CreateMap<CreateDebtRequestDto, Debt>();
-
-            CreateMap<UpdateDebtRequestDto, Debt>();
-
-            CreateMap<GetDebtRequestDto, Debt>();
-
-            #endregion
 
             #region Location
 

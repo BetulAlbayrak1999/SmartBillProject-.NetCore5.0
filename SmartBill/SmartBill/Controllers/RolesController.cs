@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SmartBill.BusinessLogicLayer.ViewModels.Role;
+using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
 using System.Threading.Tasks;
 
 namespace SmartBill.Controllers

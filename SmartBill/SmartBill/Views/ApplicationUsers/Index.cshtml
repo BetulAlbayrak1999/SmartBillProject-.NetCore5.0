@@ -1,0 +1,38 @@
+﻿@model IEnumerable<GetAllApplicationUserRequestDto>
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1>Users</h1>
+
+<a asp-action="CreateApplicationUserWithRole" class="btn btn-primary">Add New User</a>
+<table class="table table-striped mt-4">
+    <thead>
+        <tr class="bg-primary text-white">
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>User Name</th>
+            <th>Turkish Identity</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.UserName</td>
+                <td>@user.TurkishIdentity</td>
+                <td>@user.Email</td>
+                <td>@string.Join(" , ", user.Roles.ToList())</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="ApplicationUsers" asp-action="ManageRoles" asp-route-userId="@user.Id">Manage Roles</a>
+                    <a class="btn btn-outline-primary" asp-controller="ApplicationUsers" asp-action="Update" asp-route-userId="@user.Id">Modify Profile</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

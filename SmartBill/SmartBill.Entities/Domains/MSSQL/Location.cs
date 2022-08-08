@@ -10,11 +10,7 @@ namespace SmartBill.Entities.Domains.MSSQL
 {
     public class Location : BaseEntity
     {
-        public string CityId { get; set; }
-
-        [ForeignKey(nameof(CityId))]
-        public virtual City City { get; set; }
-
+        public string CityName { get; set; }
         public string Street { get; set; }
 
         public string PostalCode { get; set; }

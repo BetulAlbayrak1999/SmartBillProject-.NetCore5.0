@@ -21,7 +21,9 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto
 
         public string Email { get; set; }
 
-        public byte[] ProfilePicture { get; set; }
+        public byte[]? ProfilePicture { get; set; }
+
+        public IEnumerable<string> Roles { get; set; }
 
     }
 }

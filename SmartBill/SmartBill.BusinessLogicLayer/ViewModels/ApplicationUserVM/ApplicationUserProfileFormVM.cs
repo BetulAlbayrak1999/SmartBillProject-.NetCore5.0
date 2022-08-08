@@ -4,15 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto
+namespace SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM
 {
-    public class UpdateApplicationUserRequestDto
+    public class ApplicationUserProfileFormVM
     {
+
         public string Id { get; set; }
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-        public string TurkishIdentity { get; set; }
+
+
+        public string Email { get; set; }
+
+        public string UserName { get; set; }
+
         public string? VehicleNo { get; set; }
 
         public byte[] ProfilePicture { get; set; }
@@ -24,9 +30,5 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto
         public bool IsActive { get; set; } = false;
 
         public DateTime? ActivatedDate { get; set; }
-
-        public string Email { get; set; }
-
-        public string UserName { get; set; }
- }
+    }
 }

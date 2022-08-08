@@ -12,12 +12,9 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.GenericServices
 {
-    public abstract class GenericService<TCreateDto, TCreateValid, TGetDto, TGetAllDto, TModel>
-        : IGenericService<TCreateDto, TCreateValid, TGetDto, TGetAllDto, TModel>
-        where TCreateDto : class, new()
-        where TCreateValid : AbstractValidator<TCreateDto>, new()
+    public abstract class GenericService< TGetDto, TModel>
+        : IGenericService<TGetDto, TModel>
         where TGetDto : class, new()
-        where TGetAllDto : class, new()
         where TModel : class, new()
     {
         #region Field and Constructor
@@ -32,33 +29,7 @@ namespace SmartBill.BusinessLogicLayer.Services.GenericServices
         #endregion
 
 
-        #region Create
-        public async Task<CommandResponse> CreateAsync(TCreateDto item)
-        {
-            try
-            {
-                if (item is not null)
-                {
-                    //validation
-                    var validator = new TCreateValid();
-                    validator.Validate(item).throwIfValidationException();
-
-                    //mapping
-                    TModel mappedItem = _autoMapper.Map<TModel>(item);
-                    var IsCreated = await _genericRepository.CreateAsync(mappedItem);
-                    if (IsCreated == true)
-                        return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
-                    return new CommandResponse { Status = false, Message = "This operation has not done successfully" };
-                }
-
-                { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
-
-            }
-            catch (Exception ex) { return new CommandResponse { Status = false, Message = ex.Message }; }
-        }
-
-        #endregion
-
+        
 
         #region GetByIdAsync
         public async Task<TGetDto> GetByIdAsync(string Id)

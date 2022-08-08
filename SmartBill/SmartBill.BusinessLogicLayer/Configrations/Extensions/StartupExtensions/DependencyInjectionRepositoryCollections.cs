@@ -3,8 +3,6 @@ using SmartBill.DataAccessLayer.Repositories.EFRepositories.ApartmentRepositorie
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.ApplicationUserRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.BillRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.BillServerRepositories;
-using SmartBill.DataAccessLayer.Repositories.EFRepositories.CityRepositories;
-using SmartBill.DataAccessLayer.Repositories.EFRepositories.DebtRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.GenericRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.LocationRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.MessageRepositories;
@@ -27,10 +25,6 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
             services.AddScoped<IBillServerRepository, BillServerRepository>();
 
             services.AddScoped<IBillRepository, BillRepository>();
-
-            services.AddScoped<ICityRepository, CityRepository>();
-
-            services.AddScoped<IDebtRepository, DebtRepository>();
 
             services.AddScoped<IMessageRepository, MessageRepository>();
 

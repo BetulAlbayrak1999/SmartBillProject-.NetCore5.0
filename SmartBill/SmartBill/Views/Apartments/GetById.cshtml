@@ -13,24 +13,26 @@
         <dt class = "col-sm-2 table-bordered">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
+        <!--
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location.City.Name)
+            Html.DisplayFor(model => model.Location.CityName)
         </dd>
         <dt class = "col-sm-2 table-bordered">
-            @Html.DisplayNameFor(model => model.Location.City.Name)
+            Html.DisplayNameFor(model => model.Location.CityName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location.PostalCode)
+            Html.DisplayFor(model => model.Location.PostalCode)
         </dd>
         <dt class = "col-sm-2 table-bordered">
-            @Html.DisplayNameFor(model => model.Location.PostalCode)
+            Html.DisplayNameFor(model => model.Location.PostalCode)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Location.Street)
+            Html.DisplayFor(model => model.Location.Street)
         </dd>
         <dt class = "col-sm-2 table-bordered">
-            @Html.DisplayNameFor(model => model.Location.Street)
+            Html.DisplayNameFor(model => model.Location.Street)
         </dt>
+        -->
         @if(Model.ApplicationUser is not null)
         {
             <dd class = "col-sm-10">
@@ -132,3 +134,7 @@
     <a asp-action="Delete" asp-controller="Apartments" class="btn btn-danger" asp-route-Id="@Model.Id">Delete</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

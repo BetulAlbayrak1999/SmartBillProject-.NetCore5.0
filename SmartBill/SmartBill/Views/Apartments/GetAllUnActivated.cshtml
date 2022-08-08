@@ -10,12 +10,14 @@
     <thead>
         <tr class="bg-primary text-white">
             <th>Name</th>
+            <th>ApartmentNo</th>
             <th>BlockNo</th>
             <th>IsEmpty</th>
             <th>PersonsNumber</th>
             <th>FloorNo</th>
-            <th>ApartmentNo</th>
+            <!--<th>Location</th>-->
             <th>IsActive</th>
+
         </tr>
     </thead>
     <tbody>
@@ -23,19 +25,25 @@
         {
             <tr>
                 <td>@apart.Name</td>
+                <td>@apart.ApartmentNo</td>
                 <td>@apart.BlockNo</td>
                 <td>@apart.IsEmpty</td>
                 <td>@apart.PersonsNumber</td>
                 <td>@apart.FloorNo</td>
-                <td>@apart.ApartmentNo</td>
+                <!--<td>apart.Location.City.Name</td>-->
                 <td>@apart.IsActive</td>
                 <td>
                     <a asp-action="Update" asp-controller="Apartments" class="btn btn-warning" asp-route-Id="@apart.Id">Update</a>
                     <a asp-action="GetById" asp-controller="Apartments" class="btn btn-secondary" asp-route-Id="@apart.Id">Details</a>
                     <a asp-action="Activate" asp-controller="Apartments" class="btn btn-success" asp-route-Id="@apart.Id">Activate</a>
-
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

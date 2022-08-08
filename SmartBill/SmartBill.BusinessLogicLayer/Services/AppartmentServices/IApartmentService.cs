@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 {
-    public interface IApartmentService : IGenericService<CreateApartmentRequestDto, CreateApartmentRequestValidator, GetApartmentRequestDto, GetAllApartmentRequestDto, Apartment>
+    public interface IApartmentService : IGenericService<GetApartmentRequestDto, Apartment>
     {
         public Task<IEnumerable<GetAllApartmentRequestDto>> GetAllActivatedAsync();
 
@@ -26,5 +26,8 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 
         public Task<CommandResponse> UnActivateAsync(string Id);
 
+        public Task<CommandResponse> CreateAsync(CreateApartmentRequestDto item);
+
     }
 }
+

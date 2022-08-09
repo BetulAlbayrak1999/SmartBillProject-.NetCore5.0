@@ -8,5 +8,7 @@ namespace SmartBill.BusinessLogicLayer.Dtos.BillServerDto
 {
     public class CreateBillServerRequestDto
     {
+        public string Name { get; set; }
+
     }
 }

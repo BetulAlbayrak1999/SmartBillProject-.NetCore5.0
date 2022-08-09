@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>BillServer Type Options</h1>
+
+<div class="btn-lg active">
+    <a asp-action="GetAllActivated" class="btn btn-info">Get All Activated BillServer Types</a>
+    <a asp-action="GetAllUnActivated" class="btn btn-info">Get All UnActivated BillServer Types</a>
+    <a asp-action="GetAll" class="btn btn-secondary">Get All BillServer Types</a>
+    <hr />
+    <a asp-action="Create" asp-controller="BillServers" class="btn btn-primary">Create a new BillServer type</a>
+    <hr />
+    
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

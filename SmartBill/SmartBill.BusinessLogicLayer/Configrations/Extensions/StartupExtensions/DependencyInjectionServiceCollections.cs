@@ -22,9 +22,9 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
 
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
 
-            /*services.AddScoped<IBillServerService, BillServerService>();
+            services.AddScoped<IBillServerService, BillServerService>();
 
-            services.AddScoped<IBillService, BillService>();
+            /*services.AddScoped<IBillService, BillService>();
 
             services.AddScoped<ICityService, CityService>();
 

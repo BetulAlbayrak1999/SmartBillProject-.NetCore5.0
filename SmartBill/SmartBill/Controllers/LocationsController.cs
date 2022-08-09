@@ -1,20 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SmartBill.BusinessLogicLayer.Dtos.ApartmentDto;
-using SmartBill.BusinessLogicLayer.Services.AppartmentServices;
-using SmartBill.DataAccessLayer.Data;
+using SmartBill.BusinessLogicLayer.Dtos.LocationDto;
+using SmartBill.BusinessLogicLayer.Services.LocationServices;
 using System;
 using System.Threading.Tasks;
 
 namespace SmartBill.Controllers
 {
-    public class ApartmentsController : Controller
+    public class LocationsController : Controller
     {
-        private readonly IApartmentService _apartmentService;
+        private readonly ILocationService _locationService;
 
-        public ApartmentsController(IApartmentService apartmentService)
+        public LocationsController(ILocationService apartmentService)
         {
-            _apartmentService = apartmentService;
+            _locationService = apartmentService;
         }
 
         #region Index
@@ -38,7 +36,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.GetAllActivatedAsync();
+                var result = await _locationService.GetAllActivatedAsync();
                 return View(result);
 
             }
@@ -54,8 +52,10 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.GetAllAsync();
-                return View(result);
+                var result = await _locationService.GetAllAsync();
+                if(result is not null)
+                    return View(result);
+                return null;
 
             }
             catch (Exception ex)
@@ -70,7 +70,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.GetAllUnActivatedAsync();
+                var result = await _locationService.GetAllUnActivatedAsync();
                 return View(result);
 
             }
@@ -82,12 +82,12 @@ namespace SmartBill.Controllers
         #endregion
 
         #region Delete
-        
+
         public async Task<IActionResult> Delete(string Id)
         {
             try
             {
-                var result = await _apartmentService.DeleteAsync(Id);
+                var result = await _locationService.DeleteAsync(Id);
                 return RedirectToAction("Index");
 
             }
@@ -101,19 +101,11 @@ namespace SmartBill.Controllers
 
 
         #region Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             try
             {
-                /*var ApplicationUserRepository = new ApplicationUserRepository();
-                var users =await _context.Users.ToListAsync();
-                ViewBag.ApplicationUsers = users;
-
-                var locations = await _context.Locations.ToListAsync();
-                ViewBag.Locations = locations;*/
-
                 return View();
-
             }
             catch (Exception ex)
             {
@@ -122,11 +114,11 @@ namespace SmartBill.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateApartmentRequestDto model)
+        public async Task<IActionResult> Create(CreateLocationRequestDto model)
         {
             try
             {
-                var result = await _apartmentService.CreateAsync(model);
+                var result = await _locationService.CreateAsync(model);
                 return RedirectToAction("GetAll");
 
             }
@@ -138,22 +130,23 @@ namespace SmartBill.Controllers
         #endregion
 
         #region Update
-        public async Task <IActionResult> Update(string Id)
+        public async Task<IActionResult> Update(string Id)
         {
             try
             {
-                var result = await _apartmentService.GetByIdAsync(Id);
+                var result = await _locationService.GetByIdAsync(Id);
                 if (result == null)
                     return NotFound();
-                var viewModel = new UpdateApartmentRequestDto
+                var viewModel = new UpdateLocationRequestDto
                 {
                     Id = result.Id,
-                    Name = result.Name,
-                    ApartmentNo = result.ApartmentNo,
-                    PersonsNumber = result.PersonsNumber,
+                    City = result.City,
+                    Region = result.Region,
+                    PostalCode = result.PostalCode,
+                    Street = result.Street,
                     IsActive = result.IsActive
                 };
-                return View(result);
+                return View(viewModel);
             }
             catch (Exception ex)
             {
@@ -164,12 +157,12 @@ namespace SmartBill.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateApartmentRequestDto model)
+        public async Task<IActionResult> Update(UpdateLocationRequestDto model)
         {
             try
             {
-                var result = await _apartmentService.UpdateAsync(model);
-                if(result.Status == false)
+                var result = await _locationService.UpdateAsync(model);
+                if (result.Status == false)
                     return BadRequest();
 
                 return RedirectToAction("Index");
@@ -186,7 +179,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.GetByIdAsync(Id);
+                var result = await _locationService.GetByIdAsync(Id);
                 if (result == null)
                     return NotFound();
                 return View(result);
@@ -203,7 +196,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.ActivateAsync(Id);
+                var result = await _locationService.ActivateAsync(Id);
                 if (result == null)
                     return NotFound();
                 return RedirectToAction("GetAll");
@@ -220,7 +213,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _apartmentService.UnActivateAsync(Id);
+                var result = await _locationService.UnActivateAsync(Id);
                 if (result == null)
                     return NotFound();
                 return RedirectToAction("GetAll");
@@ -233,3 +226,4 @@ namespace SmartBill.Controllers
         #endregion
     }
 }
+

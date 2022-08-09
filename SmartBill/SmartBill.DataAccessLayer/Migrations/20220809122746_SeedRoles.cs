@@ -21,10 +21,5 @@ namespace SmartBill.DataAccessLayer.Migrations
                 schema: "security"
                 );
         }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql("DELETE FROM [security].[Roles]");
-        }
     }
 }

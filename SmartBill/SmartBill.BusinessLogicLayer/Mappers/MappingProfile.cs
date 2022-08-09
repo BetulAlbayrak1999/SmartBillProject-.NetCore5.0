@@ -34,17 +34,41 @@ namespace SmartBill.BusinessLogicLayer.Mappers
 
             #endregion
 
+            #region Location
+
+            CreateMap<CreateLocationRequestDto, Location>().ReverseMap();
+
+            CreateMap<UpdateLocationRequestDto, Location>().ReverseMap();
+
+            CreateMap<GetLocationRequestDto, Location>().ReverseMap();
+            CreateMap<GetAllLocationRequestDto, Location>().ReverseMap();
+
+            #endregion
+
             #region Apartment
 
-            CreateMap<CreateApartmentRequestDto, Apartment>();
+            CreateMap<CreateApartmentRequestDto, Apartment>().ReverseMap();
 
-            CreateMap<UpdateApartmentRequestDto, Apartment>();
+            CreateMap<UpdateApartmentRequestDto, Apartment>().ReverseMap();
 
             CreateMap<GetApartmentRequestDto, Apartment>().ReverseMap();
 
             CreateMap<GetAllApartmentRequestDto, Apartment>().ReverseMap();
 
             CreateMap<ApartmentListVM, Apartment>().ReverseMap();
+
+            #endregion
+
+
+            #region BillServer
+
+            CreateMap<CreateBillServerRequestDto, BillServer>().ReverseMap();
+
+            CreateMap<UpdateBillServerRequestDto, BillServer>().ReverseMap();
+
+            CreateMap<GetBillServerRequestDto, BillServer>().ReverseMap();
+
+            CreateMap<GetAllBillServerRequestDto, BillServer>().ReverseMap();
 
             #endregion
 
@@ -62,29 +86,6 @@ namespace SmartBill.BusinessLogicLayer.Mappers
             CreateMap<GetBillRequestDto, Bill>();
 
             CreateMap<GetAllBillRequestDto, Bill>().ReverseMap();
-
-
-            #endregion
-
-            #region BillServer
-
-            CreateMap<CreateBillServerRequestDto, BillServer>();
-
-            CreateMap<UpdateBillServerRequestDto, BillServer>();
-
-            CreateMap<GetBillServerRequestDto, BillServer>();
-
-            #endregion
-
-
-
-            #region Location
-
-            CreateMap<CreateLocationRequestDto, Location>();
-
-            CreateMap<UpdateLocationRequestDto, Location>();
-
-            CreateMap<GetLocationRequestDto, Location>();
 
             #endregion
 

@@ -9,15 +9,12 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.GenericServices
 {
-    public interface IGenericService<TGetDto, TModel>
-        where TGetDto : class, new()
+    public interface IGenericService<TModel>
         where TModel : class, new()
     {
 
         //public Task<TGetDto> GetByAsync(Expression<Func<TGetDto, bool>> predicate = null);
 
-        public Task<TGetDto> GetByIdAsync(string Id);
- 
         //public Task<IEnumerable<TGetAllDto>> GetAllByAsync(Expression<Func<TGetAllDto, bool>> expression = null);
 
         public Task<CommandResponse> DeleteAsync(string Id);    

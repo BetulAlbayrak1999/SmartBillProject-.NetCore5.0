@@ -10,7 +10,8 @@ namespace SmartBill.Entities.Domains.MSSQL
 {
     public class Location : BaseEntity
     {
-        public string CityName { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
         public string Street { get; set; }
 
         public string PostalCode { get; set; }

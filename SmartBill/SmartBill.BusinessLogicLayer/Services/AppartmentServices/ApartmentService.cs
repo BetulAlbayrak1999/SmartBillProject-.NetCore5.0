@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 {
-    public class ApartmentService : GenericService<GetApartmentRequestDto, Apartment>, IApartmentService
+    public class ApartmentService : GenericService<Apartment>, IApartmentService
     {
         #region Field and Ctor
         private readonly IApartmentRepository _apartmentRepository;
@@ -209,6 +209,31 @@ namespace SmartBill.BusinessLogicLayer.Services.AppartmentServices
 
         #endregion
 
+        #region GetByIdAsync
+        public async Task<GetApartmentRequestDto> GetByIdAsync(string Id)
+        {
+            try
+            {
+                if (Id is not null)
+                {
+                    Apartment item = await _apartmentRepository.GetByIdAsync(Id);
+                    if (item is not null)
+                    {
+                        //mapping
+                        GetApartmentRequestDto mappedItem = _autoMapper.Map<GetApartmentRequestDto>(item);
+
+                        return mappedItem;
+                    }
+                    return null;
+                }
+
+                { return null; }
+
+            }
+            catch (Exception ex) { return null; }
+        }
+
+        #endregion
     }
 
 }

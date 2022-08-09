@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Location Options</h1>
+
+<div class="btn-lg active">
+    <a asp-action="GetAllActivated" class="btn btn-info">Get All Activated Locations</a>
+    <a asp-action="GetAllUnActivated" class="btn btn-info">Get All UnActivated Locations</a>
+    <a asp-action="GetAll" class="btn btn-secondary">Get All Locations</a>
+    <hr />
+    <a asp-action="Create" asp-controller="Locations" class="btn btn-primary">Create a new Location</a>
+    <hr />
+    
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

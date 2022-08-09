@@ -50,7 +50,22 @@ namespace SmartBill.Controllers
             {
                  var result = await _applicationUserService.GetProfileFormAsync(userId);
                 if (result is not null)
-                    return View(result);
+                {
+                    var viewModel = new UpdateApplicationUserRequestDto
+                    {
+                        Id = result.Id,
+                        UserName = result.UserName, 
+                        FirstName = result.FirstName,
+                        LastName = result.LastName, 
+                        Email = result.Email,
+                        VehicleNo = result.VehicleNo,
+                        TurkishIdentity = result.TurkishIdentity,
+                        IsActive = result.IsActive,
+                        ProfilePicture = result.ProfilePicture,
+                    };
+                    return View(viewModel);
+                }
+                    
                 return null;
             }
             catch (Exception ex)

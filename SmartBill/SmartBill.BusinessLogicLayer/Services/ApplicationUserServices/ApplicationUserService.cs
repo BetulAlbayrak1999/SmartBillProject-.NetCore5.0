@@ -1,25 +1,23 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
 using SmartBill.BusinessLogicLayer.Configrations.Responses;
 using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
-using SmartBill.BusinessLogicLayer.Dtos.RoleDto;
-using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators;
-using SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM;
 using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
 using SmartBill.BusinessLogicLayer.ViewModels.UserRolesVM;
-using SmartBill.DataAccessLayer.Data;
-using SmartBill.DataAccessLayer.Repositories.EFRepositories.ApplicationUserRepositories;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Web;
 namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
 {
     public class ApplicationUserService: IApplicationUserService
@@ -28,14 +26,15 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
         private readonly IMapper _autoMapper;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-
-        public ApplicationUserService(IMapper autoMapper, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager) 
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        public ApplicationUserService(IMapper autoMapper, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager) 
         {
             _autoMapper = autoMapper;
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
         }
-
+        
         #region Activate
         public async Task<CommandResponse> ActivateAsync(string Id)
         {
@@ -82,25 +81,6 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
             }
         }
         #endregion
-
-
-
-       /* #region GetAll
-        public async Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllAsync()
-        {
-            try
-            {
-                IEnumerable<ApplicationUser> items = await _applicationUserRepository.GetAllByAsync();
-                IEnumerable<GetAllApplicationUserRequestDto> result = _autoMapper.Map<IEnumerable<ApplicationUser>, IEnumerable<GetAllApplicationUserRequestDto>>(items);
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }*/
-
 
         #region GetAll
         public async Task<IEnumerable<GetAllApplicationUserRequestDto>> GetAllAsync()
@@ -212,7 +192,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                     //validation
                     var validator = new UpdateApplicationUserRequestValidator();
                     validator.Validate(item).throwIfValidationException();
-
+                    item.TurkishIdentity = getItem.TurkishIdentity;
                     var userWithSameEmail = await _userManager.FindByEmailAsync(item.Email);
 
                     if (userWithSameEmail is not null && userWithSameEmail.Id != item.Id)
@@ -235,6 +215,20 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                         return new CommandResponse { Status = false, Message = "this TurkishIdentity  is already assigned to another user" };
                     }
 
+                    //set picture
+                    /*if (item.Request.Form.Files.Count > 0)
+                    {
+                        var file = item.Request.Form.Files.FirstOrDefault();
+                        //check file size and extension
+
+                        using (var dataStream = new MemoryStream())
+                        {
+                            await file.CopyToAsync(dataStream);
+                            item.ProfilePicture = dataStream.ToArray();
+                        }
+
+                    }*/
+
                     //mapping
                     ApplicationUser mappedItem = _autoMapper.Map<ApplicationUser>(item);
                     if (item.IsActive == false && getItem.IsActive == true)
@@ -247,9 +241,11 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                         mappedItem.ActivatedDate = DateTime.Now;
                         mappedItem.UnActivatedDate = null;
                     }
-                    //set lastmodifiedDate
+                   
 
                     var IsUpdated = await _userManager.UpdateAsync(mappedItem);
+                    await _signInManager.RefreshSignInAsync(mappedItem);
+
                     if (IsUpdated is not null)
                         return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
 
@@ -265,7 +261,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
         #endregion
 
 
-        #region CreateApplicationUserWithRoleAsync
+        #region CreateApplicationUserWithRoleAsync / createUser
         public async Task<CommandResponse> CreateApplicationUserWithRoleAsync(CreateApplicationUserRequestDto model)
         {
             try
@@ -291,6 +287,9 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                     {
                         return new CommandResponse { Status = false, Message = "Please select at least one role" };
                     }
+                    var generatedPassword = GenerateRandomPassword();
+                    model.Password = generatedPassword;
+                    model.ConfirmPassword = GenerateRandomPassword();
 
                     //validation
                     var validator = new CreateApplicationUserRequestValidator();
@@ -402,7 +401,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
         }
         #endregion
 
-
+        #region ManageUserRoles
         public async Task<CreateApplicationUserRequestDto> GetExistRoles()
         {
             try
@@ -447,6 +446,56 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
             {
                 return new CommandResponse { Status = false, Message = ex.Message};
 
+            }
+        }
+        #endregion
+
+        private string GenerateRandomPassword()
+        {
+            try
+            {
+                var options = _userManager.Options.Password;
+
+                int length = options.RequiredLength;
+
+                bool nonAlphanumeric = options.RequireNonAlphanumeric;
+                bool digit = options.RequireDigit;
+                bool lowercase = options.RequireLowercase;
+                bool uppercase = options.RequireUppercase;
+
+                StringBuilder password = new StringBuilder();
+                Random random = new Random();
+
+                while (password.Length < length)
+                {
+                    char c = (char)random.Next(32, 126);
+
+                    password.Append(c);
+
+                    if (char.IsDigit(c))
+                        digit = false;
+                    else if (char.IsLower(c))
+                        lowercase = false;
+                    else if (char.IsUpper(c))
+                        uppercase = false;
+                    else if (!char.IsLetterOrDigit(c))
+                        nonAlphanumeric = false;
+                }
+
+                if (nonAlphanumeric)
+                    password.Append((char)random.Next(33, 48));
+                if (digit)
+                    password.Append((char)random.Next(48, 58));
+                if (lowercase)
+                    password.Append((char)random.Next(97, 123));
+                if (uppercase)
+                    password.Append((char)random.Next(65, 91));
+
+                return password.ToString();
+            }
+            catch(Exception ex)
+            {
+                return null;
             }
         }
     }

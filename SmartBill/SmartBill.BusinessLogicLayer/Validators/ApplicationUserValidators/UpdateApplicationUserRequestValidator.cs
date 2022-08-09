@@ -14,16 +14,11 @@ namespace SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators
         {
             RuleFor(x => x.Id).NotEmpty();
 
-            RuleFor(x => x.FirstName).NotEmpty().MinimumLength(3).MaximumLength(100);
+            /*RuleFor(x => x.FirstName).MinimumLength(3).MaximumLength(100);
 
-            RuleFor(x => x.LastName).NotEmpty().MinimumLength(3).MaximumLength(100);
+            RuleFor(x => x.LastName).MinimumLength(3).MaximumLength(100);
 
-            RuleFor(x => x.VehicleNo).MinimumLength(5);
-            RuleFor(x => x.TurkishIdentity).Length(11);
-
-            RuleFor(x => x.ActivatedDate).LessThanOrEqualTo(DateTime.Now);
-
-            RuleFor(x => x.UnActivatedDate).LessThanOrEqualTo(DateTime.Now);
+            RuleFor(x => x.VehicleNo).MinimumLength(5);*/
 
         }
     }

@@ -1,7 +1,7 @@
 ﻿@model UpdateApplicationUserRequestDto
 
 @{
-    ViewData["Title"] = "Edit Profile";
+    ViewData["Title"] = "Update Profile";
 }
 
 <form asp-action="Update" method="post">
@@ -20,7 +20,12 @@
                 <input asp-for="LastName" class="form-control" maxlength="100"/>
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
-
+             <div class="form-group">
+                <label asp-for="TurkishIdentity"></label>
+                <input asp-for="TurkishIdentity" class="form-control" maxlength="100"/>
+                <span asp-validation-for="TurkishIdentity" class="text-danger"></span>
+            </div>
+            
             <div class="form-group">
                 <label asp-for="UserName"></label>
                 <input asp-for="UserName" class="form-control" maxlength="100"/>
@@ -32,10 +37,45 @@
                 <input asp-for="Email" class="form-control"/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+
             
-            
+            <div class="form-group">
+                <label asp-for="VehicleNo"></label>
+                <input asp-for="VehicleNo" class="form-control"/>
+                <span asp-validation-for="VehicleNo" class="text-danger"></span>
+            </div>
+
+             <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
+            </div>
         <button type="submit" class=" btn btn-primary d-block mt-4">Save</button>
 
+        <div class="col-md-6">
+            <!--
+        <div class="form-group">
+        <label asp-for="ProfilePicture" class="w-100"></label>
+            if(Model.ProfilePicture is not null)
+            {
+                <img id="profilePicture" alt="profile" class="profile-picture" src="data:image/*;base64,Convert.ToBase64String(Model.ProfilePicture)"/>
+            }
+            else
+            {
+                <img id="profilePicture" alt="profile" class="profile-picture" src="~/images/unknown.jpg"/>
+            }
+            <div class="custom-file mt-2">
+                <input type="file"
+                    accept="image/*"
+                    asp-for="ProfilePicture"
+                    class="custom-file-input"
+                    onchange="document.getElementById('profilePicture').src= window.URL.createObjectURL(this.files[0])"/>
+                    <label class="custom-file-label" asp-for="ProfilePicture"> Choose picture..</label>
+                    <span asp-validation-for="ProfilePicture" class="text-danger"></span>
+            </div>
+        </div>
+        -->
+    </div>
          </form>
 
         

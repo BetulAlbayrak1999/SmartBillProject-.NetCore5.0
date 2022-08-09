@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SmartBill.Entities.Domains.MSSQL;
+using SmartBill.BusinessLogicLayer.Dtos.LocationDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Validators.LocationValidators
 {
-    public class LocationValidator : AbstractValidator<Location>
+    public class CreateLocationRequestValidator : AbstractValidator<CreateLocationRequestDto>
     {
-        public LocationValidator()
+        public CreateLocationRequestValidator()
         {
-            RuleFor(x => x.CityName).NotEmpty().MinimumLength(3).MaximumLength(50);
+            RuleFor(x => x.City).NotEmpty().MinimumLength(3).MaximumLength(50);
+            RuleFor(x => x.Region).NotEmpty().MinimumLength(3).MaximumLength(50);
 
             RuleFor(x => x.Street).NotEmpty().MinimumLength(3);
 

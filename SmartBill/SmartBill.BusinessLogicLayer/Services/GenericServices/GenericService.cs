@@ -12,9 +12,8 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.Services.GenericServices
 {
-    public abstract class GenericService< TGetDto, TModel>
-        : IGenericService<TGetDto, TModel>
-        where TGetDto : class, new()
+    public abstract class GenericService<TModel>
+        : IGenericService<TModel>
         where TModel : class, new()
     {
         #region Field and Constructor
@@ -27,36 +26,6 @@ namespace SmartBill.BusinessLogicLayer.Services.GenericServices
             _genericRepository = genericRepository;
         }
         #endregion
-
-
-        
-
-        #region GetByIdAsync
-        public async Task<TGetDto> GetByIdAsync(string Id)
-        {
-            try
-            {
-                if (Id is not null)
-                {
-                    TModel item = await _genericRepository.GetByIdAsync(Id);
-                    if (item is not null)
-                    {
-                        //mapping
-                        TGetDto mappedItem = _autoMapper.Map<TGetDto>(item);
-
-                        return mappedItem;
-                    }
-                    return null;
-                }
-
-                { return null; }
-
-            }
-            catch (Exception ex) { return null; }
-        }
-
-        #endregion
-
         
 
         #region DeleteAsync

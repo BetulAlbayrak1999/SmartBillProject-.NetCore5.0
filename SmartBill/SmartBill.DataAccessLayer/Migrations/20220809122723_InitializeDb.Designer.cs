@@ -10,8 +10,8 @@ using SmartBill.DataAccessLayer.Data;
 namespace SmartBill.DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220808075321_initializeDB")]
-    partial class initializeDB
+    [Migration("20220809122723_InitializeDb")]
+    partial class InitializeDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -442,72 +442,6 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.ToTable("BillServers");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.City", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("ActivatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("UnActivatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Cities");
-                });
-
-            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Debt", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("ActivatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("BillId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DebtPaidDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDebtPaid")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("UnActivatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BillId");
-
-                    b.ToTable("Debts");
-                });
-
             modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Location", b =>
                 {
                     b.Property<string>("Id")
@@ -517,8 +451,8 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CityId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("CityName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -539,8 +473,6 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CityId");
 
                     b.ToTable("Locations");
                 });
@@ -667,24 +599,6 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Navigation("BillServer");
                 });
 
-            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Debt", b =>
-                {
-                    b.HasOne("SmartBill.Entities.Domains.MSSQL.Bill", "Bill")
-                        .WithMany()
-                        .HasForeignKey("BillId");
-
-                    b.Navigation("Bill");
-                });
-
-            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Location", b =>
-                {
-                    b.HasOne("SmartBill.Entities.Domains.MSSQL.City", "City")
-                        .WithMany("Locations")
-                        .HasForeignKey("CityId");
-
-                    b.Navigation("City");
-                });
-
             modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.ApplicationUser", b =>
                 {
                     b.Navigation("Apartments");
@@ -697,11 +611,6 @@ namespace SmartBill.DataAccessLayer.Migrations
             modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.BillServer", b =>
                 {
                     b.Navigation("Bills");
-                });
-
-            modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.City", b =>
-                {
-                    b.Navigation("Locations");
                 });
 
             modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Location", b =>

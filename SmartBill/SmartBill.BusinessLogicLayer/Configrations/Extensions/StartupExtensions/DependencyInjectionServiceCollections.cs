@@ -30,12 +30,9 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
 
             services.AddScoped<IDebtService, DebtService>();
 
-            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IMessageService, MessageService>();*/
 
-            services.AddScoped<ILocationService, LocationService>();*/
-
-            //services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
-
+            services.AddScoped<ILocationService, LocationService>();
         }
     }
 }

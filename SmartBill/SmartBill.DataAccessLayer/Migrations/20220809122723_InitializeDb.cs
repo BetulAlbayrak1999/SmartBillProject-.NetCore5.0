@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SmartBill.DataAccessLayer.Migrations
 {
-    public partial class initializeDB : Migration
+    public partial class InitializeDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,11 +28,13 @@ namespace SmartBill.DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cities",
+                name: "Locations",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CityName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UnActivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -41,7 +43,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cities", x => x.Id);
+                    table.PrimaryKey("PK_Locations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,31 +119,6 @@ namespace SmartBill.DataAccessLayer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Locations",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CityId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UnActivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    ActivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Locations", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Locations_Cities_CityId",
-                        column: x => x.CityId,
-                        principalTable: "Cities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RoleClaims",
                 schema: "security",
                 columns: table => new
@@ -162,6 +139,43 @@ namespace SmartBill.DataAccessLayer.Migrations
                         principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Apartments",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BlockNo = table.Column<int>(type: "int", nullable: false),
+                    IsEmpty = table.Column<bool>(type: "bit", nullable: false),
+                    PersonsNumber = table.Column<int>(type: "int", nullable: false),
+                    FloorNo = table.Column<int>(type: "int", nullable: false),
+                    ApartmentNo = table.Column<int>(type: "int", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    LocationId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UnActivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    ActivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Apartments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Apartments_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Apartments_Users_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalSchema: "security",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -324,68 +338,6 @@ namespace SmartBill.DataAccessLayer.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Apartments",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BlockNo = table.Column<int>(type: "int", nullable: false),
-                    IsEmpty = table.Column<bool>(type: "bit", nullable: false),
-                    PersonsNumber = table.Column<int>(type: "int", nullable: false),
-                    FloorNo = table.Column<int>(type: "int", nullable: false),
-                    ApartmentNo = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    LocationId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UnActivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    ActivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Apartments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Apartments_Locations_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Locations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Apartments_Users_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalSchema: "security",
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Debts",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    BillId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    DebtPaidDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDebtPaid = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UnActivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    ActivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Debts", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Debts_Bills_BillId",
-                        column: x => x.BillId,
-                        principalTable: "Bills",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Apartments_ApplicationUserId",
                 table: "Apartments",
@@ -410,16 +362,6 @@ namespace SmartBill.DataAccessLayer.Migrations
                 name: "IX_Bills_BillServerId",
                 table: "Bills",
                 column: "BillServerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Debts_BillId",
-                table: "Debts",
-                column: "BillId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Locations_CityId",
-                table: "Locations",
-                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -477,7 +419,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                 name: "BankAccounts");
 
             migrationBuilder.DropTable(
-                name: "Debts");
+                name: "Bills");
 
             migrationBuilder.DropTable(
                 name: "Messages");
@@ -506,17 +448,11 @@ namespace SmartBill.DataAccessLayer.Migrations
                 name: "Locations");
 
             migrationBuilder.DropTable(
-                name: "Bills");
+                name: "BillServers");
 
             migrationBuilder.DropTable(
                 name: "Roles",
                 schema: "security");
-
-            migrationBuilder.DropTable(
-                name: "Cities");
-
-            migrationBuilder.DropTable(
-                name: "BillServers");
 
             migrationBuilder.DropTable(
                 name: "Users",

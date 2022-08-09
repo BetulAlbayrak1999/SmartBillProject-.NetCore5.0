@@ -23,7 +23,7 @@ namespace SmartBill.DataAccessLayer.Repositories.EFRepositories.ApartmentReposit
             {
                 using (var _context = new ApplicationDbContext())
                 {
-                    return await _context.Apartments.Include(x => x.ApplicationUser).Include(x=> x.Location).FirstOrDefaultAsync(d=> d.Id == Id);
+                    return await _context.Apartments/*.Include(x => x.ApplicationUser).Include(x=> x.Location).*/.FirstOrDefaultAsync(d=> d.Id == Id);
                 }
             }
             catch (Exception ex)

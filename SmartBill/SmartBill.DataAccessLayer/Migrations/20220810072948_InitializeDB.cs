@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SmartBill.DataAccessLayer.Migrations
 {
-    public partial class InitializeDb : Migration
+    public partial class InitializeDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -32,7 +32,8 @@ namespace SmartBill.DataAccessLayer.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CityName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Region = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -185,11 +186,8 @@ namespace SmartBill.DataAccessLayer.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BankName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    AccountNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IBAN = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Balance = table.Column<float>(type: "real", nullable: false),
-                    CardNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CardExpireMonth = table.Column<int>(type: "int", nullable: false),
-                    CardExpireYear = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UnActivatedDate = table.Column<DateTime>(type: "datetime2", nullable: true),

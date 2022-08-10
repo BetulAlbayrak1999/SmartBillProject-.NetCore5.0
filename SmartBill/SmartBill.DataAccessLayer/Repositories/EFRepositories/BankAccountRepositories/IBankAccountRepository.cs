@@ -10,5 +10,6 @@ namespace SmartBill.DataAccessLayer.Repositories.EFRepositories.BankAccountRepos
 {
     public interface IBankAccountRepository: IGenericRepository<BankAccount>
     {
+
     }
 }

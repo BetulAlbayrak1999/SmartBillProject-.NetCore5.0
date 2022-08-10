@@ -3,6 +3,7 @@ using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators;
 using SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM;
+using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM;
 using SmartBill.BusinessLogicLayer.ViewModels.UserRolesVM;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
@@ -34,7 +35,9 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
         public Task<CommandResponse> UnActivateAsync(string Id);
 
         public Task<CommandResponse> CreateApplicationUserWithRoleAsync(CreateApplicationUserRequestDto model);
+
         public Task<CreateApplicationUserRequestDto> GetExistRoles();
+        public Task<CheckApplicationUserVM> GetByEmailAsync(string email);
 
     }
 }

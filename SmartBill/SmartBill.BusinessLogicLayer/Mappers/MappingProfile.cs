@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SmartBill.BusinessLogicLayer.Dtos.ApartmentDto;
 using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
+using SmartBill.BusinessLogicLayer.Dtos.BankAccountDto;
 using SmartBill.BusinessLogicLayer.Dtos.BillDto;
 using SmartBill.BusinessLogicLayer.Dtos.BillServerDto;
 using SmartBill.BusinessLogicLayer.Dtos.LocationDto;
@@ -8,6 +9,7 @@ using SmartBill.BusinessLogicLayer.Dtos.MessageDto;
 using SmartBill.BusinessLogicLayer.Dtos.RoleDto;
 using SmartBill.BusinessLogicLayer.ViewModels.ApartmentVM;
 using SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM;
+using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM;
 using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
@@ -24,13 +26,16 @@ namespace SmartBill.BusinessLogicLayer.Mappers
         {
             #region ApplicationUser
 
-            CreateMap<CreateApplicationUserRequestDto, ApplicationUser>();
+            CreateMap<CreateApplicationUserRequestDto, ApplicationUser>().ReverseMap();
 
             CreateMap<UpdateApplicationUserRequestDto, ApplicationUser>().ReverseMap();
 
-            CreateMap<GetApplicationUserRequestDto, ApplicationUser>();
+            CreateMap<GetApplicationUserRequestDto, ApplicationUser>().ReverseMap();
 
             CreateMap<ApplicationUserProfileFormVM, ApplicationUser>();
+
+            CreateMap<CheckApplicationUserVM, GetAllApplicationUserRequestDto>().ReverseMap();
+            CreateMap<CheckApplicationUserVM, ApplicationUser>().ReverseMap();
 
             #endregion
 
@@ -69,6 +74,18 @@ namespace SmartBill.BusinessLogicLayer.Mappers
             CreateMap<GetBillServerRequestDto, BillServer>().ReverseMap();
 
             CreateMap<GetAllBillServerRequestDto, BillServer>().ReverseMap();
+
+            #endregion
+
+            #region BankAccount
+
+            CreateMap<CreateBankAccountRequestDto, BankAccount>().ReverseMap();
+
+            CreateMap<UpdateBankAccountRequestDto, BankAccount>().ReverseMap();
+
+            CreateMap<GetBankAccountRequestDto, BankAccount>().ReverseMap();
+
+            CreateMap<GetAllBankAccountRequestDto, BankAccount>().ReverseMap();
 
             #endregion
 

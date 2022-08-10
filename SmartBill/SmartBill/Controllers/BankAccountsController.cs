@@ -1,18 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SmartBill.BusinessLogicLayer.Dtos.LocationDto;
-using SmartBill.BusinessLogicLayer.Services.LocationServices;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using SmartBill.BusinessLogicLayer.Dtos.BankAccountDto;
+using SmartBill.BusinessLogicLayer.Services.ApplicationUserServices;
+using SmartBill.BusinessLogicLayer.Services.BankAccountServices;
+using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SmartBill.Controllers
 {
-    public class LocationsController : Controller
+    public class BankAccountsController : Controller
     {
-        private readonly ILocationService _locationService;
+        private readonly IBankAccountService _bankAccountService;
 
-        public LocationsController(ILocationService locationService)
+        public BankAccountsController(IBankAccountService bankAccountService)
         {
-            _locationService = locationService;
+            _bankAccountService = bankAccountService;
         }
 
         #region Index
@@ -36,7 +40,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _locationService.GetAllActivatedAsync();
+                var result = await _bankAccountService.GetAllActivatedAsync();
                 return View(result);
 
             }
@@ -52,8 +56,8 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _locationService.GetAllAsync();
-                if(result is not null)
+                var result = await _bankAccountService.GetAllAsync();
+                if (result is not null)
                     return View(result);
                 return null;
 
@@ -70,7 +74,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _locationService.GetAllUnActivatedAsync();
+                var result = await _bankAccountService.GetAllUnActivatedAsync();
                 return View(result);
 
             }
@@ -87,7 +91,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _locationService.DeleteAsync(Id);
+                var result = await _bankAccountService.DeleteAsync(Id);
                 return RedirectToAction("Index");
 
             }
@@ -105,6 +109,7 @@ namespace SmartBill.Controllers
         {
             try
             {
+                
                 return View();
             }
             catch (Exception ex)
@@ -114,13 +119,14 @@ namespace SmartBill.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateLocationRequestDto model)
+        public async Task<IActionResult> Create(CreateBankAccountRequestDto model)
         {
             try
             {
-                var result = await _locationService.CreateAsync(model);
-                return RedirectToAction("GetAll");
-
+                var result = await _bankAccountService.CreateAsync(model);
+                if(result is not null)
+                    return RedirectToAction("GetAll");
+                return View(result);
             }
             catch (Exception ex)
             {
@@ -134,16 +140,14 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _locationService.GetByIdAsync(Id);
+                var result = await _bankAccountService.GetByIdAsync(Id);
                 if (result == null)
                     return NotFound();
-                var viewModel = new UpdateLocationRequestDto
+                var viewModel = new UpdateBankAccountRequestDto
                 {
                     Id = result.Id,
-                    City = result.City,
-                    Region = result.Region,
-                    PostalCode = result.PostalCode,
-                    Street = result.Street,
+                    BankName = result.BankName,
+                    Balance = result.Balance,
                     IsActive = result.IsActive
                 };
                 return View(viewModel);
@@ -157,11 +161,11 @@ namespace SmartBill.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateLocationRequestDto model)
+        public async Task<IActionResult> Update(UpdateBankAccountRequestDto model)
         {
             try
             {
-                var result = await _locationService.UpdateAsync(model);
+                var result = await _bankAccountService.UpdateAsync(model);
                 if (result.Status == false)
                     return BadRequest();
 
@@ -179,7 +183,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _locationService.GetByIdAsync(Id);
+                var result = await _bankAccountService.GetByIdAsync(Id);
                 if (result == null)
                     return NotFound();
                 return View(result);
@@ -196,7 +200,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _locationService.ActivateAsync(Id);
+                var result = await _bankAccountService.ActivateAsync(Id);
                 if (result == null)
                     return NotFound();
                 return RedirectToAction("GetAll");
@@ -213,7 +217,7 @@ namespace SmartBill.Controllers
         {
             try
             {
-                var result = await _locationService.UnActivateAsync(Id);
+                var result = await _bankAccountService.UnActivateAsync(Id);
                 if (result == null)
                     return NotFound();
                 return RedirectToAction("GetAll");
@@ -226,4 +230,3 @@ namespace SmartBill.Controllers
         #endregion
     }
 }
-

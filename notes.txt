@@ -1,11 +1,13 @@
 - applicationUser while it is not empty, return 0 member in getall(hepsi)
-- update need to add turkishIdentity to its form in update.htmlcs
+
 
 create customer
 - password in create customer should be hidden (use its validator file)
 - assigned apartment to user while entering it as its roles(sending him a password or genrated it automatically)
 -showing error validations while create or update
-- add phone number and birthdate to create.htmlcs, dto
+
 
 -login
 - needs to update picture part by remove null
+
+lpgin does not work

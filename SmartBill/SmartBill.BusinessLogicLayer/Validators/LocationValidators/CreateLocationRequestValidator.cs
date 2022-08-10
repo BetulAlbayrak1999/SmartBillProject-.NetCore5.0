@@ -13,6 +13,7 @@ namespace SmartBill.BusinessLogicLayer.Validators.LocationValidators
         public CreateLocationRequestValidator()
         {
             RuleFor(x => x.City).NotEmpty().MinimumLength(3).MaximumLength(50);
+
             RuleFor(x => x.Region).NotEmpty().MinimumLength(3).MaximumLength(50);
 
             RuleFor(x => x.Street).NotEmpty().MinimumLength(3);

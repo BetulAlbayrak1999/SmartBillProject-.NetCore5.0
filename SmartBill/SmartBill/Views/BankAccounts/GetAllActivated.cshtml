@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SmartBill.BusinessLogicLayer.Dtos.BankAccountDto.GetAllBankAccountRequestDto>
+
+@{
+    ViewData["Title"] = "Get All Activated BankAccounts";
+}
+
+<h1>Get All Activated BankAccounts</h1>
+
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr class="bg-primary text-white">
+            <th>Bank Name</th>
+            <th>Account owner ID</th>
+            <th>Balance</th>
+            <th>IBAN</th>
+            <th>IsActive</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BankName</td>
+                <td>@item.ApplicationUserId</td>
+                <td>@item.Balance</td>
+                <td>@item.IBAN</td>
+               <td>@item.IsActive</td>
+                <td>
+                    <a asp-action="Update" asp-controller="BankAccounts" class="btn btn-warning" asp-route-Id="@item.Id">Update</a>
+                    <a asp-action="GetById" asp-controller="BankAccounts" class="btn btn-secondary" asp-route-Id="@item.Id">Details</a>
+                    <a asp-action="UnActivate" asp-controller="BankAccounts" class="btn btn-success" asp-route-Id="@item.Id">UnActivate</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -10,9 +10,9 @@ namespace SmartBill.Controllers
     {
         private readonly IBillServerService _billServerService;
 
-        public BillServersController(IBillServerService apartmentService)
+        public BillServersController(IBillServerService billServerService)
         {
-            _billServerService = apartmentService;
+            _billServerService = billServerService;
         }
 
         #region Index

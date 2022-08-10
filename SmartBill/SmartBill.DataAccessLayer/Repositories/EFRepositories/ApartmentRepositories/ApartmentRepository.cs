@@ -12,24 +12,25 @@ namespace SmartBill.DataAccessLayer.Repositories.EFRepositories.ApartmentReposit
 {
     public class ApartmentRepository : GenericRepository<Apartment>, IApartmentRepository
     {
+        private readonly ApplicationDbContext _context;
         public ApartmentRepository(ApplicationDbContext context) : base(context)
         {
-            
+            _context = context;
         }
 
         public override async Task<Apartment> GetByIdAsync(string Id)
         {
             try
             {
-                using (var _context = new ApplicationDbContext())
-                {
-                    return await _context.Apartments/*.Include(x => x.ApplicationUser).Include(x=> x.Location).*/.FirstOrDefaultAsync(d=> d.Id == Id);
-                }
+                return await _context.Apartments.Include(x => x.ApplicationUser).Include(x=> x.Location).FirstOrDefaultAsync(d=> d.Id == Id);
+                
             }
             catch (Exception ex)
             {
                 return null;
             }
         }
+
+      
     }
 }

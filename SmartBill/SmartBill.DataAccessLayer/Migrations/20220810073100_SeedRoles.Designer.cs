@@ -10,8 +10,8 @@ using SmartBill.DataAccessLayer.Data;
 namespace SmartBill.DataAccessLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220809122723_InitializeDb")]
-    partial class InitializeDb
+    [Migration("20220810073100_SeedRoles")]
+    partial class SeedRoles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -319,9 +319,6 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AccountNo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
@@ -334,17 +331,11 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<string>("BankName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CardExpireMonth")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CardExpireYear")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CardNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("IBAN")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -451,7 +442,7 @@ namespace SmartBill.DataAccessLayer.Migrations
                     b.Property<DateTime?>("ActivatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CityName")
+                    b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -464,6 +455,9 @@ namespace SmartBill.DataAccessLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PostalCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Region")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
@@ -577,11 +571,9 @@ namespace SmartBill.DataAccessLayer.Migrations
 
             modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.BankAccount", b =>
                 {
-                    b.HasOne("SmartBill.Entities.Domains.MSSQL.ApplicationUser", "ApplicationUser")
+                    b.HasOne("SmartBill.Entities.Domains.MSSQL.ApplicationUser", null)
                         .WithMany("BankAccounts")
                         .HasForeignKey("ApplicationUserId");
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("SmartBill.Entities.Domains.MSSQL.Bill", b =>

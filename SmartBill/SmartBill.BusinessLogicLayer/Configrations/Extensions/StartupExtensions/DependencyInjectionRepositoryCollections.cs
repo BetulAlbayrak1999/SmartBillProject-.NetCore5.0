@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.ApartmentRepositories;
-using SmartBill.DataAccessLayer.Repositories.EFRepositories.ApplicationUserRepositories;
+using SmartBill.DataAccessLayer.Repositories.EFRepositories.BankAccountRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.BillRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.BillServerRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.GenericRepositories;
@@ -20,9 +20,9 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
         {
             services.AddScoped<IApartmentRepository, ApartmentRepository>();
 
-            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
-
             services.AddScoped<IBillServerRepository, BillServerRepository>();
+
+            services.AddScoped<IBankAccountRepository, BankAccountRepository>();
 
             services.AddScoped<IBillRepository, BillRepository>();
 

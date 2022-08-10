@@ -153,7 +153,7 @@ namespace SmartBill.Controllers
                     PersonsNumber = result.PersonsNumber,
                     IsActive = result.IsActive
                 };
-                return View(result);
+                return View(viewModel);
             }
             catch (Exception ex)
             {

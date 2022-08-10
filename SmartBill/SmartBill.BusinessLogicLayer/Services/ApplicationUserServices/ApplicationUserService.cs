@@ -8,6 +8,7 @@ using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
 using SmartBill.BusinessLogicLayer.Configrations.Responses;
 using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators;
+using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM;
 using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
 using SmartBill.BusinessLogicLayer.ViewModels.UserRolesVM;
 using SmartBill.Entities.Domains.MSSQL;
@@ -289,7 +290,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                     }
                     var generatedPassword = GenerateRandomPassword();
                     model.Password = generatedPassword;
-                    model.ConfirmPassword = GenerateRandomPassword();
+                    model.ConfirmPassword = model.Password;
 
                     //validation
                     var validator = new CreateApplicationUserRequestValidator();
@@ -365,10 +366,6 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                 GetApplicationUserRequestDto result = _autoMapper.Map<ApplicationUser, GetApplicationUserRequestDto>(user);
                 if (result is null)
                     return null;
-
-                //validation
-                var validator = new GetApplicationUserRequestValidator();
-                validator.Validate(result).throwIfValidationException();
 
                 return result;
             }
@@ -498,5 +495,25 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                 return null;
             }
         }
+
+
+        public async Task<CheckApplicationUserVM> GetByEmailAsync(string email)
+        {
+            try
+            {
+                 var user = await _userManager.FindByEmailAsync(email);
+                if (user is null)
+                    return null;
+                CheckApplicationUserVM result = _autoMapper.Map<ApplicationUser, CheckApplicationUserVM>(user);
+                if (result is null)
+                    return null;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
     }
 }

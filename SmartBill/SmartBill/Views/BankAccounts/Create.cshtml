@@ -1,0 +1,66 @@
+﻿@using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM
+@model SmartBill.BusinessLogicLayer.Dtos.BankAccountDto.CreateBankAccountRequestDto
+
+@{
+    ViewData["Title"] = "Create a New BankAccount";
+}
+
+<h1>Create a New BankAccount</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BankName" class="control-label"></label>
+                <input asp-for="BankName" class="form-control" />
+                <span asp-validation-for="BankName" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="ApplicationUser.FirstName" class="control-label">FirstName</label>
+                <input asp-for="ApplicationUser.FirstName" class="form-control" />
+                <span asp-validation-for="ApplicationUser.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationUser.LastName" class="control-label">LastName</label>
+                <input asp-for="ApplicationUser.LastName" class="form-control" />
+                <span asp-validation-for="ApplicationUser.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationUser.TurkishIdentity" class="control-label">TurkishIdentity</label>
+                <input asp-for="ApplicationUser.TurkishIdentity" class="form-control" />
+                <span asp-validation-for="ApplicationUser.TurkishIdentity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationUser.Email" class="control-label">Email</label>
+                <input asp-for="ApplicationUser.Email" class="form-control" />
+                <span asp-validation-for="ApplicationUser.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ApplicationUser.UserName" class="control-label">UserName</label>
+                <input asp-for="ApplicationUser.UserName" class="form-control" />
+                <span asp-validation-for="ApplicationUser.UserName" class="text-danger"></span>
+            </div>
+               <div class="form-group">
+                <label asp-for="IBAN" class="control-label"></label>
+                <input asp-for="IBAN" class="form-control" />
+                <span asp-validation-for="IBAN" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="Balance" class="control-label"></label>
+                <input asp-for="Balance" class="form-control" />
+                <span asp-validation-for="Balance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            <button type="submit" class=" btn btn-primary d-block mt-4">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

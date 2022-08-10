@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SmartBill.BusinessLogicLayer.Services.BankAccountServices;
 
 namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtensions
 {
@@ -23,6 +24,8 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
 
             services.AddScoped<IBillServerService, BillServerService>();
+
+            services.AddScoped<IBankAccountService, BankAccountService>();
 
             /*services.AddScoped<IBillService, BillService>();
 

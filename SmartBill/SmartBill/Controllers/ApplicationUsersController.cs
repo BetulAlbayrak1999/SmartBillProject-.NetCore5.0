@@ -111,9 +111,10 @@ namespace SmartBill.Controllers
             if (model is null)
                 return BadRequest();
 
-            await _applicationUserService.CreateApplicationUserWithRoleAsync(model);
-
-            return RedirectToAction(nameof(Index));
+            var result = await _applicationUserService.CreateApplicationUserWithRoleAsync(model);
+            if(result is not null)
+                return RedirectToAction(nameof(Index));
+            return View(result);
         }
 
         public async Task<IActionResult> ManageRoles(string userId)

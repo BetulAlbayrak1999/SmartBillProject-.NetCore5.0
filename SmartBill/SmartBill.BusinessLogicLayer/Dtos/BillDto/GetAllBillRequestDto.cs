@@ -8,5 +8,15 @@ namespace SmartBill.BusinessLogicLayer.Dtos.BillDto
 {
     public class GetAllBillRequestDto
     {
+        public string Id { get; set; }
+        public string BillServerId { get; set; }
+
+        public string ApartmentId { get; set; }
+
+        public float BillAmount { get; set; }
+
+        public bool IsBillPaid { get; set; } = false;
+
+        public DateTime LastModifiedDate { get; set; }
     }
 }

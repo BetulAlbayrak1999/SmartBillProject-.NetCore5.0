@@ -15,10 +15,6 @@ namespace SmartBill.DataAccessLayer.Data
         public virtual DbSet<Bill> Bills { get; set; }
         public virtual DbSet<BillServer> BillServers { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
-        public virtual DbSet<Message> Messages { get; set; }
-
-        //public virtual DbSet<MessageSending> MessageSendings { get; set; }
-        //public virtual DbSet<MessageReception> MessageReceptions { get; set; }
         public virtual DbSet<BankAccount> BankAccounts { get; set; }
 
 

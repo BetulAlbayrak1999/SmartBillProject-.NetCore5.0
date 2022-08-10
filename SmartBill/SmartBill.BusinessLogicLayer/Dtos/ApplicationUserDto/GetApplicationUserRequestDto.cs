@@ -38,6 +38,6 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto
 
         public ICollection<BankAccountListVM> BankAccounts { get; set; }
 
-        public ICollection<BillListVM> Bills { get; set; }
+        public ICollection<ApplicationUserBillsVM> Bills { get; set; }
     }
 }

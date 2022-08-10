@@ -5,11 +5,11 @@ using SmartBill.BusinessLogicLayer.Dtos.BankAccountDto;
 using SmartBill.BusinessLogicLayer.Dtos.BillDto;
 using SmartBill.BusinessLogicLayer.Dtos.BillServerDto;
 using SmartBill.BusinessLogicLayer.Dtos.LocationDto;
-using SmartBill.BusinessLogicLayer.Dtos.MessageDto;
 using SmartBill.BusinessLogicLayer.Dtos.RoleDto;
 using SmartBill.BusinessLogicLayer.ViewModels.ApartmentVM;
 using SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM;
 using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM;
+using SmartBill.BusinessLogicLayer.ViewModels.BillVM;
 using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
@@ -62,6 +62,8 @@ namespace SmartBill.BusinessLogicLayer.Mappers
 
             CreateMap<ApartmentListVM, Apartment>().ReverseMap();
 
+            CreateMap<ApartmentBillListVM, GetAllApartmentRequestDto>().ReverseMap(); //for billservice
+
             #endregion
 
 
@@ -74,6 +76,8 @@ namespace SmartBill.BusinessLogicLayer.Mappers
             CreateMap<GetBillServerRequestDto, BillServer>().ReverseMap();
 
             CreateMap<GetAllBillServerRequestDto, BillServer>().ReverseMap();
+
+            CreateMap<GetAllBillServerRequestDto, BillServerBillListVM>().ReverseMap(); //for billservice
 
             #endregion
 
@@ -96,25 +100,16 @@ namespace SmartBill.BusinessLogicLayer.Mappers
 
             #region Bill
 
-            CreateMap<CreateBillRequestDto, Bill>();
+            CreateMap<CreateBillRequestDto, Bill>().ReverseMap();
 
-            CreateMap<UpdateBillRequestDto, Bill>();
+            CreateMap<UpdateBillRequestDto, Bill>().ReverseMap();
 
-            CreateMap<GetBillRequestDto, Bill>();
+            CreateMap<GetBillRequestDto, Bill>().ReverseMap();
 
             CreateMap<GetAllBillRequestDto, Bill>().ReverseMap();
 
             #endregion
-
-            #region Message
-
-            CreateMap<CreateMessageRequestDto, Message>();
-
-            CreateMap<UpdateMessageRequestDto, Message>();
-
-            CreateMap<GetMessageRequestDto, Message>();
-
-            #endregion
+          
         }
 
     }

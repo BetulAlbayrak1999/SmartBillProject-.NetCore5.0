@@ -5,7 +5,6 @@ using SmartBill.DataAccessLayer.Repositories.EFRepositories.BillRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.BillServerRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.GenericRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.LocationRepositories;
-using SmartBill.DataAccessLayer.Repositories.EFRepositories.MessageRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +24,6 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
 
             services.AddScoped<IBillRepository, BillRepository>();
-
-            services.AddScoped<IMessageRepository, MessageRepository>();
 
             services.AddScoped<ILocationRepository, LocationRepository>();
 

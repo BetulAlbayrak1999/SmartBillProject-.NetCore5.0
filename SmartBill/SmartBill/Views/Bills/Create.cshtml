@@ -1,0 +1,40 @@
+﻿@model SmartBill.BusinessLogicLayer.Dtos.BillDto.CreateBillRequestDto
+
+@{
+    ViewData["Title"] = "Create a New Bill";
+}
+<h1>Create a New Bill</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            
+            <div>
+                 @Html.Label("Apartment")
+                @Html.DropDownListFor(x=> x.ApartmentId, (List<SelectListItem>)ViewBag.aparts, new { @class="form-control"})
+                <br />
+            </div>
+           <div>
+             @Html.Label("BillServer Type")
+              @Html.DropDownListFor(x=> x.BillServerId, (List<SelectListItem>)ViewBag.billTypes, new { @class="form-control"})
+             <br />                     
+           </div>
+             <div class="form-group">
+                <label asp-for="BillAmount" class="control-label"></label>
+                <input asp-for="BillAmount" class="form-control" />
+                <span asp-validation-for="BillAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+            <button type="submit" class=" btn btn-primary d-block mt-4">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

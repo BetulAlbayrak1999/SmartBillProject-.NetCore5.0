@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.BusinessLogicLayer.ViewModels.BillVM
 {
-    public class BillListVM
+    public class ApplicationUserBillsVM
     {
         public string BillServerId { get; set; }
         public virtual BillServer BillServer { get; set; }

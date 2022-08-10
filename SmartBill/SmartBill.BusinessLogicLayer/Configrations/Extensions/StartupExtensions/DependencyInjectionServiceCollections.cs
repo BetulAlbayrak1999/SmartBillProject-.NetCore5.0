@@ -4,7 +4,6 @@ using SmartBill.BusinessLogicLayer.Services.ApplicationUserServices;
 using SmartBill.BusinessLogicLayer.Services.BillServerServices;
 using SmartBill.BusinessLogicLayer.Services.BillServices;
 using SmartBill.BusinessLogicLayer.Services.LocationServices;
-using SmartBill.BusinessLogicLayer.Services.MessageServices;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using System;
 using System.Collections.Generic;
@@ -27,13 +26,7 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
 
             services.AddScoped<IBankAccountService, BankAccountService>();
 
-            /*services.AddScoped<IBillService, BillService>();
-
-            services.AddScoped<ICityService, CityService>();
-
-            services.AddScoped<IDebtService, DebtService>();
-
-            services.AddScoped<IMessageService, MessageService>();*/
+            services.AddScoped<IBillService, BillService>();
 
             services.AddScoped<ILocationService, LocationService>();
         }

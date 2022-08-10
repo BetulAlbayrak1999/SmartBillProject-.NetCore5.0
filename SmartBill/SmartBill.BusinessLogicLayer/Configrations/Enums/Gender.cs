@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartBill.BusinessLogicLayer.Dtos.MessageDto
+namespace SmartBill.BusinessLogicLayer.Configrations.Enums
 {
-    public class CreateMessageRequestDto
+    public enum Gender
     {
+        Male,
+        Female
     }
 }

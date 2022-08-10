@@ -10,7 +10,7 @@ using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using SmartBill.BusinessLogicLayer.Configrations.Cache;
 using SmartBill.BusinessLogicLayer.Services.CreditCardServices;
-using SmartBill.DataAccessLayer.Repositories.MongoDBRepositories.CreditCardRepositories;
+using SmartBill.DataAccessLayer.Repositories.MongoDBRepositories.CreditCardPaymentRepositories;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -48,8 +48,8 @@ namespace SmartBill.Api
             });
             //mongoDb
             services.AddSingleton<MongoClient>(x => new MongoClient("mongodb://localhost:27017"));
-            services.AddScoped<ICrediCardRepository, CreditCardRepository>();
-            services.AddScoped<ICreditCardService, CreditCardService>();
+            services.AddScoped<ICreditCardPaymentRepository, CreditCardPaymentRepository>();
+            services.AddScoped<ICreditCardPaymentService, CreditCardPaymentService>();
             services.AddMemoryCache();
 
             services.AddControllers();

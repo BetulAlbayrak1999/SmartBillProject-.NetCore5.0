@@ -8,11 +8,11 @@ namespace SmartBill.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CreditCardsController : ControllerBase
+    public class CreditCardPaymentsController : ControllerBase
     {
-        private readonly ICreditCardService _service;
+        private readonly ICreditCardPaymentService _service;
 
-        public CreditCardsController(ICreditCardService service)
+        public CreditCardPaymentsController(ICreditCardPaymentService service)
         {
             _service = service;
         }
@@ -20,7 +20,7 @@ namespace SmartBill.Api.Controllers
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var data = _service.GetAllCreditCard();
+            var data = _service.GetAllCreditCardPayment();
             return Ok(data);
         }
 
@@ -28,21 +28,21 @@ namespace SmartBill.Api.Controllers
         public CreditCardPayment GetById(string id)
         {
 
-            return _service.GetCreditCard(new ObjectId(id));
+            return _service.GetCreditCardPayment(new ObjectId(id));
         }
 
 
         [HttpPost]
         public IActionResult Post(CreditCardPayment request)
         {
-            _service.CreateCreditCard(request);
+            _service.CreateCreditCardPayment(request);
             return Ok();
         }
 
         [HttpPut]
         public IActionResult Put(CreditCardPayment request)
         {
-            _service.UpdateCreditCard(request);
+            _service.UpdateCreditCardPayment(request);
             return Ok();
         }
 

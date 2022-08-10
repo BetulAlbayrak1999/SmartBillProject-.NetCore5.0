@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\DocumentServices\" />
+    <Folder Include="Configrations\Filters\Loggers\" />
+    <Folder Include="Configrations\Filters\Exceptions\" />
   </ItemGroup>
 
 </Project>

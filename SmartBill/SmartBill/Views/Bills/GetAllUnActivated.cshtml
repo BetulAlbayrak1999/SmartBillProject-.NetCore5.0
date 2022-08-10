@@ -1,0 +1,44 @@
+﻿@model IEnumerable<SmartBill.BusinessLogicLayer.Dtos.BillDto.GetAllBillRequestDto>
+
+@{
+    ViewData["Title"] = "Get All UnActivated Bills";
+}
+
+<h1>Get All UnActivated Bills</h1>
+
+
+<table class="table table-striped mt-4">
+    <thead>
+        <tr class="bg-primary text-white">
+            <th>BillServer Type Id</th>
+            <th>ApartmentId</th>
+            <th>BillAmount</th>
+            <th>LastModifiedDate</th>
+            <th>IsBillPaid</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.BillServerId</td>
+                <td>@item.ApartmentId</td>
+                <td>@item.BillAmount</td>
+                <td>@item.LastModifiedDate</td>
+               <td>@item.IsBillPaid</td>
+                <td>
+                    <a asp-action="Update" asp-controller="Bills" class="btn btn-warning" asp-route-Id="@item.Id">Update</a>
+                    <a asp-action="GetById" asp-controller="Bills" class="btn btn-secondary" asp-route-Id="@item.Id">Details</a>
+                    <a asp-action="Activate" asp-controller="Bills" class="btn btn-success" asp-route-Id="@item.Id">Paid</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

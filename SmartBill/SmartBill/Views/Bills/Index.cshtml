@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>BankAccount Options</h1>
+
+<div class="btn-lg active">
+    <a asp-action="GetAllActivated" class="btn btn-info">Get All Activated Bills</a>
+    <a asp-action="GetAllUnActivated" class="btn btn-info">Get All UnActivated Bills</a>
+    <a asp-action="GetAll" class="btn btn-secondary">Get All Bills</a>
+    <hr />
+    <a asp-action="Create" asp-controller="Bills" class="btn btn-primary">Create a new Bill</a>
+    <hr />
+    
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

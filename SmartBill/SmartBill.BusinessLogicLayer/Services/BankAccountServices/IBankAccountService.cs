@@ -28,7 +28,6 @@ namespace SmartBill.BusinessLogicLayer.Services.BankAccountServices
         public Task<CommandResponse> CreateAsync(CreateBankAccountRequestDto item);
 
         public Task<GetBankAccountRequestDto> GetByIdAsync(string Id);
-        //public Task<IEnumerable<ApplicationUserDropDownListVM>> GetUsers();
 
     }
 }

@@ -1,25 +1,25 @@
 ﻿using MongoDB.Bson;
-using SmartBill.DataAccessLayer.Repositories.MongoDBRepositories.CreditCardRepositories;
+using SmartBill.DataAccessLayer.Repositories.MongoDBRepositories.CreditCardPaymentRepositories;
 using SmartBill.Entities.Domains.MongoDB;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 namespace SmartBill.BusinessLogicLayer.Services.CreditCardServices
 {
-    public class CreditCardService : ICreditCardService
+    public class CreditCardPaymentService : ICreditCardPaymentService
     {
-        private readonly ICrediCardRepository _repository;
+        private readonly ICreditCardPaymentRepository _repository;
 
-        public CreditCardService(ICrediCardRepository repository)
+        public CreditCardPaymentService(ICreditCardPaymentRepository repository)
         {
             _repository = repository;
         }
-        public void ActivateCreditCard(ObjectId Id)
+        public void ActivateCreditCardPayment(ObjectId Id)
         {
             throw new System.NotImplementedException();
         }
 
-        public void CreateCreditCard(CreditCardPayment model)
+        public void CreateCreditCardPayment(CreditCardPayment model)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace SmartBill.BusinessLogicLayer.Services.CreditCardServices
             catch(Exception ex) { }
         }
 
-        public IEnumerable<CreditCardPayment> GetAllCreditCard()
+        public IEnumerable<CreditCardPayment> GetAllCreditCardPayment()
         {
             try
             {
@@ -37,7 +37,7 @@ namespace SmartBill.BusinessLogicLayer.Services.CreditCardServices
             catch (Exception ex) { return null; }
         }
 
-        public CreditCardPayment GetCreditCard(ObjectId Id)
+        public CreditCardPayment GetCreditCardPayment(ObjectId Id)
         {
             try
             {
@@ -46,12 +46,12 @@ namespace SmartBill.BusinessLogicLayer.Services.CreditCardServices
             catch (Exception ex) { return null; }
         }
 
-        public void UnActivateCreditCard(ObjectId Id)
+        public void UnActivateCreditCardPayment(ObjectId Id)
         {
             throw new System.NotImplementedException();
         }
 
-        public void UpdateCreditCard(CreditCardPayment model)
+        public void UpdateCreditCardPayment(CreditCardPayment model)
         {
             try
             {

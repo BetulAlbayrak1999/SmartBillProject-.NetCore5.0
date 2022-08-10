@@ -204,11 +204,7 @@ namespace SmartBill.BusinessLogicLayer.Services.BankAccountServices
                         return new CommandResponse { Status = false, Message = "this User does not exist" };
                     if(item.ApplicationUser.FirstName == checkUser.FirstName && item.ApplicationUser.LastName == checkUser.LastName && item.ApplicationUser.TurkishIdentity == checkUser.TurkishIdentity && item.ApplicationUser.UserName == checkUser.UserName)
                     {
-                        //mapping between CheckApplicationUserVM and applicationUser
-                        /*ApplicationUser applicationUser = _autoMapper.Map<ApplicationUser>(checkUser);
-                        item.ApplicationUser = applicationUser;*/
-
-                        item.ApplicationUserId = checkUser.Id;
+                         item.ApplicationUserId = checkUser.Id;
 
                         //mapping between bankAccount and dto
                         BankAccount mappedItem = _autoMapper.Map<BankAccount>(item);

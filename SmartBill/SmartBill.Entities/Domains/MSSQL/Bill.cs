@@ -11,21 +11,14 @@ namespace SmartBill.Entities.Domains.MSSQL
     public class Bill : BaseEntity
     {
         public string BillServerId { get; set; }
-        [ForeignKey(nameof(BillServerId))]
-        public virtual BillServer BillServer { get; set; }
 
-        public string ApplicationUserId { get; set; }
-        [ForeignKey(nameof(ApplicationUserId))]
-        public virtual ApplicationUser ApplicationUser { get; set; }
-
-        public bool IsBillPaid { get; set; }
-
-        public DateTime PaidDate { get; set; }
+        public string ApartmentId { get; set; }
 
         public float BillAmount { get; set; }
 
-        public float Tax { get; set; }
+        public DateTime BillDate { get; set; } = DateTime.Now;
 
-        public float TotalAmount { get; set; }
+        public bool IsBillPaid { get; set; }
+
     }
 }

@@ -1,0 +1,69 @@
+﻿@model SmartBill.BusinessLogicLayer.Dtos.PaymentDto.GetPaymentRequestDto
+
+@{
+    ViewData["Title"] = "GetById";
+}
+<h1>Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <input type="hidden" asp-for="Id"/>
+       
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Bill.BillDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Bill.BillDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplicationUser.FirstName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationUser.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplicationUser.LastName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationUser.LastName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ApplicationUser.TurkishIdentity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApplicationUser.TurkishIdentity)
+        </dd>
+         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BankAccount.IBAN)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BankAccount.IBAN)
+        </dd>
+         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BillServer.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BillServer.Name)
+             <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Bill.BillAmount)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Bill.BillAmount)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsBillPaid)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsBillPaid)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Delete" asp-controller="Payments" class="btn btn-danger" asp-route-Id="@Model.Id">Delete</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

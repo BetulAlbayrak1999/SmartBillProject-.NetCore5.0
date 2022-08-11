@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Payment Options</h1>
+
+<div class="btn-lg active">
+    <a asp-action="GetAllPaid" class="btn btn-info">Get All SuccessfullPayment Operations</a>
+    <a asp-action="GetAllUnPaid" class="btn btn-info">Get All UnSuccessfull Payment Operations</a>
+    <a asp-action="GetAll" class="btn btn-secondary">Get All Payment Operations</a>
+    <hr />
+    <a asp-action="Create" asp-controller="Payments" class="btn btn-primary">Create a new Payment Operation</a>
+    <hr />
+    
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

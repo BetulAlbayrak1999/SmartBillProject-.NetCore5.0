@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
-using SmartBill.BusinessLogicLayer.Services.CreditCardServices;
+using SmartBill.BusinessLogicLayer.Dtos.CreditCardPaymentDto;
+using SmartBill.BusinessLogicLayer.Services.CreditCardPaymentServices;
 using SmartBill.Entities.Domains.MongoDB;
+using System;
+using System.Threading.Tasks;
 
 namespace SmartBill.Api.Controllers
 {
@@ -20,30 +23,44 @@ namespace SmartBill.Api.Controllers
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var data = _service.GetAllCreditCardPayment();
-            return Ok(data);
+            try {
+                var data = _service.GetAllCreditCardPayment();
+                return Ok(data);
+            }
+            catch (Exception ex) { return null; }
+            
         }
 
         [HttpGet("GetById")]
-        public CreditCardPayment GetById(string id)
+        public async Task<GetCreditCardPaymentRequestDto> GetById(string id)
         {
-
-            return _service.GetCreditCardPayment(new ObjectId(id));
+            try {
+                return await _service.GetCreditCardPayment(new ObjectId(id));
+            }catch(Exception ex) { return null; }
+            
         }
 
 
         [HttpPost]
-        public IActionResult Post(CreditCardPayment request)
+        public async Task<IActionResult> Post(CreateCreditCardPaymentRequestDto request)
         {
-            _service.CreateCreditCardPayment(request);
-            return Ok();
+            try {
+                await _service.CreateCreditCardPayment(request);
+                return Ok();
+            }
+            catch (Exception ex) { return null; }
+            
         }
 
         [HttpPut]
-        public IActionResult Put(CreditCardPayment request)
+        public IActionResult Put(UpdateCreditCardPaymentRequestDto request)
         {
-            _service.UpdateCreditCardPayment(request);
-            return Ok();
+            try {
+                _service.UpdateCreditCardPayment(request);
+                return Ok();
+            }
+            catch (Exception ex) { return null; }
+            
         }
 
     }

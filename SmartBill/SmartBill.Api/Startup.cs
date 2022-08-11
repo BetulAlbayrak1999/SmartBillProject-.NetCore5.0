@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,7 +10,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using SmartBill.BusinessLogicLayer.Configrations.Cache;
-using SmartBill.BusinessLogicLayer.Services.CreditCardServices;
+using SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtensions;
+using SmartBill.BusinessLogicLayer.Mappers;
+using SmartBill.BusinessLogicLayer.Services.CreditCardPaymentServices;
 using SmartBill.DataAccessLayer.Repositories.MongoDBRepositories.CreditCardPaymentRepositories;
 using StackExchange.Redis;
 using System;
@@ -48,10 +51,17 @@ namespace SmartBill.Api
             });
             //mongoDb
             services.AddSingleton<MongoClient>(x => new MongoClient("mongodb://localhost:27017"));
-            services.AddScoped<ICreditCardPaymentRepository, CreditCardPaymentRepository>();
-            services.AddScoped<ICreditCardPaymentService, CreditCardPaymentService>();
-            services.AddMemoryCache();
+            
+            services.AddDependencyInjectionServiceCollections();
+            services.AddDependencyInjectionRepositoryCollections();
+            // Auto Mapper Configurations
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
 
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

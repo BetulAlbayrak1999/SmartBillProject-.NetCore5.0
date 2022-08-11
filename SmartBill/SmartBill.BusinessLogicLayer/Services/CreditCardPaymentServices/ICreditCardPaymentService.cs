@@ -1,22 +1,20 @@
 ﻿using MongoDB.Bson;
-using SmartBill.Entities.Domains.MongoDB;
+using SmartBill.BusinessLogicLayer.Configrations.Responses;
+using SmartBill.BusinessLogicLayer.Dtos.CreditCardPaymentDto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace SmartBill.BusinessLogicLayer.Services.CreditCardServices
+namespace SmartBill.BusinessLogicLayer.Services.CreditCardPaymentServices
 {
     public interface ICreditCardPaymentService
     {
-        void CreateCreditCardPayment(CreditCardPayment model);
+        public Task<CommandResponse> CreateCreditCardPayment(CreateCreditCardPaymentRequestDto model);
 
-        void UpdateCreditCardPayment(CreditCardPayment model);
+        public CommandResponse UpdateCreditCardPayment(UpdateCreditCardPaymentRequestDto model);
 
-        void ActivateCreditCardPayment(ObjectId Id);
 
-        void UnActivateCreditCardPayment(ObjectId Id);
+        public Task<GetCreditCardPaymentRequestDto> GetCreditCardPayment(ObjectId Id);
 
-        CreditCardPayment GetCreditCardPayment(ObjectId Id);
-
-        IEnumerable<CreditCardPayment> GetAllCreditCardPayment();
+        public IEnumerable<GetAllCreditCardPaymentRequestDto>  GetAllCreditCardPayment();
     }
 }

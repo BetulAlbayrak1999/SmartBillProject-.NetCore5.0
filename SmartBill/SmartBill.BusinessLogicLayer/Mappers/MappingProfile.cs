@@ -4,13 +4,16 @@ using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Dtos.BankAccountDto;
 using SmartBill.BusinessLogicLayer.Dtos.BillDto;
 using SmartBill.BusinessLogicLayer.Dtos.BillServerDto;
+using SmartBill.BusinessLogicLayer.Dtos.CreditCardPaymentDto;
 using SmartBill.BusinessLogicLayer.Dtos.LocationDto;
+using SmartBill.BusinessLogicLayer.Dtos.PaymentDto;
 using SmartBill.BusinessLogicLayer.Dtos.RoleDto;
 using SmartBill.BusinessLogicLayer.ViewModels.ApartmentVM;
 using SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM;
 using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM;
 using SmartBill.BusinessLogicLayer.ViewModels.BillVM;
 using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
+using SmartBill.Entities.Domains.MongoDB;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
 using System.Collections.Generic;
@@ -35,6 +38,7 @@ namespace SmartBill.BusinessLogicLayer.Mappers
             CreateMap<ApplicationUserProfileFormVM, ApplicationUser>();
 
             CreateMap<CheckApplicationUserVM, GetAllApplicationUserRequestDto>().ReverseMap();
+
             CreateMap<CheckApplicationUserVM, ApplicationUser>().ReverseMap();
 
             #endregion
@@ -46,6 +50,7 @@ namespace SmartBill.BusinessLogicLayer.Mappers
             CreateMap<UpdateLocationRequestDto, Location>().ReverseMap();
 
             CreateMap<GetLocationRequestDto, Location>().ReverseMap();
+
             CreateMap<GetAllLocationRequestDto, Location>().ReverseMap();
 
             #endregion
@@ -90,6 +95,7 @@ namespace SmartBill.BusinessLogicLayer.Mappers
             CreateMap<GetBankAccountRequestDto, BankAccount>().ReverseMap();
 
             CreateMap<GetAllBankAccountRequestDto, BankAccount>().ReverseMap();
+            CreateMap<UpdateBankAccountRequestDto, GetBankAccountRequestDto>().ReverseMap();
 
             #endregion
 
@@ -107,9 +113,32 @@ namespace SmartBill.BusinessLogicLayer.Mappers
             CreateMap<GetBillRequestDto, Bill>().ReverseMap();
 
             CreateMap<GetAllBillRequestDto, Bill>().ReverseMap();
+            CreateMap<UpdateBillRequestDto, GetBillRequestDto>().ReverseMap();
 
             #endregion
-          
+
+            #region CreditCardPayment
+
+            CreateMap<CreateCreditCardPaymentRequestDto, CreditCardPayment>().ReverseMap();
+
+            CreateMap<UpdateCreditCardPaymentRequestDto, CreditCardPayment>().ReverseMap();
+
+            CreateMap<GetCreditCardPaymentRequestDto, CreditCardPayment>().ReverseMap();
+
+            CreateMap<GetAllCreditCardPaymentRequestDto, CreditCardPayment>().ReverseMap();
+
+            #endregion
+
+            #region Payment
+
+            CreateMap<CreatePaymentRequestDto, Payment>().ReverseMap();
+
+            CreateMap<GetPaymentRequestDto, Payment>().ReverseMap();
+
+            CreateMap<GetAllPaymentRequestDto, Payment>().ReverseMap();
+
+            #endregion
+
         }
 
     }

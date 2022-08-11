@@ -8,6 +8,5 @@ namespace SmartBill.Entities.Domains.MongoDB.DocumentBaseEntities
         public ObjectId Id { get; set; }
         public string ObjectId => Id.ToString();
         public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public bool IsActive { get; set; }
     }
 }

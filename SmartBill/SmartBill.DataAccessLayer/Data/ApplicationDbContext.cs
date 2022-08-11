@@ -16,6 +16,7 @@ namespace SmartBill.DataAccessLayer.Data
         public virtual DbSet<BillServer> BillServers { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<BankAccount> BankAccounts { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

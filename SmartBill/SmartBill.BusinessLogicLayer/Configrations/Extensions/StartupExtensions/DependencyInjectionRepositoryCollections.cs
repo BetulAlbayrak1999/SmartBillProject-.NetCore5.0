@@ -5,6 +5,8 @@ using SmartBill.DataAccessLayer.Repositories.EFRepositories.BillRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.BillServerRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.GenericRepositories;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.LocationRepositories;
+using SmartBill.DataAccessLayer.Repositories.EFRepositories.PaymentRepositories;
+using SmartBill.DataAccessLayer.Repositories.MongoDBRepositories.CreditCardPaymentRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,10 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
 
             services.AddScoped<IBillRepository, BillRepository>();
+
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+
+            //services.AddScoped<ICreditCardPaymentRepository, CreditCardPaymentRepository>();
 
             services.AddScoped<ILocationRepository, LocationRepository>();
 

@@ -11,6 +11,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SmartBill.BusinessLogicLayer.Services.BankAccountServices;
+using SmartBill.BusinessLogicLayer.Services.CreditCardPaymentServices;
+using SmartBill.BusinessLogicLayer.Services.PaymentServices;
 
 namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtensions
 {
@@ -22,11 +24,15 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
 
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
 
+            //services.AddScoped<ICreditCardPaymentService, CreditCardPaymentService>();
+
             services.AddScoped<IBillServerService, BillServerService>();
 
             services.AddScoped<IBankAccountService, BankAccountService>();
 
             services.AddScoped<IBillService, BillService>();
+
+            services.AddScoped<IPaymentService, PaymentService>();
 
             services.AddScoped<ILocationService, LocationService>();
         }

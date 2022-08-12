@@ -33,10 +33,3 @@ namespace SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto
 
     }
 }
-
-/*
-public ICollection<Apartment> Apartments { get; set; }
-
-public ICollection<BankAccount> BankAccounts { get; set; }
-
-public ICollection<Bill> Bills { get; set; }*/

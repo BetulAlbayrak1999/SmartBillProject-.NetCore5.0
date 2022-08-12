@@ -3,6 +3,7 @@ using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators;
 using SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM;
+using SmartBill.BusinessLogicLayer.ViewModels.AuthVM;
 using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM;
 using SmartBill.BusinessLogicLayer.ViewModels.UserRolesVM;
 using SmartBill.Entities.Domains.MSSQL;

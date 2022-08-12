@@ -1,4 +1,4 @@
-﻿using SmartBill.BusinessLogicLayer.ViewModels;
+﻿using SmartBill.BusinessLogicLayer.ViewModels.AuthVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +12,11 @@ namespace SmartBill.BusinessLogicLayer.Services.AuthServices
         Task<AuthModel> RegisterAsync(RegisterModel model);
 
         Task<AuthModel> GetTokenAsync(TokenRequestModel model);
+
+        Task<AuthModel> ConfirmEmailAsync(string userId, string token);
+
+        Task<AuthModel> ForgetPasswordAsync(string email);
+
+        Task<AuthModel> ResetPasswordAsync(ResetPasswordModel model);
     }
 }

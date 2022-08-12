@@ -4,18 +4,24 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
 using SmartBill.BusinessLogicLayer.Configrations.Responses;
 using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators;
+using SmartBill.BusinessLogicLayer.ViewModels.AuthVM;
 using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM;
 using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
 using SmartBill.BusinessLogicLayer.ViewModels.UserRolesVM;
 using SmartBill.Entities.Domains.MSSQL;
+using SmartBill.Entities.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -193,6 +199,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                     //validation
                     var validator = new UpdateApplicationUserRequestValidator();
                     validator.Validate(item).throwIfValidationException();
+
                     item.TurkishIdentity = getItem.TurkishIdentity;
                     var userWithSameEmail = await _userManager.FindByEmailAsync(item.Email);
 
@@ -515,5 +522,6 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
             }
         }
 
+        
     }
 }

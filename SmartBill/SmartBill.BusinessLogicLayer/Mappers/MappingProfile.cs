@@ -10,6 +10,7 @@ using SmartBill.BusinessLogicLayer.Dtos.PaymentDto;
 using SmartBill.BusinessLogicLayer.Dtos.RoleDto;
 using SmartBill.BusinessLogicLayer.ViewModels.ApartmentVM;
 using SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM;
+using SmartBill.BusinessLogicLayer.ViewModels.AuthVM;
 using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM;
 using SmartBill.BusinessLogicLayer.ViewModels.BillVM;
 using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
@@ -40,6 +41,8 @@ namespace SmartBill.BusinessLogicLayer.Mappers
             CreateMap<CheckApplicationUserVM, GetAllApplicationUserRequestDto>().ReverseMap();
 
             CreateMap<CheckApplicationUserVM, ApplicationUser>().ReverseMap();
+
+            CreateMap<RegisterModel, ApplicationUser>().ReverseMap();
 
             #endregion
 

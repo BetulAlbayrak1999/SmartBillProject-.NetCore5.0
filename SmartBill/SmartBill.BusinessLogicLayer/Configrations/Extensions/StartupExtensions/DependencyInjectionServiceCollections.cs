@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using SmartBill.BusinessLogicLayer.Services.BankAccountServices;
 using SmartBill.BusinessLogicLayer.Services.CreditCardPaymentServices;
 using SmartBill.BusinessLogicLayer.Services.PaymentServices;
+using SmartBill.BusinessLogicLayer.Services.AuthServices;
+using SmartBill.BusinessLogicLayer.Services.MailServices.SendGridMailServices;
 
 namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtensions
 {
@@ -35,6 +37,10 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
             services.AddScoped<IPaymentService, PaymentService>();
 
             services.AddScoped<ILocationService, LocationService>();
+
+            services.AddScoped<IAuthService, AuthService>();
+
+            services.AddTransient<ISendGridMailService, SendGridMailService>();
         }
     }
 }

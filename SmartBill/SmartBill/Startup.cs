@@ -22,6 +22,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Hangfire;
 using Hangfire.SqlServer;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using Microsoft.AspNetCore.Http;
+
 namespace SmartBill
 {
     public class Startup
@@ -134,6 +139,25 @@ namespace SmartBill
             {
 
             });
+
+            #region UseExceptionHandler
+            app.UseExceptionHandler(c => c.Run(async context =>
+            {
+                var exception = context.Features.Get<IExceptionHandlerFeature>().Error;
+
+                var jsonResult = new JsonResult(
+                   new
+                   {
+                       error = exception.Message,
+                       innerException = exception.InnerException,
+                       statusCode = HttpStatusCode.InternalServerError
+                   }
+
+               );
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                await context.Response.WriteAsJsonAsync(jsonResult);
+            }));
+            #endregion
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

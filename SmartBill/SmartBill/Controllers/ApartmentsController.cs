@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SmartBill.BusinessLogicLayer.Dtos.ApartmentDto;
 using SmartBill.BusinessLogicLayer.Services.AppartmentServices;
 using SmartBill.DataAccessLayer.Data;
@@ -11,10 +12,12 @@ namespace SmartBill.Controllers
     public class ApartmentsController : Controller
     {
         private readonly IApartmentService _apartmentService;
+        private readonly ILogger<ApartmentsController> _logger;
 
-        public ApartmentsController(IApartmentService apartmentService)
+        public ApartmentsController(IApartmentService apartmentService, ILogger<ApartmentsController> logger)
         {
             _apartmentService = apartmentService;
+            _logger = logger;
         }
 
         #region Index

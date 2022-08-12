@@ -41,8 +41,8 @@ namespace SmartBill.Controllers
                 return BadRequest();
 
             var result = await _authService.RegisterAsync(model);
-            if (result is not null)
-                return View(result);
+            if (result.IsAuthenticated)
+                return RedirectToAction("Dashboard", "Home");
             return View(result);
         }
         #endregion
@@ -65,12 +65,12 @@ namespace SmartBill.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(TokenRequestModel model)
         {
-            if (model is null)
+             if (model is null)
                 return BadRequest();
 
             var result = await _authService.GetTokenAsync(model);
-            if (result is not null)
-                return View(result);
+            if (result.IsAuthenticated == true)
+                return RedirectToAction("Dashboard", "Home");
             return View(result);
         }
     }

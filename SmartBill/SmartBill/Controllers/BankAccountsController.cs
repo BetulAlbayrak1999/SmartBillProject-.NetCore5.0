@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
 using SmartBill.BusinessLogicLayer.Dtos.BankAccountDto;
 using SmartBill.BusinessLogicLayer.Services.ApplicationUserServices;
 using SmartBill.BusinessLogicLayer.Services.BankAccountServices;
@@ -13,10 +14,11 @@ namespace SmartBill.Controllers
     public class BankAccountsController : Controller
     {
         private readonly IBankAccountService _bankAccountService;
-
-        public BankAccountsController(IBankAccountService bankAccountService)
+        private readonly ILogger<BankAccountsController> logger;
+        public BankAccountsController(IBankAccountService bankAccountService, ILogger<BankAccountsController> logger)
         {
             _bankAccountService = bankAccountService;
+            this.logger = logger;
         }
 
         #region Index

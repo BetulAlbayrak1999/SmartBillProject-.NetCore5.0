@@ -6,16 +6,18 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace SmartBill.Controllers
 {
     public class BillsController : Controller
     {
         private readonly IBillService _billService;
-
-        public BillsController(IBillService billService)
+        private readonly ILogger<BillsController> _logger;
+        public BillsController(IBillService billService, ILogger<BillsController> logger)
         {
             _billService = billService;
+            _logger = logger;
         }
 
         #region Index

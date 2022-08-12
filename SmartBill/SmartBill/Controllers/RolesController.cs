@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
 using System.Threading.Tasks;
 
@@ -11,10 +12,11 @@ namespace SmartBill.Controllers
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
-
-        public RolesController(RoleManager<IdentityRole> roleManager)
+        private readonly ILogger<RolesController> _logger;
+        public RolesController(RoleManager<IdentityRole> roleManager, ILogger<RolesController> logger)
         {
             _roleManager = roleManager;
+            _logger = logger;
         }
 
 

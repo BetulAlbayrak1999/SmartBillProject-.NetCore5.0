@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create a New Bill";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 <h1>Create a New Bill</h1>
 <div class="row">
@@ -34,7 +35,3 @@
 <div>
     <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

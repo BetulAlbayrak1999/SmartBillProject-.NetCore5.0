@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Get All BankAccounts";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 <h1>Get All BankAccounts</h1>
@@ -39,6 +40,3 @@
 <div>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "GetById";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 <h1>Details</h1>
 
@@ -63,7 +64,3 @@
     <a asp-action="Delete" asp-controller="Payments" class="btn btn-danger" asp-route-Id="@Model.Id">Delete</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

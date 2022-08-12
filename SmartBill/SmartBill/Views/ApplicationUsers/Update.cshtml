@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Update Profile";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 <form asp-action="Update" method="post">
@@ -77,8 +78,3 @@
         -->
     </div>
          </form>
-
-        
-                        @section Scripts {
-            <partial name="_ValidationScriptsPartial" />
-        }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SmartBill.BusinessLogicLayer.Services.AuthServices;
 using SmartBill.BusinessLogicLayer.ViewModels.AuthVM;
 using System;
@@ -9,10 +10,11 @@ namespace SmartBill.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
-
-        public AuthController(IAuthService authService)
+        private readonly ILogger<AuthController> _logger;
+        public AuthController(IAuthService authService, ILogger<AuthController> logger)
         {
             _authService = authService;
+            _logger = logger;
         }
 
         public IActionResult Index()

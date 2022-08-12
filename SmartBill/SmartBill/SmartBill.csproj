@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Filters\Exceptions\" />
-    <Folder Include="Filters\Loggers\" />
   </ItemGroup>
 
 </Project>

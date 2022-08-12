@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SmartBill.BusinessLogicLayer.Dtos.BillServerDto;
 using SmartBill.BusinessLogicLayer.Services.BillServerServices;
 using System;
@@ -9,10 +10,11 @@ namespace SmartBill.Controllers
     public class BillServersController : Controller
     {
         private readonly IBillServerService _billServerService;
-
-        public BillServersController(IBillServerService billServerService)
+        private readonly ILogger<BillServersController> _logger;
+        public BillServersController(IBillServerService billServerService, ILogger<BillServersController> logger)
         {
             _billServerService = billServerService;
+            _logger = logger;
         }
 
         #region Index

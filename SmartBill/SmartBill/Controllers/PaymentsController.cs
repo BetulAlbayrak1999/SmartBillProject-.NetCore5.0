@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SmartBill.BusinessLogicLayer.Dtos.PaymentDto;
 using SmartBill.BusinessLogicLayer.Services.PaymentServices;
 using System;
@@ -9,10 +10,11 @@ namespace SmartBill.Controllers
     public class PaymentsController : Controller
     {
         private readonly IPaymentService _paymentService;
-
-        public PaymentsController(IPaymentService paymentService)
+        private readonly ILogger<PaymentsController> _logger;
+        public PaymentsController(IPaymentService paymentService, ILogger<PaymentsController> logger)
         {
             _paymentService = paymentService;
+            _logger = logger;
         }
 
         #region Index

@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<SmartBill.BusinessLogicLayer.Dtos.BankAccountDto.GetAllBankAccountRequestDto>
 
 @{
-    ViewData["Title"] = "Get All Activated BankAccounts";
+    ViewData["Title"] = "Get All Activated BankAccounts
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 <h1>Get All Activated BankAccounts</h1>
@@ -39,6 +40,3 @@
 <div>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using SmartBill.BusinessLogicLayer.Dtos.LocationDto;
 using SmartBill.BusinessLogicLayer.Services.LocationServices;
 using System;
@@ -9,10 +10,11 @@ namespace SmartBill.Controllers
     public class LocationsController : Controller
     {
         private readonly ILocationService _locationService;
-
-        public LocationsController(ILocationService locationService)
+        private readonly ILogger<LocationsController> _logger;
+        public LocationsController(ILocationService locationService, ILogger<LocationsController> logger)
         {
             _locationService = locationService;
+            _logger = logger;
         }
 
         #region Index

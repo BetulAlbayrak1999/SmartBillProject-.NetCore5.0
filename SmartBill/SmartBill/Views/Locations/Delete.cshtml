@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 <h1>Delete</h1>
@@ -50,6 +51,3 @@
         <a asp-action="Index">Back to List</a>
     </form>
 </div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

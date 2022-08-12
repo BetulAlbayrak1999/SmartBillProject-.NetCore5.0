@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Dtos.RoleDto;
 using SmartBill.BusinessLogicLayer.Services.ApplicationUserServices;
@@ -19,11 +20,12 @@ namespace SmartBill.Controllers
     public class ApplicationUsersController : Controller
     {
         private readonly IApplicationUserService _applicationUserService;
+        private readonly ILogger<ApplicationUsersController> _logger;
 
-
-        public ApplicationUsersController(IApplicationUserService applicationUserService)
+        public ApplicationUsersController(IApplicationUserService applicationUserService, ILogger<ApplicationUsersController> logger)
         {
             _applicationUserService = applicationUserService;
+            _logger = logger;
         }
 
 

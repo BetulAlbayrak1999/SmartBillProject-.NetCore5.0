@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Create a New BankAccount";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 <h1>Create a New BankAccount</h1>
@@ -60,7 +61,3 @@
 <div>
     <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

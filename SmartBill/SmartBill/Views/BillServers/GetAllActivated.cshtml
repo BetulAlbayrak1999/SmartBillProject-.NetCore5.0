@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Get All BillServers";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 <h1>Get All Activated BillServers</h1>
@@ -35,6 +36,3 @@
 <div>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -44,6 +44,9 @@ namespace SmartBill.BusinessLogicLayer.Mappers
 
             CreateMap<RegisterModel, ApplicationUser>().ReverseMap();
 
+            CreateMap<RegisterModel, AuthModel>().ReverseMap();
+
+
             #endregion
 
             #region Location

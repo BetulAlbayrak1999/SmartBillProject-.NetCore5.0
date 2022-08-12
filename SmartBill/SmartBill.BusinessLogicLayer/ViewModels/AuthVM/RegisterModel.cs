@@ -22,5 +22,7 @@ namespace SmartBill.BusinessLogicLayer.ViewModels.AuthVM
 
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+
+        public bool IsAuthenticated { get; set; } = false;
     }
 }

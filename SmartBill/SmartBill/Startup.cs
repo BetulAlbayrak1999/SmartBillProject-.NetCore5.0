@@ -20,7 +20,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Hangfire;
+using Hangfire.SqlServer;
 namespace SmartBill
 {
     public class Startup
@@ -75,7 +76,26 @@ namespace SmartBill
                     };
                 });
             #endregion
-            
+
+            #region Hangfire
+            var hangFireDb = Configuration["ConnectionStrings:HangfireConnection"];
+
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(hangFireDb, new SqlServerStorageOptions
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true
+                }));
+
+            services.AddHangfireServer();
+
+            #endregion
 
             // Auto Mapper Configurations
             var mapperConfig = new MapperConfiguration(mc =>
@@ -109,6 +129,12 @@ namespace SmartBill
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseHangfireDashboard("/SmartBillHangfire", new DashboardOptions()
+            {
+
+            });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

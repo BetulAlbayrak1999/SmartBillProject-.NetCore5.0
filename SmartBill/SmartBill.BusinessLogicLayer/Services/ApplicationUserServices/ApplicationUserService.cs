@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SmartBill.BusinessLogicLayer.BackgroundJobs.Abstract;
 using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
 using SmartBill.BusinessLogicLayer.Configrations.Responses;
 using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
@@ -34,12 +35,14 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public ApplicationUserService(IMapper autoMapper, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager) 
+        private readonly IJobs _jobs;
+        public ApplicationUserService(IMapper autoMapper, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IJobs jobs) 
         {
             _autoMapper = autoMapper;
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _jobs = jobs;
         }
         
         #region Activate
@@ -310,8 +313,12 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                     {
                         foreach (var error in IsCreated.Errors)
                             return new CommandResponse { Status = false, Message = error.Description+ ", " };
-
                     }
+
+                    //sending mail to created users to give them thier passwords
+                    _jobs.DelayedJobEmail(mappedItem.Email, "Your Password!", $"<h1>Hi, We are thrild to have you with us, and this is your new password: </h1>" +
+                  (generatedPassword), TimeSpan.FromMinutes(1));
+
                     await _userManager.AddToRolesAsync(mappedItem, model.Roles.Where(r => r.IsSelected).Select(r => r.Name));
 
                     return new CommandResponse { Status = true, Message = "This operation has not done successfully" };

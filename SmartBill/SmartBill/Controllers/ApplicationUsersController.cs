@@ -20,6 +20,7 @@ namespace SmartBill.Controllers
     {
         private readonly IApplicationUserService _applicationUserService;
 
+
         public ApplicationUsersController(IApplicationUserService applicationUserService)
         {
             _applicationUserService = applicationUserService;

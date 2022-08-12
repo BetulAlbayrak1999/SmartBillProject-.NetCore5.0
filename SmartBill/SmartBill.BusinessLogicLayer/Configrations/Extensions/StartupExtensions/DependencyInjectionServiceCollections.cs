@@ -15,6 +15,8 @@ using SmartBill.BusinessLogicLayer.Services.CreditCardPaymentServices;
 using SmartBill.BusinessLogicLayer.Services.PaymentServices;
 using SmartBill.BusinessLogicLayer.Services.AuthServices;
 using SmartBill.BusinessLogicLayer.Services.MailServices.SendGridMailServices;
+using SmartBill.BusinessLogicLayer.BackgroundJobs.Abstract;
+using SmartBill.BusinessLogicLayer.BackgroundJobs.Concrete.HangfireJobs;
 
 namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtensions
 {
@@ -41,6 +43,7 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.StartupExtension
             services.AddScoped<IAuthService, AuthService>();
 
             services.AddTransient<ISendGridMailService, SendGridMailService>();
+            services.AddTransient<IJobs, HangfireJobs>();
         }
     }
 }

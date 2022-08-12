@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SmartBill.BusinessLogicLayer.BackgroundJobs.Abstract;
 using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
 using SmartBill.BusinessLogicLayer.Services.MailServices.SendGridMailServices;
 using SmartBill.BusinessLogicLayer.Validators;
@@ -30,7 +31,8 @@ namespace SmartBill.BusinessLogicLayer.Services.AuthServices
         private readonly RoleManager<IdentityRole> _roleManager;
         private IConfiguration _configuration;
         private ISendGridMailService _mailService;
-        public AuthService(UserManager<ApplicationUser> userManager, IOptions<JWT> jwt, IMapper autoMapper, RoleManager<IdentityRole> roleManager, IConfiguration configuration, ISendGridMailService mailService)
+        private readonly IJobs _jobs;
+        public AuthService(UserManager<ApplicationUser> userManager, IOptions<JWT> jwt, IMapper autoMapper, RoleManager<IdentityRole> roleManager, IConfiguration configuration, ISendGridMailService mailService, IJobs jobs)
         {
             _userManager = userManager;
             _jwt = jwt.Value;
@@ -38,6 +40,7 @@ namespace SmartBill.BusinessLogicLayer.Services.AuthServices
             _roleManager = roleManager;
             _configuration = configuration;
             _mailService = mailService;
+            _jobs = jobs;
         }
         #endregion
 
@@ -76,7 +79,7 @@ namespace SmartBill.BusinessLogicLayer.Services.AuthServices
         #endregion
 
         #region RegisterAsync
-        public async Task<AuthModel> RegisterAsync(RegisterModel model)
+        public async Task<RegisterModel> RegisterAsync(RegisterModel model)
         {
             try
             {
@@ -85,10 +88,10 @@ namespace SmartBill.BusinessLogicLayer.Services.AuthServices
                 validator.Validate(model).throwIfValidationException();
 
                 if (await _userManager.FindByEmailAsync(model.Email) is not null)
-                    return new AuthModel { Message = "Email is already registered!" };
+                    return new RegisterModel { Email = "Email is already registered!" };
 
                 if (await _userManager.FindByNameAsync(model.UserName) is not null)
-                    return new AuthModel { Message = "Username is already registered!" };
+                    return new RegisterModel { UserName = "Username is already registered!" };
 
                 //mapping between registerModel and applicationUser
                 var user = _autoMapper.Map<ApplicationUser>(model);
@@ -101,7 +104,7 @@ namespace SmartBill.BusinessLogicLayer.Services.AuthServices
                     foreach (var error in result.Errors)
                         errors += $"{error.Description}, ";
 
-                    return new AuthModel { Message = errors };
+                    return new RegisterModel { FirstName = errors }; //error 
                 }
 
                 //for confirming the email
@@ -112,13 +115,13 @@ namespace SmartBill.BusinessLogicLayer.Services.AuthServices
                 //confirming email here should be done 
                 string url = $"{_configuration["AppUrl"]}/api/Auth/ConfirmEmail?userid={user.Id}&token={validEmailToken}";
 
-                await _mailService.SendEmailAsync(user.Email, "Confirm your email", $"<h1>Welcome to Our Project</h1>" +
+                _jobs.FireAndForgetEmail(user.Email, "Confirm your email", $"<h1>Welcome to Our Project</h1>" +
                     $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
-
+               
                 await _userManager.AddToRoleAsync(user, "User");
 
                 var jwtSecurityToken = await CreateJwtToken(user);
-                return new AuthModel //if everything is ok and IsAuthenticated is true I don't need to return messages
+                AuthModel authModel = new AuthModel //if everything is ok and IsAuthenticated is true I don't need to return messages
                 {
                     Email = user.Email,
                     TurkishIdentity = user.TurkishIdentity,
@@ -128,6 +131,10 @@ namespace SmartBill.BusinessLogicLayer.Services.AuthServices
                     Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                     UserName = user.UserName
                 };
+
+                RegisterModel mappedItem = _autoMapper.Map<RegisterModel>(authModel);
+                return mappedItem;
+
             }
             catch (Exception ex)
             {

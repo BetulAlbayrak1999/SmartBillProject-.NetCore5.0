@@ -23,7 +23,7 @@ namespace SmartBill.Controllers
             return View();
         }
 
-        public IActionResult  Dashboard()
+        public IActionResult  Welcome()
         {
             return View();
         }

@@ -42,7 +42,7 @@ namespace SmartBill.Controllers
 
             var result = await _authService.RegisterAsync(model);
             if (result.IsAuthenticated)
-                return RedirectToAction("Dashboard", "Home");
+                return RedirectToAction("Welcome", "Home");
             return View(result);
         }
         #endregion
@@ -70,7 +70,7 @@ namespace SmartBill.Controllers
 
             var result = await _authService.GetTokenAsync(model);
             if (result.IsAuthenticated == true)
-                return RedirectToAction("Dashboard", "Home");
+                return RedirectToAction("Welcome", "Home");
             return View(result);
         }
     }

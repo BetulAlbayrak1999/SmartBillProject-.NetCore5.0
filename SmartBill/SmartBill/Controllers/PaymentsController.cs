@@ -145,7 +145,7 @@ namespace SmartBill.Controllers
             catch (Exception ex)
             {
                 ViewBag.ex = ex.Message;
-                return View(model);
+                return View();
             }
         }
         #endregion

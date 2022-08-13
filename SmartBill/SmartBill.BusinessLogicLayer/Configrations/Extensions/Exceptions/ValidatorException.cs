@@ -14,7 +14,7 @@ namespace SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions
             if (validationResult.IsValid)
                 return;
 
-            var messages = string.Join(',', validationResult.Errors.Select(x => x.ErrorMessage));
+            var messages = string.Join(',', validationResult.Errors.Select(x=> x.PropertyName +" : "+ x.ErrorMessage));
             throw new ValidationException(messages);
         }
     }

@@ -121,12 +121,15 @@ namespace SmartBill.Controllers
             try
             {
                 var result = await _locationService.CreateAsync(model);
-                return RedirectToAction("GetAll");
+                if(result is not null)
+                    return RedirectToAction("GetAll");
+                return View(model);
 
             }
             catch (Exception ex)
             {
-                return View(ex);
+                ViewBag.ex = ex.Message;
+                return View(model);
             }
         }
         #endregion

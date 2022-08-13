@@ -266,7 +266,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                 { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
                 
             }
-            catch (Exception ex) { return new CommandResponse { Status = false, Message = ex.Message }; }
+            catch (Exception ex) { throw new Exception(ex.Message); }
 
         }
         #endregion
@@ -327,7 +327,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                 { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
 
             }
-            catch (Exception ex) { return new CommandResponse { Status = false, Message = ex.Message }; }
+            catch (Exception ex) { throw new Exception(ex.Message); }
 
         }
 

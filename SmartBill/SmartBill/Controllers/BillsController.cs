@@ -136,7 +136,7 @@ namespace SmartBill.Controllers
             }
             catch (Exception ex)
             {
-                return View(ex);
+                return View();
             }
         }
 
@@ -148,11 +148,12 @@ namespace SmartBill.Controllers
                 var result = await _billService.CreateAsync(model);
                 if (result is not null)
                     return RedirectToAction("GetAll");
-                return View(result);
+                return View(model);
             }
             catch (Exception ex)
             {
-                return View(ex);
+                ViewBag.ex = ex.Message;
+                return View(model);
             }
         }
         #endregion

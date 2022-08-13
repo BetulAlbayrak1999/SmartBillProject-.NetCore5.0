@@ -139,12 +139,13 @@ namespace SmartBill.Controllers
             {
                 var result = await _paymentService.GetByIdAsync(Id);
                 if (result == null)
-                    return NotFound();
+                    return View();
                 return View(result);
             }
             catch (Exception ex)
             {
-                return View(ex);
+                ViewBag.ex = ex.Message;
+                return View(model);
             }
         }
         #endregion

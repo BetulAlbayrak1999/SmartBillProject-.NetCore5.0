@@ -6,7 +6,23 @@
 }
 
 <h1>Update an Exist Location</h1>
-
+<div>
+   @if(ViewBag.ex != null)
+   {
+        @foreach(var ex in ViewBag.ex)
+        {
+             <span class="text-danger" >@ex</span>
+        }
+   }  
+</div>
+<div>
+    <div>
+        
+        <script src="~/jquery/jquery.min.js"></script>
+        <script src="~/jquery-validate/jquery.validate.min.js"></script>
+        <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    </div>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">

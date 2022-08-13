@@ -5,6 +5,23 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 <h1>Create a New Bill</h1>
+<div>
+   @if(ViewBag.ex != null)
+   {
+        @foreach(var ex in ViewBag.ex)
+        {
+             <span class="text-danger" >@ex</span>
+        }
+   }  
+</div>
+<div>
+    <div>
+        
+        <script src="~/jquery/jquery.min.js"></script>
+        <script src="~/jquery-validate/jquery.validate.min.js"></script>
+        <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create" method="post">
@@ -22,7 +39,7 @@
            </div>
              <div class="form-group">
                 <label asp-for="BillAmount" class="control-label"></label>
-                <input asp-for="BillAmount" class="form-control" />
+                <input asp-for="BillAmount" class="form-control"  required/>
                 <span asp-validation-for="BillAmount" class="text-danger"></span>
             </div>
             <div class="form-group">

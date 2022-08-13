@@ -72,7 +72,8 @@ namespace SmartBill.Controllers
             }
             catch (Exception ex)
             {
-                return null;
+                ViewBag.ex = ex.Message;
+                return View();
             }
         }
 
@@ -85,11 +86,12 @@ namespace SmartBill.Controllers
                 var result = await _applicationUserService.UpdateAsync(model);
                 if (result is not null)
                     return RedirectToAction("Index");
-                return null;
+                return View(model);
             }
             catch(Exception ex)
             {
-                return null;
+                ViewBag.ex = ex.Message;
+                return View(model);
             }
         }
 

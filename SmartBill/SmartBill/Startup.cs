@@ -26,6 +26,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Microsoft.AspNetCore.Http;
+using FluentValidation.AspNetCore;
 
 namespace SmartBill
 {

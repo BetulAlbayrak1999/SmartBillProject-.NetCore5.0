@@ -47,33 +47,37 @@ namespace SmartBill.BusinessLogicLayer.Services.AuthServices
         #region GetTokenAsync
         public async Task<AuthModel> GetTokenAsync(TokenRequestModel model)
         {
-            //validation
-            var validator = new TokenRequestModelValidator();
-            validator.Validate(model).throwIfValidationException();
-
-            var authModel = new AuthModel();
-
-            var user = await _userManager.FindByEmailAsync(model.Email);
-
-            if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password))
+            try
             {
-                authModel.Message = "TurkishIdentity, Email or Password is incorrect";
+                //validation
+                var validator = new TokenRequestModelValidator();
+                validator.Validate(model).throwIfValidationException();
+
+                var authModel = new AuthModel();
+
+                var user = await _userManager.FindByEmailAsync(model.Email);
+
+                if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password))
+                {
+                    authModel.Message = "TurkishIdentity, Email or Password is incorrect";
+                    return authModel;
+                }
+
+                var jwtSecurityToken = await CreateJwtToken(user);
+                var rolesList = await _userManager.GetRolesAsync(user);
+
+                authModel.IsAuthenticated = true;
+                authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+                authModel.Email = user.Email;
+                authModel.TurkishIdentity = user.TurkishIdentity;
+                authModel.UserName = user.UserName;
+                authModel.ExpiresOn = jwtSecurityToken.ValidTo;
+                authModel.Roles = rolesList.ToList();
+
                 return authModel;
             }
-
-            var jwtSecurityToken = await CreateJwtToken(user);
-            var rolesList = await _userManager.GetRolesAsync(user);
-
-            authModel.IsAuthenticated = true;
-            authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-            authModel.Email = user.Email;
-            authModel.TurkishIdentity = user.TurkishIdentity;
-            authModel.UserName = user.UserName;
-            authModel.ExpiresOn = jwtSecurityToken.ValidTo;
-            authModel.Roles = rolesList.ToList();
-
-            return authModel;
-
+            catch(Exception ex) { throw new Exception(ex.Message); }
+            
         }
 
         #endregion
@@ -138,7 +142,7 @@ namespace SmartBill.BusinessLogicLayer.Services.AuthServices
             }
             catch (Exception ex)
             {
-                return null;
+                throw new Exception(ex.Message);
             }
         }
 

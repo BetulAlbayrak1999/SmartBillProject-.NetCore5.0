@@ -120,7 +120,7 @@ namespace SmartBill.Controllers
             }
             catch (Exception ex)
             {
-                return View(ex);
+                return View();
             }
         }
 
@@ -130,12 +130,14 @@ namespace SmartBill.Controllers
             try
             {
                 var result = await _apartmentService.CreateAsync(model);
+                if(!result.Status)
+                    return View(result);
                 return RedirectToAction("GetAll");
-
             }
             catch (Exception ex)
             {
-                return View(ex);
+                 ViewBag.ex = ex.Message;
+                return View(model);
             }
         }
         #endregion
@@ -147,7 +149,7 @@ namespace SmartBill.Controllers
             {
                 var result = await _apartmentService.GetByIdAsync(Id);
                 if (result == null)
-                    return NotFound();
+                    return NotFound(result);
                 var viewModel = new UpdateApartmentRequestDto
                 {
                     Id = result.Id,
@@ -160,7 +162,8 @@ namespace SmartBill.Controllers
             }
             catch (Exception ex)
             {
-                return View(ex);
+                ViewBag.ex = ex.Message;
+                return View();
             }
         }
 

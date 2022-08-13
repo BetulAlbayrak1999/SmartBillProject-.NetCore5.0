@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using SmartBill.BusinessLogicLayer.Services.AuthServices;
 using SmartBill.BusinessLogicLayer.ViewModels.AuthVM;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SmartBill.Controllers
@@ -39,13 +40,22 @@ namespace SmartBill.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
         {
-            if (model is null)
-                return BadRequest();
+            try 
+            {
+                if (model is null)
+                    return View(model);
 
-            var result = await _authService.RegisterAsync(model);
-            if (result.IsAuthenticated)
-                return RedirectToAction("Welcome", "Home");
-            return View(result);
+                var result = await _authService.RegisterAsync(model);
+                if ( result is not null && result.IsAuthenticated)
+                    return RedirectToAction("Welcome", "Home");
+                return View(model);
+            }
+            catch(Exception ex)
+            {
+                ViewBag.ex = ex.Message;
+                return View(model);
+            }
+               
         }
         #endregion
 

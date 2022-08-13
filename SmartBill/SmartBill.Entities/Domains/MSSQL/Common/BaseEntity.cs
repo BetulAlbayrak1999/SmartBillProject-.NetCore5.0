@@ -13,8 +13,8 @@ namespace SmartBill.Entities.Domains.MSSQL.Common
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-        public DateTime LastModifiedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedDate { get; set; } 
+        public DateTime LastModifiedDate { get; set; } 
         public DateTime? UnActivatedDate { get; set; }
         public bool IsActive { get; set; }
         public DateTime? ActivatedDate { get; set; }

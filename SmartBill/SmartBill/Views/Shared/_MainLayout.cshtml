@@ -59,29 +59,33 @@
             <div class="sidebar-heading">
                 Interface
             </div>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/ApplicationUsers/" >
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span class="font-weight-bold text-nowrap">Application User</span>
-                </a>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/Apartments/" >
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span class="font-weight-bold text-nowrap">Apartment</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/Locations/" >
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span class="font-weight-bold text-nowrap">Manage Location</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/BankAccounts/" >
+                @if (!User.IsInRole("User"))
+                {
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/ApplicationUsers/" >
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span class="font-weight-bold text-nowrap">Application User</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/Apartments/" >
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span class="font-weight-bold text-nowrap">Apartment</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/Locations/" >
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span class="font-weight-bold text-nowrap">Manage Location</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="/BankAccounts/" >
                     <i class="fas fa-fw fa-cog"></i>
                     <span class="font-weight-bold text-nowrap">Bank Account Owner</span>
                 </a>
             </li>
+            }
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/Bills/" >
                     <i class="fas fa-fw fa-cog"></i>

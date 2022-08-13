@@ -39,6 +39,11 @@
               @Html.DropDownListFor(x=> x.BillServerId, (List<SelectListItem>)ViewBag.billTypes, new { @class="form-control"})
              <br />                     
            </div>
+           <div>
+             @Html.Label("BillServer Type")
+              @Html.DropDownListFor(x=> x.ApplicationUserId, (List<SelectListItem>)ViewBag.ApplicationUsers, new { @class="form-control"})
+             <br />                     
+           </div>
               <div class="form-group">
                 <label asp-for="BillAmount" class="control-label"></label>
                 <input asp-for="BillAmount" class="form-control" />

@@ -16,11 +16,14 @@ namespace SmartBill.BusinessLogicLayer.Dtos.BillDto
         public string ApartmentId { get; set; }
         public virtual Apartment Apartment { get; set; }
 
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
         public float BillAmount { get; set; }
 
-        public DateTime PaidDate { get; set; } = DateTime.Now;
+        public DateTime PaidDate { get; set; }
 
-        public bool IsBillPaid { get; set; } = false;
+        public bool IsBillPaid { get; set; } 
 
         public DateTime LastModifiedDate { get; set; }
     }

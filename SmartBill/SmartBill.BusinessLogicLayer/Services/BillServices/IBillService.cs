@@ -2,6 +2,7 @@
 using SmartBill.BusinessLogicLayer.Dtos.BillDto;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.ViewModels.ApartmentVM;
+using SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM;
 using SmartBill.BusinessLogicLayer.ViewModels.BillVM;
 using SmartBill.Entities.Domains;
 using SmartBill.Entities.Domains.MSSQL;
@@ -33,5 +34,6 @@ namespace SmartBill.BusinessLogicLayer.Services.BillServices
 
         public Task<IEnumerable<ApartmentBillListVM>> GetActivatedApartments();
         public Task<IEnumerable<BillServerBillListVM>> GetActivatedBillServers();
+        public Task<IEnumerable<ApplicationUserBillListVM>> GetActivatedApplicationUsers();
     }
 }

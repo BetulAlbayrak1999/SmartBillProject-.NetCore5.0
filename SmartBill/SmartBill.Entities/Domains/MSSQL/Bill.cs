@@ -14,6 +14,8 @@ namespace SmartBill.Entities.Domains.MSSQL
 
         public string ApartmentId { get; set; }
 
+        public string ApplicationUserId { get; set; }
+
         public float BillAmount { get; set; }
 
         public DateTime BillDate { get; set; } = DateTime.Now;

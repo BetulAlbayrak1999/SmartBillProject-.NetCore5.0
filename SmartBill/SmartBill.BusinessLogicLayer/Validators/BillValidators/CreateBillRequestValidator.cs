@@ -16,6 +16,8 @@ namespace SmartBill.BusinessLogicLayer.Validators.BillValidators
 
             RuleFor(x => x.ApartmentId).NotEmpty();
 
+            RuleFor(x => x.ApplicationUserId).NotEmpty();
+
             RuleFor(x => x.BillAmount).NotEmpty().GreaterThan(0);
 
         }

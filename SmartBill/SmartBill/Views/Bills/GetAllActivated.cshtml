@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
-<h1>Get All Activated Bills</h1>
+<h1>Get All Paid Bills</h1>
 
 
 <table class="table table-striped mt-4">
@@ -13,6 +13,7 @@
         <tr class="bg-primary text-white">
             <th>BillServer Type Id</th>
             <th>ApartmentId</th>
+            <th>Application User Id</th>
             <th>BillAmount</th>
             <th>LastModifiedDate</th>
             <th>IsBillPaid</th>
@@ -24,13 +25,13 @@
             <tr>
                 <td>@item.BillServerId</td>
                 <td>@item.ApartmentId</td>
+                <td>@item.ApplicationUserId</td>
                 <td>@item.BillAmount</td>
                 <td>@item.LastModifiedDate</td>
                <td>@item.IsBillPaid</td>
                 <td>
                     <a asp-action="Update" asp-controller="Bills" class="btn btn-warning" asp-route-Id="@item.Id">Update</a>
                     <a asp-action="GetById" asp-controller="Bills" class="btn btn-secondary" asp-route-Id="@item.Id">Details</a>
-                    <a asp-action="UnActivate" asp-controller="Bills" class="btn btn-danger" asp-route-Id="@item.Id">UnPaid</a>
                 </td>
             </tr>
         }

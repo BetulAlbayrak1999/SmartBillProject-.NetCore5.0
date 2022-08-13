@@ -3,9 +3,11 @@ using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
 using SmartBill.BusinessLogicLayer.Configrations.Responses;
 using SmartBill.BusinessLogicLayer.Dtos.BillDto;
 using SmartBill.BusinessLogicLayer.Services.AppartmentServices;
+using SmartBill.BusinessLogicLayer.Services.ApplicationUserServices;
 using SmartBill.BusinessLogicLayer.Services.BillServerServices;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.BillValidators;
+using SmartBill.BusinessLogicLayer.ViewModels.ApplicationUserVM;
 using SmartBill.BusinessLogicLayer.ViewModels.BillVM;
 using SmartBill.DataAccessLayer.Data;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.BillRepositories;
@@ -25,14 +27,16 @@ namespace SmartBill.BusinessLogicLayer.Services.BillServices
         private readonly IBillRepository _billRepository;
         private readonly IBillServerService _billServerService;
         private readonly IApartmentService _apartmentService;
+        private readonly IApplicationUserService _applicationUserService;
         private readonly IMapper _autoMapper;
 
-        public BillService(IMapper autoMapper, IBillRepository billRepository, IBillServerService billServerService, IApartmentService apartmentService) : base(autoMapper, billRepository)
+        public BillService(IMapper autoMapper, IBillRepository billRepository, IBillServerService billServerService, IApartmentService apartmentService, IApplicationUserService applicationUserService) : base(autoMapper, billRepository)
         {
             _autoMapper = autoMapper;
             _billRepository = billRepository;
             _apartmentService = apartmentService;
             _billServerService = billServerService;
+            _applicationUserService = applicationUserService;
         }
 
         #endregion
@@ -231,6 +235,7 @@ namespace SmartBill.BusinessLogicLayer.Services.BillServices
                         mappedItem.BillServer = _autoMapper.Map<BillServer>(await _billServerService.GetByIdAsync(item.BillServerId));
 
                         mappedItem.Apartment = _autoMapper.Map<Apartment>(await _apartmentService.GetByIdAsync(item.ApartmentId));
+                        mappedItem.ApplicationUser = _autoMapper.Map<ApplicationUser>(await _applicationUserService.GetByIdAsync(item.ApplicationUserId));
                         return mappedItem;
                     }
                     return null;
@@ -265,6 +270,19 @@ namespace SmartBill.BusinessLogicLayer.Services.BillServices
             {
                 var items = await _billServerService.GetAllActivatedAsync();
                 IEnumerable<BillServerBillListVM> vm = items.Select(d => new BillServerBillListVM { Id = d.Id, Name = d.Name });
+                if (vm.Any())
+                    return vm;
+                return null;
+            }
+            catch (Exception ex) { return null; }
+        }
+
+        public async Task<IEnumerable<ApplicationUserBillListVM>> GetActivatedApplicationUsers()
+        {
+            try
+            {
+                var items = await _applicationUserService.GetAllActivatedAsync();
+                IEnumerable<ApplicationUserBillListVM> vm = items.Select(d => new ApplicationUserBillListVM { Id = d.Id, Name = d.FirstName +" "+ d.LastName + " "+ d.TurkishIdentity });
                 if (vm.Any())
                     return vm;
                 return null;

@@ -16,6 +16,8 @@ namespace SmartBill.BusinessLogicLayer.Dtos.BillDto
         public string ApartmentId { get; set; }
         public virtual Apartment Apartment { get; set; }
 
+        public string ApplicationUserId { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
         public float BillAmount { get; set; }
 
         public bool IsBillPaid { get; set; } = false;

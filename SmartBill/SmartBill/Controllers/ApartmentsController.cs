@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Controllers
 {
+
     public class ApartmentsController : Controller
     {
         private readonly IApartmentService _apartmentService;

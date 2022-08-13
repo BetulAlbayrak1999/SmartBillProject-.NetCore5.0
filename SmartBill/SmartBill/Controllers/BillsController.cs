@@ -131,7 +131,18 @@ namespace SmartBill.Controllers
                                                        Value = x.Id.ToString()
                                                    }).ToList();
                 ViewBag.billTypes = billTypes;
-               
+
+                var ApplicationUserDB = await _billService.GetActivatedApplicationUsers();
+                if (ApplicationUserDB == null)
+                    return View("Index");
+                List<SelectListItem> ApplicationUsers = (from x in ApplicationUserDB
+                                                         select new SelectListItem
+                                                  {
+                                                      Text = x.Name,
+                                                      Value = x.Id.ToString()
+                                                  }).ToList();
+                ViewBag.ApplicationUsers = ApplicationUsers;
+
                 return View();
             }
             catch (Exception ex)
@@ -197,6 +208,7 @@ namespace SmartBill.Controllers
                     BillServerId = result.BillServerId,
                     BillServer = result.BillServer,
                     ApartmentId = result.ApartmentId,
+                    ApplicationUserId = result.ApplicationUserId,
                     Apartment = result.Apartment,
                     BillAmount = result.BillAmount,
                     IsBillPaid = result.IsBillPaid,

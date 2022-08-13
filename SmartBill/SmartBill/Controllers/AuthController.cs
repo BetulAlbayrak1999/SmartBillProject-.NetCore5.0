@@ -83,7 +83,7 @@ namespace SmartBill.Controllers
             var result = await _authService.GetTokenAsync(model);
             if (result.IsAuthenticated == true)
                 return RedirectToAction("Welcome", "Home");
-            return View(result);
+            return View(model);
         }
     }
 }

@@ -14,6 +14,7 @@ namespace SmartBill.Entities.Domains.MSSQL
         public DateTime CreatedDate { get; set; }
         public string BillId { get; set; }
         public string BankAccountId { get; set; }
+        public string ApplicationUserId { get; set; }
         public bool IsBillPaid { get; set; }
     }
 }

@@ -13,6 +13,7 @@
             <th>CreatedDate</th>
             <th>BillId</th>
             <th>BankAccountId</th>
+            <th>Application User Id</th>
             <th>IsBillPaid</th>
 
         </tr>
@@ -24,6 +25,7 @@
                 <td>@item.CreatedDate</td>
                 <td>@item.BillId</td>
                 <td>@item.BankAccountId</td>
+                <td>@item.ApplicationUserId</td>
                 <td>@item.IsBillPaid</td>
                 <td>
                     <a asp-action="Update" asp-controller="Payments" class="btn btn-warning" asp-route-Id="@item.Id">Update</a>

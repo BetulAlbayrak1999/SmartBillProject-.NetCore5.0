@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SmartBill.BusinessLogicLayer.Dtos.PaymentDto;
 using SmartBill.BusinessLogicLayer.Services.PaymentServices;
+using SmartBill.BusinessLogicLayer.ViewModels.PaymentVM;
 using System;
 using System.Threading.Tasks;
 
@@ -149,5 +150,40 @@ namespace SmartBill.Controllers
             }
         }
         #endregion
+
+       /* #region GetAllPaymentByCustomer
+
+        [HttpPost]
+        public async Task<IActionResult> EnterCustomerEmail()
+        {
+            try
+            {
+                ListPaymentByCustomerVM vm = _paymentService.GetAllPaymentByCustomerAsync();
+                string Id =  
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        public async Task<IActionResult> GetAllPaymentByCustomer(string Id)
+        {
+            try
+            {
+                var result = await _paymentService.GetAllPaymentByCustomerAsync(Id);
+                if (result == null)
+                    return View();
+                return View(result);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ex = ex.Message;
+                return View();
+            }
+        }
+        #endregion
+        */
     }
 }

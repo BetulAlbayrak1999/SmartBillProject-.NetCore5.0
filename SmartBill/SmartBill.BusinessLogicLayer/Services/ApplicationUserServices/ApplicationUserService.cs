@@ -13,6 +13,7 @@ using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Validators.ApplicationUserValidators;
 using SmartBill.BusinessLogicLayer.ViewModels.AuthVM;
 using SmartBill.BusinessLogicLayer.ViewModels.BankAccountVM;
+using SmartBill.BusinessLogicLayer.ViewModels.PaymentVM;
 using SmartBill.BusinessLogicLayer.ViewModels.RoleVM;
 using SmartBill.BusinessLogicLayer.ViewModels.UserRolesVM;
 using SmartBill.Entities.Domains.MSSQL;
@@ -28,15 +29,15 @@ using System.Threading.Tasks;
 using System.Web;
 namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
 {
-    public class ApplicationUserService: IApplicationUserService
+    public class ApplicationUserService : IApplicationUserService
     {
-       
+
         private readonly IMapper _autoMapper;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IJobs _jobs;
-        public ApplicationUserService(IMapper autoMapper, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IJobs jobs) 
+        public ApplicationUserService(IMapper autoMapper, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, IJobs jobs)
         {
             _autoMapper = autoMapper;
             _userManager = userManager;
@@ -44,7 +45,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
             _signInManager = signInManager;
             _jobs = jobs;
         }
-        
+
         #region Activate
         public async Task<CommandResponse> ActivateAsync(string Id)
         {
@@ -128,7 +129,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
         {
             try
             {
-                var users = await _userManager.Users.Where(x=>x.IsActive==true).Select(user => new GetAllApplicationUserRequestDto
+                var users = await _userManager.Users.Where(x => x.IsActive == true).Select(user => new GetAllApplicationUserRequestDto
                 {
                     Id = user.Id,
                     FirstName = user.FirstName,
@@ -252,7 +253,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                         mappedItem.ActivatedDate = DateTime.Now;
                         mappedItem.UnActivatedDate = null;
                     }
-                   
+
 
                     var IsUpdated = await _userManager.UpdateAsync(mappedItem);
                     await _signInManager.RefreshSignInAsync(mappedItem);
@@ -264,7 +265,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                 }
 
                 { return new CommandResponse { Status = false, Message = "This operation has not done successfully" }; }
-                
+
             }
             catch (Exception ex) { throw new Exception(ex.Message); }
 
@@ -312,7 +313,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                     if (!IsCreated.Succeeded)
                     {
                         foreach (var error in IsCreated.Errors)
-                            return new CommandResponse { Status = false, Message = error.Description+ ", " };
+                            return new CommandResponse { Status = false, Message = error.Description + ", " };
                     }
 
                     //sending mail to created users to give them thier passwords
@@ -359,11 +360,11 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                     return viewModel;
                 return null;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
-            
+
         }
         #endregion
 
@@ -376,14 +377,14 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
                 if (user is null)
                     return null;
 
-                
+
                 GetApplicationUserRequestDto result = _autoMapper.Map<ApplicationUser, GetApplicationUserRequestDto>(user);
                 if (result is null)
                     return null;
 
                 return result;
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 return null;
             }
@@ -426,7 +427,7 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
 
                 return viewModel;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
 
@@ -453,9 +454,9 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
 
                 return new CommandResponse { Status = true, Message = "This operation has not done successfully" };
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                return new CommandResponse { Status = false, Message = ex.Message};
+                return new CommandResponse { Status = false, Message = ex.Message };
 
             }
         }
@@ -504,18 +505,36 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
 
                 return password.ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return null;
             }
         }
 
 
+        public async Task<ListPaymentByCustomerVM> GetListPaymentByEmailAsync(string email)
+        {
+            try
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user is null)
+                    return null;
+                ListPaymentByCustomerVM result = _autoMapper.Map<ApplicationUser, ListPaymentByCustomerVM>(user);
+                if (result is null)
+                    return null;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public async Task<CheckApplicationUserVM> GetByEmailAsync(string email)
         {
             try
             {
-                 var user = await _userManager.FindByEmailAsync(email);
+                var user = await _userManager.FindByEmailAsync(email);
                 if (user is null)
                     return null;
                 CheckApplicationUserVM result = _autoMapper.Map<ApplicationUser, CheckApplicationUserVM>(user);
@@ -529,6 +548,5 @@ namespace SmartBill.BusinessLogicLayer.Services.ApplicationUserServices
             }
         }
 
-        
     }
 }

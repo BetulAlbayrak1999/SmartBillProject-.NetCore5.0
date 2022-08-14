@@ -33,7 +33,11 @@ namespace SmartBill.BusinessLogicLayer.Services.BillServices
         public Task<GetBillRequestDto> GetByIdAsync(string Id);
 
         public Task<IEnumerable<ApartmentBillListVM>> GetActivatedApartments();
+
         public Task<IEnumerable<BillServerBillListVM>> GetActivatedBillServers();
+
         public Task<IEnumerable<ApplicationUserBillListVM>> GetActivatedApplicationUsers();
+
+        public float CalculateTax(float billAmount);
     }
 }

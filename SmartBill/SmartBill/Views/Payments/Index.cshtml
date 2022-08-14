@@ -24,6 +24,8 @@
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <a asp-action="Create" class="d-none d-lg-inline-block btn btn-lg btn-primary shadow-lg"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Create a New Payment </a>
+                        <a asp-action="EnterCustomerEmail" class="d-none d-lg-inline-block btn btn-lg btn-primary shadow-lg"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Enter Your Email </a>
                 </div>
                     <div class="m-4 m-lg-5">
                         <h1 class="display-5 fw-bold">A warm welcome!</h1>
@@ -43,7 +45,7 @@
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-card-heading"></i></div>
                                 <h2 class="fs-4 fw-bold">Activated Payment s</h2>
                                 <br />
-                                <a asp-action="GetAllUnActivated" class="btn btn-lg btn-info">Click Me</a>
+                                <a asp-action="GetAllUnPaid" class="btn btn-lg btn-info">Click Me</a>
                             </div>
                         </div>
                     </div>
@@ -64,7 +66,7 @@
                                 <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-card-heading"></i></div>
                                 <h2 class="fs-4 fw-bold">Activated Payment s</h2>
                                 <br/>
-                                <a asp-action="GetAllActivated" class="btn btn-lg btn-info">Click Me</a>
+                                <a asp-action="GetAllPaid" class="btn btn-lg btn-info">Click Me</a>
                             </div>
                         </div>
                     </div>

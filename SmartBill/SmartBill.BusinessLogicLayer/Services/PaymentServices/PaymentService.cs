@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using SmartBill.BusinessLogicLayer.Configrations.Extensions.Exceptions;
 using SmartBill.BusinessLogicLayer.Configrations.Responses;
+using SmartBill.BusinessLogicLayer.Dtos.ApplicationUserDto;
 using SmartBill.BusinessLogicLayer.Dtos.BankAccountDto;
 using SmartBill.BusinessLogicLayer.Dtos.BillDto;
 using SmartBill.BusinessLogicLayer.Dtos.PaymentDto;
@@ -10,6 +11,7 @@ using SmartBill.BusinessLogicLayer.Services.BillServerServices;
 using SmartBill.BusinessLogicLayer.Services.BillServices;
 using SmartBill.BusinessLogicLayer.Services.GenericServices;
 using SmartBill.BusinessLogicLayer.Validators.PaymentValidators;
+using SmartBill.BusinessLogicLayer.ViewModels.PaymentVM;
 using SmartBill.DataAccessLayer.Repositories.EFRepositories.PaymentRepositories;
 using SmartBill.Entities.Domains.MSSQL;
 using System;
@@ -153,7 +155,7 @@ namespace SmartBill.BusinessLogicLayer.Services.PaymentServices
                     mappedItem.Bill = _autoMapper.Map<Bill>(await _billService.GetByIdAsync(item.BillId));
                     mappedItem.BillServer = _autoMapper.Map<BillServer>(await _billServerService.GetByIdAsync(mappedItem.Bill.BillServerId));
                     mappedItem.BankAccount = _autoMapper.Map<BankAccount>(await _bankAccountService.GetByIdAsync(mappedItem.BankAccountId));
-                    mappedItem.ApplicationUser = _autoMapper.Map<ApplicationUser>(await _applicationUserService.GetByIdAsync(mappedItem.BankAccount.ApplicationUserId));
+                    mappedItem.ApplicationUser = _autoMapper.Map<ApplicationUser>(await _applicationUserService.GetByIdAsync(mappedItem.Bill.ApplicationUserId));
 
                     //mapping
 
@@ -165,5 +167,37 @@ namespace SmartBill.BusinessLogicLayer.Services.PaymentServices
             catch (Exception ex) { return null; }
         }
         #endregion
+
+
+        /*#region GetApplicationUserByEmail
+        public async Task<ListPaymentByCustomerVM> GetApplicationUserByEmailAsync(string email)
+        {
+            try
+            {
+                var user = await _applicationUserService.GetListPaymentByEmailAsync(email);
+                if (user == null)
+                    return null;
+                return user;
+            }
+            catch (Exception ex) { return null; }
+        }
+        #endregion
+
+
+        #region GetPaymentByCustomer
+        public async Task<IEnumerable<GetAllPaymentRequestDto>> GetAllPaymentByCustomerAsync(string Id)
+        {
+            try
+            {
+                IEnumerable<Payment> items = await _paymentRepository.GetAllByAsync(x => x.ApplicationUserId == Id);
+
+                IEnumerable<GetAllPaymentRequestDto> result = _autoMapper.Map<IEnumerable<Payment>, IEnumerable<GetAllPaymentRequestDto>>(items);
+
+                return result;
+            }
+            catch (Exception ex) { return null; }
+        }
+        #endregion
+        */
     }
 }

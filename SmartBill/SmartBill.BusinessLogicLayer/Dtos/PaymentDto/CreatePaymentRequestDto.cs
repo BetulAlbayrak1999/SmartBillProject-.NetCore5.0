@@ -8,7 +8,6 @@ namespace SmartBill.BusinessLogicLayer.Dtos.PaymentDto
 {
     public class CreatePaymentRequestDto
     {
-        public string Id { get; set; }
         public string BillId { get; set; }
         public string BankAccountId { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;

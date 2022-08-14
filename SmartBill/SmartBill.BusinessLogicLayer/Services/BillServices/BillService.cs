@@ -203,6 +203,8 @@ namespace SmartBill.BusinessLogicLayer.Services.BillServices
                     var validator = new CreateBillRequestValidator();
                     validator.Validate(item).throwIfValidationException();
 
+                    //adding tax to bill amount
+                    item.BillAmount = item.BillAmount + CalculateTax(item.BillAmount);
                     //mapping
                     Bill mappedItem = _autoMapper.Map<Bill>(item);
                     var IsCreated = await _billRepository.CreateAsync(mappedItem);
@@ -217,6 +219,15 @@ namespace SmartBill.BusinessLogicLayer.Services.BillServices
             catch (Exception ex) { throw new Exception(ex.Message); }
         }
 
+        public float CalculateTax(float billAmount)
+        {
+            try
+            {
+                float result = billAmount * 18 / 100;
+                return result;
+            }
+            catch (Exception ex) { return 0; }
+        }
         #endregion
 
         #region GetByIdAsync

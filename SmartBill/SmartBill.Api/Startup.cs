@@ -52,8 +52,8 @@ namespace SmartBill.Api
             //mongoDb
             services.AddSingleton<MongoClient>(x => new MongoClient("mongodb://localhost:27017"));
             
-            services.AddDependencyInjectionServiceCollections();
-            services.AddDependencyInjectionRepositoryCollections();
+            //services.AddDependencyInjectionServiceCollections();
+            //services.AddDependencyInjectionRepositoryCollections();
             // Auto Mapper Configurations
             var mapperConfig = new MapperConfiguration(mc =>
             {

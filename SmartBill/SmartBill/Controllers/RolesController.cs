@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace SmartBill.Controllers
 {
-    [Authorize(Roles = "User")] 
     public class RolesController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
